@@ -86,11 +86,11 @@ Prerequisites:
 Set-Mailbox -Identity <USER_ALIAS> -retainDeletedItemsFor 0
 ```
 2. Create an 'Archive tag' (a rule) with the action 'Move to archive': https://compliance.microsoft.com/exchangeinformationgovernance?viewid=exoRetentionPolicyTag
-3. Create an archiving Policy of 'In-place archivation' using the created Archive tag: https://compliance.microsoft.com/exchangeinformationgovernance?viewid=exoRetentionPolicy
+3. Create an archiving Policy of 'In-place archiving' using the created Archive tag: https://compliance.microsoft.com/exchangeinformationgovernance?viewid=exoRetentionPolicy
 
 The process:
 1. Allow mailbox to have 'In-place archive': `Enable-Mailbox -Identity <USER_ALIAS> -Archive`
-2. Apply the policy of 'In-place archivation':
+2. Apply the policy of 'In-place archiving':
 ```PowerShell
 Start-ManagedFolderAssistant -Identity <USER_ALIAS>
 ```

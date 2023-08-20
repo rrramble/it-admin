@@ -1,10 +1,10 @@
-# Microsoft Exchange useful Powershell commands
+# Microsoft Exchange useful PowerShell commands
 
 ## Exchange online (Office 365)
 Source info: https://www.techielass.com/install-exchange-online-powershell-modules
 
 ```PowerShell
-Install-Module PowershellGet -Force
+Install-Module PowerShellGet -Force
 Install-Module -Name ExchangeOnlineManagement
 Import-Module ExchangeOnlineManagement
 Connect-ExchangeOnline -UserPrincipalName <ADMIN_EMAIL>

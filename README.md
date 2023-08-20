@@ -99,7 +99,8 @@ Start-ManagedFolderAssistant -Identity <USER_ALIAS>
 Get-MailboxFolderStatistics <USER_ALIAS> -FolderScope RecoverableItems -Archive | Format-List Name,FolderAndSubfolderSize,ItemsInFolderAndSubfolders
 Get-MailboxFolderStatistics <USER_ALIAS> -FolderScope RecoverableItems | Format-List Name,FolderAndSubfolderSize,ItemsInFolderAndSubfolders
 ```
-5. Delete the 'In-place archive': `Disable-Mailbox -Identity <USER_ALIAS> -Archive`
+5. Delete the 'In-place archive': `Disable-Mailbox -Identity <USER_ALIAS> -Archive`.
+6. Repeat the steps 1-5 because, for some reason, there is a strange limit of email deletion.
 
 # Miscellaneous
 Erase information of the Office365 online mailbox in on-premise Exchange: `Disable-RemoteMailbox <USER_ALIAS>`

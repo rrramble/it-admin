@@ -16,6 +16,12 @@ Closing connection:
 Disconnect-ExchangeOnline
 ```
 
+### Install on MacOS
+https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-macos?view=powershell-7.3
+
+- install with brew: `brew install --cask powershell`
+- use `pwsh`
+
 ## Mailbox info
 
 Show all mailboxes without soft-deleted ones: `Get-Mailbox`
@@ -45,7 +51,7 @@ Get-MailboxFolderStatistics <USER_ALIAS> -FolderScope RecoverableItems | Format-
 > Get-Mailbox -Identity <USER_EMAIL> -SoftDeletedMailbox | Remove-Mailbox -PermanentlyDelete -Force -Confirm:$false
 > ```
 
-## Comliance search for emails
+## Comliance search of emails
 
 Source links:
 - https://learn.microsoft.com/en-us/purview/ediscovery-search-for-and-delete-email-messages
@@ -63,7 +69,7 @@ $Search=New-ComplianceSearch -Name "August 2023 emails" -ExchangeLocation <SEARC
 Start-ComplianceSearch -Identity $Search.Identity
 ```
 
-## Migration from Office365 to on-premise server
+## Migration from Office365 to on-premise Exchange server
 
 https://learn.microsoft.com/en-us/powershell/module/exchange/get-migrationuserstatistics?view=exchange-ps
 

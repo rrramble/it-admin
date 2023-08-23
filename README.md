@@ -51,6 +51,10 @@ Get-MailboxFolderStatistics <USER_ALIAS> -FolderScope RecoverableItems | Format-
 > Get-Mailbox -Identity <USER_EMAIL> -SoftDeletedMailbox | Remove-Mailbox -PermanentlyDelete -Force -Confirm:$false
 > ```
 
+## Connected mobile devices
+
+`Get-MobileDevice | select userDisplayName,friendlyname,DeviceIMEI,DeviceOs,DeviceUserAgent | Format-Table`
+
 ## Address book
 
 Source: https://www.howto-outlook.com/howto/oabupdate.htm

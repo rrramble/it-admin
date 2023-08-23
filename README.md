@@ -96,7 +96,7 @@ Start-ComplianceSearch -Identity $Search.Identity
 
 Watch the migrations status of a mailbox
 ```PowerShell
-Get-MigrationUserStatistics -Identity <EMAIL> | Select-Object EstimatedTotalTransferSize,BytesTransferred,TotalItemsInSourceMailboxCount,SyncedItemCount,SkippedItemCount,PercentageComplete | Format-List
+Get-MigrationUserStatistics -Identity <EMAIL> | Select-Object EstimatedTotalTransferSize,BytesTransferred,TotalItemsInSourceMailboxCount,TransferredItemCount,SyncedItemCount,SkippedItemCount,PercentageComplete | Format-List
 ```
 
 Super detailed info:

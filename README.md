@@ -99,6 +99,11 @@ Watch the migrations status of a mailbox
 Get-MigrationUserStatistics -Identity <EMAIL> | Select-Object EstimatedTotalTransferSize,BytesTransferred,PercentageComplete | Format-List
 ```
 
+Super detailed info:
+```PowerShell
+Get-MigrationUserStatistics -Identity <EMAIL> -DiagnosticInfo "verbose,showtimeslots,showtimeline,status,reports,endpoints" | Format-List
+```
+
 ## Tricky way to delete emails from 'Recoverable items'
 
 Prerequisites:

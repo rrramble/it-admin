@@ -1,26 +1,28 @@
 # Microsoft Exchange useful PowerShell commands
 
 ## Exchange online (Office 365)
-Source info: https://www.techielass.com/install-exchange-online-powershell-modules
+
+### [Install on Windows](https://www.techielass.com/install-exchange-online-powershell-modules)
 
 ```PowerShell
 Install-Module PowerShellGet -Force
 Install-Module -Name ExchangeOnlineManagement
 Import-Module ExchangeOnlineManagement
-Connect-ExchangeOnline -UserPrincipalName <ADMIN_EMAIL>
-```
-The last command invokes a pop-up window to enter your password.
-
-Closing connection: 
-```PowerShell
-Disconnect-ExchangeOnline
 ```
 
-### Install on MacOS
-https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-macos?view=powershell-7.3
+### [Install on MacOS](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-macos?view=powershell-7.3)
 
 - install with brew: `brew install --cask powershell`
 - use `pwsh`
+
+### Open and close connection
+
+Connecting: `Connect-ExchangeOnline -UserPrincipalName <ADMIN_EMAIL>`
+
+The command invokes a pop-up window to enter your password.
+
+Closing connection: `Disconnect-ExchangeOnline`
+
 
 ## Mailbox info
 
@@ -44,7 +46,7 @@ Get-MailboxFolderStatistics <USER_ALIAS> -FolderScope RecoverableItems | Format-
 ```
 
 > Use with caution!
-> Source info: https://o365info.com/force-delete-mailbox/
+> Source: https://o365info.com/force-delete-mailbox/
 >
 > Remove soft-deleted mailbox (Azure AD account must be deleted beforehand)
 > ```PowerShell
@@ -72,7 +74,7 @@ Get-ClientAccessServer | Update-FileDistributionService
 Get-AddressList | Update-AddressList
 ```
 
-## Comliance search of emails
+## Comliance search
 
 Source links:
 - https://learn.microsoft.com/en-us/purview/ediscovery-search-for-and-delete-email-messages
@@ -90,9 +92,7 @@ $Search=New-ComplianceSearch -Name "August 2023 emails" -ExchangeLocation <SEARC
 Start-ComplianceSearch -Identity $Search.Identity
 ```
 
-## Migration from Office365 to on-premise Exchange server
-
-https://learn.microsoft.com/en-us/powershell/module/exchange/get-migrationuserstatistics?view=exchange-ps
+## [Migration from Office365 to on-premise Exchange server](https://learn.microsoft.com/en-us/powershell/module/exchange/get-migrationuserstatistics?view=exchange-ps)
 
 Watch the migrations status of a mailbox
 ```PowerShell

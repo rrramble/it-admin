@@ -51,6 +51,23 @@ Get-MailboxFolderStatistics <USER_ALIAS> -FolderScope RecoverableItems | Format-
 > Get-Mailbox -Identity <USER_EMAIL> -SoftDeletedMailbox | Remove-Mailbox -PermanentlyDelete -Force -Confirm:$false
 > ```
 
+## Address book
+
+Source: https://www.howto-outlook.com/howto/oabupdate.htm
+
+### Show Exchange OAB address book:
+
+`Get-Mailbox -Arbitration -Filter "PersistedCapabilities -eq 'OrganizationCapabilityOABGen'"`
+
+### Update Exchange Global Address List:
+```PowerShell
+Get-GlobalAddressList | Update-GlobalAddressList
+Get-OfflineAddressbook | Update-OfflineAddressbook
+Get-ClientAccessServer | Update-FileDistributionService
+
+Get-AddressList | Update-AddressList
+```
+
 ## Comliance search of emails
 
 Source links:

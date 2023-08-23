@@ -101,7 +101,7 @@ Get-MigrationUserStatistics -Identity <EMAIL> | Select-Object EstimatedTotalTran
 
 Super detailed info:
 ```PowerShell
-Get-MigrationUserStatistics -Identity <EMAIL> -DiagnosticInfo "verbose,showtimeslots,showtimeline,status,reports,endpoints" | Format-List
+Get-MigrationUserStatistics -Identity <EMAIL> -DiagnosticInfo "verbose,showtimeslots,showtimeline,status,reports,endpoints" -IncludeReport | Format-List
 ```
 
 ## Tricky way to delete emails from 'Recoverable items'

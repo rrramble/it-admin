@@ -10,9 +10,9 @@ Install-Module -Name ExchangeOnlineManagement
 Import-Module ExchangeOnlineManagement
 ```
 
-### [Install on MacOS](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-macos?view=powershell-7.3)
+### [Install on MacOS with Homebrew](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-macos?view=powershell-7.3)
 
-- install with brew: `brew install --cask powershell`
+- `brew install --cask powershell`
 - use `pwsh`
 
 ### Open and close connection with Office 365

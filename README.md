@@ -102,14 +102,14 @@ Start-ComplianceSearch -Identity $Search.Identity
 
 ## [Migration from Office365 to on-premise Exchange server](https://learn.microsoft.com/en-us/powershell/module/exchange/get-migrationuserstatistics?view=exchange-ps)
 
-Watch the migrations status of a mailbox
+Show migrations status
 ```PowerShell
-Get-MigrationUserStatistics -Identity <EMAIL> | Select-Object EstimatedTotalTransferSize,BytesTransferred,TotalItemsInSourceMailboxCount,TransferredItemCount,SyncedItemCount,SkippedItemCount,PercentageComplete | Format-List
+Get-MigrationUserStatistics -Identity <EMAIL_TO_BE_SHOWN> | Select-Object EstimatedTotalTransferSize,BytesTransferred,TotalItemsInSourceMailboxCount,TransferredItemCount,SyncedItemCount,SkippedItemCount,PercentageComplete | Format-List
 ```
 
-Super detailed info:
+Super detailed migration info:
 ```PowerShell
-Get-MigrationUserStatistics -Identity <EMAIL> -DiagnosticInfo "verbose,showtimeslots,showtimeline,status,reports,endpoints" -IncludeReport | Format-List
+Get-MigrationUserStatistics -Identity <EMAIL_TO_BE_SHOWN> -DiagnosticInfo "verbose,showtimeslots,showtimeline,status,reports,endpoints" -IncludeReport | Format-List
 ```
 
 ## Tricky way to delete emails from 'Recoverable items'

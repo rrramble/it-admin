@@ -7,7 +7,6 @@
 ```PowerShell
 Install-Module PowerShellGet -Force
 Install-Module -Name ExchangeOnlineManagement
-Import-Module ExchangeOnlineManagement
 ```
 
 ### [Install on MacOS with Homebrew](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-macos?view=powershell-7.3)
@@ -17,7 +16,8 @@ Import-Module ExchangeOnlineManagement
 
 ### Open and close connection to Office 365 server
 
-Connecting: `Connect-ExchangeOnline -UserPrincipalName <ADMIN_EMAIL>`
+- `Import-Module ExchangeOnlineManagement`
+- `Connect-ExchangeOnline -UserPrincipalName <ADMIN_EMAIL>`
 
 The command invokes a pop-up window to enter your password.
 

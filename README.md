@@ -15,7 +15,7 @@ Import-Module ExchangeOnlineManagement
 - `brew install --cask powershell`
 - use `pwsh`
 
-### Open and close connection with Office 365
+### Open and close connection to Office 365 server
 
 Connecting: `Connect-ExchangeOnline -UserPrincipalName <ADMIN_EMAIL>`
 
@@ -23,10 +23,10 @@ The command invokes a pop-up window to enter your password.
 
 Closing connection: `Disconnect-ExchangeOnline`
 
-### Open and close connection with On-premise
+### Open and close connection to On-premise server
 
 - Run PowerShell "As administator"
-- `$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://EXCHANGE_ADDRESS/PowerShell/ -Authentication Kerberos -Credential (Get-Credential)`
+- `$Session = New-PSSession -ConfigurationName Microsoft.Exchange -Authentication Kerberos -Credential (Get-Credential) -ConnectionUri http://EXCHANGE_ADDRESS/PowerShell/`
 - `Import-PSSession $Session -DisableNameChecking`
 
 Close connection:

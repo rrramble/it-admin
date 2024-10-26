@@ -8,7 +8,7 @@ ssh-keygen -t rsa -b 4096 -C "EMAIL"
 ```
 
 the program usually is inside the folder:
-`...git/usr/bin/ssh-keygen.exe```
+`...git/usr/bin/ssh-keygen.exe`
 
 ### In MacOS
 ```zsh

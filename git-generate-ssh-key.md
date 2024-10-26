@@ -99,3 +99,10 @@ Type: `yes`
 git config --global user.name "FIRST_NAME LAST_NAME"
 git config --global user.email "NAME@example.com"
 ```
+
+## 7. Troubleshooting
+
+Re-check GitHub.com address and add to ‘known_hosts’:
+```
+ssh-keyscan github.com >> ~/.ssh/known_hosts
+```

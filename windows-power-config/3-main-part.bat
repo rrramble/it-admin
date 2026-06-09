@@ -1,5 +1,9 @@
 @ECHO Run it as Administrator!
-REM ! Replace below {SCHEME_GUID} with the needed GUID taken from `powercfg /list` !
+REM ! Replace {SCHEME_GUID} below with the needed GUID taken from `powercfg /list` !
+@REM Usual GUIDs (but can be user-made):
+@REM - High performance: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+@REM - Balanced: 381b4222-f694-41f0-9685-ff5bb260df2e
+@REM - Power saver: a1841308-3541-4fab-bc81-f71556f20b4a
 set SCHEME_GUID={SCHEME_GUID}
 
 @REM ===========================

@@ -7,6 +7,10 @@ REM ! Replace {SCHEME_GUID} below with the needed GUID taken from `powercfg /lis
 set SCHEME_GUID={SCHEME_GUID}
 
 @REM ===========================
+REM 0. Activate the power scheme
+powercfg /setactive %SCHEME_GUID%
+
+@REM ===========================
 REM 1. Timeout of switching off the display - AC and DC (seconds)
 powercfg /change monitor-timeout-ac 7200
 powercfg /change monitor-timeout-dc 1800

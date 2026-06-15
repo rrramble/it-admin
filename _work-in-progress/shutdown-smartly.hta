@@ -189,6 +189,20 @@
 
           }, NEXT_PHASE_WAIT_MSEC);
         }
+
+        function playSystemBeep(windowsScriptHostShell) {
+          if (!windowsScriptHostShell) {
+            return;
+          }
+
+          try {
+              // `0` hides `CMD` window
+              // `false` does not block running this .THA
+              windowsScriptHostShell.Run("cmd.exe /c echo " + String.fromCharCode(7), 0, false);
+          } catch (error) {
+            console.error("Failed to play system beep. Root exception:", error);
+          }
+        }
     </script>
 </head>
 <body onload="init()">

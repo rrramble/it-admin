@@ -66,7 +66,7 @@
         "use strict";
 
         var currentPhase = 1;
-        var secondsLeft = 14400;
+        var secondsLeft = 3600 * 4;
         var countdownInterval = null;
         var shell = null;
         var isWindowActive = true; // Флаг, управляющий удержанием окна поверх остальных
@@ -93,7 +93,7 @@
             }
 
             // Удерживаем поверх других окон раз в секунду (только если окно должно быть активным)
-            setInterval(moveWindowOnTop, 1000);
+            setInterval(moveWindowOnTop, 10 * 1000);
             startPhase();
         }
 
@@ -124,16 +124,16 @@
             showWindow(); // Делаем окно видимым при старте новой фазы
 
             if (currentPhase === 1) {
-                secondsLeft = 14400;
+                secondsLeft = 3600 * 4;
                 document.getElementById("phase-text").innerHTML = "A mandatory system shutdown is scheduled. Your PC will turn off automatically.";
             } else if (currentPhase === 2) {
-                secondsLeft = 10800;
+                secondsLeft = 3600 * 3;
                 document.getElementById("phase-text").innerHTML = "Maintenance pending. Next update check in 1 hour.";
             } else if (currentPhase === 3) {
-                secondsLeft = 7200;
+                secondsLeft = 3600 * 2;
                 document.getElementById("phase-text").innerHTML = "Maintenance pending. Final warning approaching.";
             } else {
-                secondsLeft = 3600;
+                secondsLeft = 3600 * 1;
                 document.getElementById("phase-text").innerHTML = "CRITICAL: Urgent updates pending. Delay allowance reduced to 1 hour.";
             }
 
@@ -156,10 +156,10 @@
         }
 
         function getPhaseDuration() {
-            if (currentPhase === 1) return 14400;
-            if (currentPhase === 2) return 10800;
-            if (currentPhase === 3) return 7200;
-            return 3600;
+            if (currentPhase === 1) return 3600 * 4;
+            if (currentPhase === 2) return 3600 * 3;
+            if (currentPhase === 3) return 3600 * 2;
+            return 3600 * 1;
         }
 
         function updateDisplay() {
@@ -175,8 +175,7 @@
         }
 
         function delayShutdown() {
-            // Пользователь нажал кнопку: отменяем текущий таймер ОС
-            shell.Run("shutdown /a", 0, true);
+          var NEXT_PHASE_WAIT_MSEC = 3600 * 1000;
 
             // Останавливаем тиканье визуальных часов на время скрытого ожидания
             if (countdownInterval) {
@@ -186,12 +185,7 @@
             // Прячем окно
             hideWindow();
 
-            // Рассчитываем время до следующего часа. Так как фазы сменяются строго раз в час,
-            // мы просто ждем 1 час (3600000 мс) перед переходом на следующую фазу.
-            setTimeout(function() {
-                currentPhase++;
-                startPhase();
-            }, 3600000);
+          }, NEXT_PHASE_WAIT_MSEC);
         }
     </script>
 </head>

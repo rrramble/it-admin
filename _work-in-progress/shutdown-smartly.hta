@@ -110,10 +110,15 @@
         }
 
         function showWindow() {
-            isWindowActive = true;
-            window.resizeTo(450, 320);
-            window.moveTo((screen.width - 450) / 2, (screen.height - 320) / 2); // Центрируем
-            window.focus();
+          var WINDOW_WIDTH = 450;
+          var WINDOW_HEIGHT = 320;
+
+          var leftHigerX = (screen.width - WINDOW_WIDTH) / 2;
+          var leftHigherY = (screen.height - WINDOW_HEIGHT) / 2;
+          isWindowActive = true;
+          window.resizeTo(WINDOW_WIDTH, WINDOW_HEIGHT);
+          window.moveTo(leftHigerX, leftHigherY);
+          window.focus();
         }
 
         function startPhase() {

@@ -69,7 +69,7 @@
         var secondsLeft = 3600 * 4;
         var countdownInterval = null;
         var shell = null;
-        var isWindowActive = true; // Флаг, управляющий удержанием окна поверх остальных
+        var isWindowActive = true; // Flag to place the window on-top of others
 
         function handleInitializationException(error) {
             document.getElementById("phase-text").innerHTML = "<span>Operation Not Supported</span>";
@@ -92,7 +92,7 @@
                 return;
             }
 
-            // Удерживаем поверх других окон раз в секунду (только если окно должно быть активным)
+            // Set the window on-top of others once in 10 seconds
             setInterval(moveWindowOnTop, 10 * 1000);
             startPhase();
         }
@@ -106,7 +106,7 @@
         function hideWindow() {
             isWindowActive = false;
             window.resizeTo(0, 0);
-            window.moveTo(-2000, -2000); // Надежно убираем из видимой зоны
+            window.moveTo(-2000, -2000); // Moves ourt from the viewable ares
         }
 
         function showWindow() {
@@ -121,7 +121,7 @@
                 clearInterval(countdownInterval);
             }
 
-            showWindow(); // Делаем окно видимым при старте новой фазы
+            showWindow();
 
             if (currentPhase === 1) {
                 secondsLeft = 3600 * 4;
@@ -148,7 +148,7 @@
             updateDisplay();
 
             var elapsedSeconds = getPhaseDuration() - secondsLeft;
-            // Когда проходит ровно 1 час (3600 сек) активной фазы без действий пользователя:
+
             if (elapsedSeconds >= 3600) {
                 currentPhase++;
                 startPhase();
@@ -177,13 +177,15 @@
         function delayShutdown() {
           var NEXT_PHASE_WAIT_MSEC = 3600 * 1000;
 
-            // Останавливаем тиканье визуальных часов на время скрытого ожидания
-            if (countdownInterval) {
-                clearInterval(countdownInterval);
-            }
+          // Cancels the current timer
+          shell.Run("shutdown /a", 0, true);
 
-            // Прячем окно
-            hideWindow();
+          // Stops ticking stopwatch
+          if (countdownInterval) {
+              clearInterval(countdownInterval);
+          }
+
+          hideWindow();
 
           }, NEXT_PHASE_WAIT_MSEC);
         }

@@ -117,27 +117,26 @@
         }
 
         function startPhase() {
+            var TEXT = "Your PC will turn off automatically.";
+
             if (countdownInterval) {
                 clearInterval(countdownInterval);
             }
 
             showWindow();
 
+            document.getElementById("phase-text").innerHTML = TEXT;
             if (currentPhase === 1) {
                 secondsLeft = 3600 * 4;
-                document.getElementById("phase-text").innerHTML = "A mandatory system shutdown is scheduled. Your PC will turn off automatically.";
             } else if (currentPhase === 2) {
                 secondsLeft = 3600 * 3;
-                document.getElementById("phase-text").innerHTML = "Maintenance pending. Next update check in 1 hour.";
             } else if (currentPhase === 3) {
                 secondsLeft = 3600 * 2;
-                document.getElementById("phase-text").innerHTML = "Maintenance pending. Final warning approaching.";
             } else {
                 secondsLeft = 3600 * 1;
-                document.getElementById("phase-text").innerHTML = "CRITICAL: Urgent updates pending. Delay allowance reduced to 1 hour.";
             }
 
-            shell.Run("shutdown /s /t " + secondsLeft + " /c \"Automated IT Maintenance Shutdown initiated.\"", 0, true);
+            shell.Run("shutdown /s /t " + secondsLeft + " /c \"Shutdown initiated.\"", 0, true);
 
             updateDisplay();
             countdownInterval = setInterval(tick, 1000);

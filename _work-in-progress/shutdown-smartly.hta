@@ -187,6 +187,9 @@
 
           hideWindow();
 
+          setTimeout(function() {
+              currentPhase++;
+              startPhase();
           }, NEXT_PHASE_WAIT_MSEC);
         }
 

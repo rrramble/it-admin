@@ -1,0 +1,2 @@
+./atom.bat
+./yandex.bat

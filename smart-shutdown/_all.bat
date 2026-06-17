@@ -17,8 +17,8 @@ if not exist "%TARGET_DIR%" (
 :: Copies HTA (forces rewriting of an old version)
 copy /y "%~dp0%HTA_FILE_NAME%" "%TARGET_DIR%\%HTA_FILE_NAME%"
 
-:: Gives full access for SYSTEM (S-1-5-18) and Admininistrator (S-1-5-32-544).
-:: Gives read/run access for Users (S-1-5-32-545).
+:: Gives full access for SYSTEM (S-1-5-18) and BUILTIN\Admininistrators (S-1-5-32-544).
+:: Gives read/run access for BUILTIN\Users (S-1-5-32-545).
 icacls "%TARGET_DIR%\%HTA_FILE_NAME%" /inheritance:r
 icacls "%TARGET_DIR%\%HTA_FILE_NAME%" /grant:r *S-1-5-18:(F)
 icacls "%TARGET_DIR%\%HTA_FILE_NAME%" /grant:r *S-1-5-32-544:(F)

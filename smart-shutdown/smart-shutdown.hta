@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Windows may run this code under EcmaScript 3 (i.e., IE 7), so avoid using features came since Y2010 -->
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>IT - Nightly Shutdown</title>
+    <hta:application
+        id="oApp"
+        applicationname="RecurringDelayedShutdown"
+        border="thick"
+        caption="yes"
+        showintaskbar="yes"
+        singleinstance="yes"
+        sysmenu="no"
+        windowstate="normal"
+    />
+    <style>
+        body {
+            font-family: system-ui, Arial, sans-serif;
+            background-color: #EEEEEE;
+            color: #111111;
+            margin: 20px;
+            text-align: center;
+        }
+        h2 {
+            color: #111111;
+            font-size: 24px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 14px;
+            line-height: 20px;
+        }
+        button {
+            font-size: 16px;
+            font-weight: bold;
+            padding: 8px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn-cancel {
+            background-color: #5cb85c;
+            color: #FFFFFF;
+        }
+        .btn-cancel:hover {
+            background-color: #4cae4c;
+        }
+        .timer-box {
+            font-size: 24px;
+            font-weight: bold;
+            color: #111111;
+            margin: 16px 0px;
+            background: #FFFFFF;
+            padding: 16px;
+            border-radius: 5px;
+            border: 1px solid #CCCCCC;
+        }
+    </style>
+
+    <script>
+        "use strict";
+
+        var currentPhase = 1;
+        var secondsLeft = 3600 * 4;
+        var countdownInterval = null;
+        var shell = null;
+        var isWindowActive = true; // Flag to place the window on-top of others
+
+        function handleInitializationException(error) {
+            document.getElementById("phase-text").innerHTML = "<span>Operation Not Supported</span>";
+            document.getElementById("clock").innerHTML = "STOP";
+            document.getElementById("clock").style.borderColor = "#d9534f";
+
+            var btnEl = document.getElementById("btn-delay");
+            btnEl.disabled = true;
+            btnEl.style.opacity = "0.5"; // TODO: check in ES3
+            btnEl.style.cursor = "not-allowed";
+        }
+
+        function init() {
+            showWindow();
+
+            try {
+                shell = new ActiveXObject("WScript.Shell");
+            } catch (error) {
+                handleInitializationException(error);
+                return;
+            }
+
+            // Set the window on-top of others once in 10 seconds
+            setInterval(moveWindowOnTop, 10 * 1000);
+            startPhase();
+        }
+
+        function moveWindowOnTop() {
+            if (isWindowActive) {
+                window.focus();
+            }
+        }
+
+        function hideWindow() {
+            isWindowActive = false;
+            window.resizeTo(0, 0);
+            window.moveTo(-10000, -10000); // Moves out of the viewable ares
+        }
+
+        function showWindow() {
+          var WINDOW_WIDTH = 450;
+          var WINDOW_HEIGHT = 320;
+
+          var leftHigerX = (screen.width - WINDOW_WIDTH) / 2;
+          var leftHigherY = (screen.height - WINDOW_HEIGHT) / 2;
+          isWindowActive = true;
+          window.resizeTo(WINDOW_WIDTH, WINDOW_HEIGHT);
+          window.moveTo(leftHigerX, leftHigherY);
+          window.focus();
+        }
+
+        function startPhase() {
+            var TEXT = "Your PC will turn off automatically.";
+
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+            }
+
+            showWindow();
+
+            document.getElementById("phase-text").innerHTML = TEXT;
+            if (currentPhase === 1) {
+                secondsLeft = 3600 * 4;
+            } else if (currentPhase === 2) {
+                secondsLeft = 3600 * 3;
+            } else if (currentPhase === 3) {
+                secondsLeft = 3600 * 2;
+            } else {
+                secondsLeft = 3600 * 1;
+            }
+
+            shell.Run("shutdown /s /t " + secondsLeft + " /c \"Shutdown initiated.\"", 0, true);
+
+            updateDisplay();
+            countdownInterval = setInterval(tick, 1000);
+        }
+
+        function tick() {
+            secondsLeft--;
+            updateDisplay();
+
+            var elapsedSeconds = getPhaseDuration() - secondsLeft;
+
+            if (elapsedSeconds >= 3600) {
+                currentPhase++;
+                startPhase();
+            }
+        }
+
+        function getPhaseDuration() {
+            if (currentPhase === 1) return 3600 * 4;
+            if (currentPhase === 2) return 3600 * 3;
+            if (currentPhase === 3) return 3600 * 2;
+            return 3600 * 1;
+        }
+
+        function updateDisplay() {
+            var hrs = Math.floor(secondsLeft / 3600);
+            var mins = Math.floor((secondsLeft % 3600) / 60);
+            var secs = secondsLeft % 60;
+
+            var timeString = (hrs < 10 ? "0" : "") + hrs + ":" +
+                             (mins < 10 ? "0" : "") + mins + ":" +
+                             (secs < 10 ? "0" : "") + secs;
+
+            document.getElementById("clock").innerHTML = timeString;
+        }
+
+        function delayShutdown() {
+          var NEXT_PHASE_WAIT_MSEC = 3600 * 1000;
+
+          // Cancels the current timer
+          shell.Run("shutdown /a", 0, true);
+
+          // Stops ticking stopwatch
+          if (countdownInterval) {
+              clearInterval(countdownInterval);
+          }
+
+          hideWindow();
+
+          setTimeout(function() {
+              currentPhase++;
+              startPhase();
+          }, NEXT_PHASE_WAIT_MSEC);
+        }
+
+        function playSystemBeep(windowsScriptHostShell) { // TODO: use it
+          if (!windowsScriptHostShell) {
+            return;
+          }
+
+          try {
+              // `0` hides `CMD` window
+              // `false` does not block running this .THA
+              windowsScriptHostShell.Run("cmd.exe /c echo " + String.fromCharCode(7), 0, false);
+          } catch (error) {
+            console.error("Failed to play system beep. Root exception:", error);
+          }
+        }
+    </script>
+</head>
+<body onload="init()">
+
+    <h2>System Maintenance</h2>
+    <p id="phase-text">Checking shutdown status...</p>
+    <div class="timer-box" id="clock">00:00:00</div>
+    <p style="font-size: 11px; color: #666;">Clicking delay cancels the current timer and pushes execution to the next hour check.</p>
+
+    <button id="btn-delay" class="btn-cancel" onclick="delayShutdown()">Delay/Cancel</button>
+
+</body>
+</html>

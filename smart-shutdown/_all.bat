@@ -5,7 +5,7 @@ set "TARGET_DIR=%SystemDrive%\Program Files\_IT\smart-shutdown"
 set "TASK_NAME=SmartNightlyShutdown"
 set "TASK_TIME=17:30"
 
-:: Changes current directory to the folder where this deploy.bat is executed from.
+:: Changes current directory to the folder where this script is executed from.
 :: This ensures that the script correctly locates the HTA file instead of "c:\windows\system32".
 cd /d "%~dp0"
 

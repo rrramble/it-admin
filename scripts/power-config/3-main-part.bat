@@ -53,3 +53,8 @@ powercfg /setacvalueindex %SCHEME_GUID% 54533251-82be-4824-96c1-47b60b740d00 bc5
 @echo 6.2. DC (%)
 powercfg /setdcvalueindex %SCHEME_GUID% 54533251-82be-4824-96c1-47b60b740d00 893dee8e-2bef-41e0-89c6-b55d0929964c 20
 powercfg /setdcvalueindex %SCHEME_GUID% 54533251-82be-4824-96c1-47b60b740d00 bc5038f7-23e0-4960-96da-33abaf5935ec 80
+
+:: ===========================
+@echo 7. Re-activate the power scheme
+:: Should be done to apply the settings (yes, the 2nd time!)
+powercfg /setactive %SCHEME_GUID%

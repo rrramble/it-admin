@@ -1,1 +1,2 @@
-windows-update.bat
+
+call windows-update.bat

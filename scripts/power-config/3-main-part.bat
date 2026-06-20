@@ -1,10 +1,17 @@
-@ECHO Run it as Administrator!
 REM ! Replace {SCHEME_GUID} below with the needed GUID taken from `powercfg /list` !
 @REM Usual GUIDs (but can be other, user-made):
 @REM - High performance: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 @REM - Balanced: 381b4222-f694-41f0-9685-ff5bb260df2e
 @REM - Power saver: a1841308-3541-4fab-bc81-f71556f20b4a
 set SCHEME_GUID={SCHEME_GUID}
+
+:: ==============================================================
+echo Verifying Administrator privileges
+net session >nul 2>&1
+if %errorLevel% neq 0 (
+    echo [ERROR] This script must be run as an Administrator!
+    exit /b 1
+)
 
 @REM ===========================
 REM 0. Activate the power scheme

@@ -58,4 +58,3 @@ powercfg /setdcvalueindex %SCHEME_GUID% 54533251-82be-4824-96c1-47b60b740d00 bc5
 powercfg /S %SCHEME_GUID%
 
 echo Power settings updated
-pause

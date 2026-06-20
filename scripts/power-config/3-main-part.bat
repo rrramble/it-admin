@@ -28,14 +28,14 @@ powercfg /setacvalueindex %SCHEME_GUID% 2a737441-1930-4402-8d77-b2bebba308a3 3b0
 powercfg /setdcvalueindex %SCHEME_GUID% 2a737441-1930-4402-8d77-b2bebba308a3 3b04d4fd-1cc7-4f23-ab1c-d1337819c4bb 0
 
 :: ===========================
-@echo 4. Sleep timeout AC and DC (minutes)
-powercfg /change standby-timeout-ac 240
-powercfg /change standby-timeout-dc 60
-
-:: ===========================
-@echo 5. Allow sleep AC and DC (disable)
+@echo 4. Sleep
+@echo 4.1. AC (0 = disabled, time in minutes)
 powercfg /setacvalueindex %SCHEME_GUID% 238C9FA8-0AAD-41ED-83F4-97BE242C8F20 29F6C1DB-86DA-48C5-9FDB-F2B67B1F44DA 0
+powercfg /change standby-timeout-ac 0
+
+@echo 4.2. DC (1 = enabled, time in minutes)
 powercfg /setdcvalueindex %SCHEME_GUID% 238C9FA8-0AAD-41ED-83F4-97BE242C8F20 29F6C1DB-86DA-48C5-9FDB-F2B67B1F44DA 1
+powercfg /change standby-timeout-dc 30
 
 :: ===========================
 @echo 6. Hibernate timeout AC and DC (disable, command in minutes)

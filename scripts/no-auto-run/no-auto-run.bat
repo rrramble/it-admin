@@ -5,9 +5,9 @@
 :: ======================
 :: Pre-requisites
 setlocal EnabledDelayedExpansion
-chcp 65001
+chcp 65001 >nul
 
-@echo Verifying Administrator privileges...
+@echo Verifying Administrator privileges
 net session >nul 2>&1
 if %errorLevel% neq 0 (
     echo [ERROR] This script must be run as an Administrator!

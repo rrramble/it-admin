@@ -2,7 +2,11 @@
 :: Forces Continuous Windows Updates with Immediate Installation and No Forced Reboots
 :: ==============================================================
 
-:: ===========================
+:: ======================
+:: Pre-requisites
+setlocal EnabledDelayedExpansion
+chcp 65001 >nul
+
 @echo Verifying Administrator privileges
 net session >nul 2>&1
 if %errorLevel% neq 0 (

@@ -5,6 +5,8 @@
 :: ======================
 :: Pre-requisites
 setlocal EnabledDelayedExpansion
+chcp 65001
+
 @echo Verifying Administrator privileges...
 net session >nul 2>&1
 if %errorLevel% neq 0 (

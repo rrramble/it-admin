@@ -27,7 +27,7 @@ if %errorLevel% neq 0 (
 @echo Checking if the target power scheme exists and recreating if missing
 powercfg /list | findstr /i "%SCHEME_GUID%" >nul 2>&1
 if %errorLevel% neq 0 (
-    @echo [WARNING] Power scheme %SCHEME_GUID% was missing. Re-importing factory default blueprint...
+    @echo [WARNING] Power scheme %SCHEME_GUID% was missing. Re-importing factory default blueprint.
     powercfg /duplicatescheme %SCHEME_GUID% >nul
 )
 

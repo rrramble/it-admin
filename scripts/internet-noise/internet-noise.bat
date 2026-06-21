@@ -40,6 +40,9 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Input\TIPC" /v "Enabled" /t REG_DWORD 
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\TabletPC" /v "TurnOffHandwritingPersonalization" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo" /v "Disabled" /t REG_DWORD /d 1 /f
 
+:: ======================
+@echo 4. Injects privacy, handwriting, and advertising blocks
+@echo 4.1. The Default User profile template
 reg load HKLM\TempDefaultProfile "C:\Users\Default\NTUSER.DAT" >nul 2>&1
 if %errorLevel% == 0 (
     set "DEF_PATH=HKLM\TempDefaultProfile\Software\Microsoft"
@@ -55,10 +58,8 @@ if %errorLevel% == 0 (
     echo [WARNING] Could not load Default User NTUSER.DAT template.
 )
 
-:: ======================
-@echo 5. Injects Advertising ID and Content Delivery blocks (0 = Disabled) into all existing user profiles
+@echo 4.2. All existing user profiles
 :: WARNING: "delims=	" contains a literal-real TAB character to handle usernames with spaces safely
-:: ======================
 for /f "tokens=1,2 delims=	" %%a in ('reg query HKEY_USERS') do (
     set "USER_REG_KEY=%%a"
     @REM Extracts just the SID string by replacing the HKEY_USERS root prefix
@@ -78,5 +79,5 @@ for /f "tokens=1,2 delims=	" %%a in ('reg query HKEY_USERS') do (
 )
 
 :: ======================
-@echo 6. Safely refreshes the Windows environment parameters to apply profile changes
+@echo 5. Safely refreshes the Windows environment parameters to apply profile changes
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters

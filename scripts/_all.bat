@@ -10,6 +10,9 @@ cd /d "%~dp0"
 call block-browsers/_all.bat
 
 cd /d "%~dp0"
+call internet-noise/_all.bat
+
+cd /d "%~dp0"
 call no-auto-run/_all.bat
 
 cd /d "%~dp0"

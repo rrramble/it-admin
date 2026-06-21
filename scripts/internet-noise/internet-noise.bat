@@ -27,13 +27,19 @@ reg add "!CLOUD_PATH!" /v "DisableWindowsConsumerFeatures" /t REG_DWORD /d 1 /f
 
 :: ======================
 @echo 3. Disables system tracking background services (DiagTrack and dmwappushservice)
+@echo 3.1. Stops services
 sc config DiagTrack start= disabled
 sc stop DiagTrack >nul 2>&1
 sc config dmwappushservice start= disabled
 sc stop dmwappushservice >nul 2>&1
 
 :: ======================
-@echo 4. Injects Advertising ID and Content Delivery blocks (0 = Disabled) into the Default User profile template
+@echo 3.2. Sets policies
+reg add "HKLM\SOFTWARE\Policies\Microsoft\FindMyDevice" /v "AllowFindMyDevice" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Input\TIPC" /v "Enabled" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\TabletPC" /v "TurnOffHandwritingPersonalization" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo" /v "Disabled" /t REG_DWORD /d 1 /f
+
 reg load HKLM\TempDefaultProfile "C:\Users\Default\NTUSER.DAT" >nul 2>&1
 if %errorLevel% == 0 (
     set "DEF_PATH=HKLM\TempDefaultProfile\Software\Microsoft"

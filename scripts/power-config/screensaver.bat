@@ -2,8 +2,8 @@
 :: Screensaver and Screen-lock
 :: ==============================================================
 
-:: ==============================================================
-echo Verifying Administrator privileges
+setlocal EnabledDelayedExpansion
+chcp 65001 >nul
 net session >nul 2>&1
 if %errorLevel% neq 0 (
     echo [ERROR] This script must be run as an Administrator!

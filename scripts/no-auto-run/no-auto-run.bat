@@ -1,7 +1,11 @@
-setlocal enabledelayedexpansion
-
 :: ==============================================================
-echo Verifying Administrator privileges...
+@echo Prevents auto-running of removable devices (USB-flash, CD/DVD)
+:: ==============================================================
+
+:: ======================
+:: Pre-requisites
+setlocal EnabledDelayedExpansion
+@echo Verifying Administrator privileges...
 net session >nul 2>&1
 if %errorLevel% neq 0 (
     echo [ERROR] This script must be run as an Administrator!

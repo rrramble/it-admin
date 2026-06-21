@@ -36,8 +36,14 @@ sc stop dmwappushservice >nul 2>&1
 @echo 4. Injects Advertising ID and Content Delivery blocks (0 = Disabled) into the Default User profile template
 reg load HKLM\TempDefaultProfile "C:\Users\Default\NTUSER.DAT" >nul 2>&1
 if %errorLevel% == 0 (
-    reg add "HKLM\TempDefaultProfile\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Enabled" /t REG_DWORD /d 0 /f >nul
-    reg add "HKLM\TempDefaultProfile\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "ContentDeliveryAllowed" /t REG_DWORD /d 0 /f >nul
+    set "DEF_PATH=HKLM\TempDefaultProfile\Software\Microsoft"
+    reg add "HKLM\TempDefaultProfile\Software\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d 0 /f >nul
+    reg add "!DEF_PATH!\Input\TIPC" /v "Enabled" /t REG_DWORD /d 0 /f >nul
+    reg add "!DEF_PATH!\Windows\CurrentVersion\AdvertisingInfo" /v "Enabled" /t REG_DWORD /d 0 /f >nul
+    reg add "!DEF_PATH!\Windows\CurrentVersion\ContentDeliveryManager" /v "ContentDeliveryAllowed" /t REG_DWORD /d 0 /f >nul
+    reg add "!DEF_PATH!\Windows\CurrentVersion\ContentDeliveryManager" /v "SoftLandingEnabled" /t REG_DWORD /d 0 /f >nul
+    reg add "!DEF_PATH!\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338388Enabled" /t REG_DWORD /d 0 /f >nul
+    reg add "!DEF_PATH!\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338389Enabled" /t REG_DWORD /d 0 /f >nul
     reg unload HKLM\TempDefaultProfile >nul
 ) else (
     echo [WARNING] Could not load Default User NTUSER.DAT template.
@@ -54,8 +60,14 @@ for /f "tokens=1,2 delims=	" %%a in ('reg query HKEY_USERS') do (
     @REM Filter to apply only to actual logged-in security identifiers (S-1-5-21-...)
     @echo !USER_SID! | findstr /r /c:"S-1-5-21-[0-9\-]*$" >nul
     if !errorLevel! == 0 (
-        reg add "HKU\!USER_SID!\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Enabled" /t REG_DWORD /d 0 /f >nul
-        reg add "HKU\!USER_SID!\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "ContentDeliveryAllowed" /t REG_DWORD /d 0 /f >nul
+        set "ACTIVE_PATH=HKU\!USER_SID!\Software\Microsoft"
+        reg add "HKU\!USER_SID!\Software\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d 0 /f >nul
+        reg add "!ACTIVE_PATH!\Input\TIPC" /v "Enabled" /t REG_DWORD /d 0 /f >nul
+        reg add "!ACTIVE_PATH!\Windows\CurrentVersion\AdvertisingInfo" /v "Enabled" /t REG_DWORD /d 0 /f >nul
+        reg add "!ACTIVE_PATH!\Windows\CurrentVersion\ContentDeliveryManager" /v "ContentDeliveryAllowed" /t REG_DWORD /d 0 /f >nul
+        reg add "!ACTIVE_PATH!\Windows\CurrentVersion\ContentDeliveryManager" /v "SoftLandingEnabled" /t REG_DWORD /d 0 /f >nul
+        reg add "!ACTIVE_PATH!\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338388Enabled" /t REG_DWORD /d 0 /f >nul
+        reg add "!ACTIVE_PATH!\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338389Enabled" /t REG_DWORD /d 0 /f >nul
     )
 )
 

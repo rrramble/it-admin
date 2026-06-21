@@ -16,4 +16,7 @@ cd /d "%~dp0"
 call power-config/_all.bat
 
 cd /d "%~dp0"
+call security/_all.bat
+
+cd /d "%~dp0"
 call windows-update/_all.bat

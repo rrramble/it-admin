@@ -37,7 +37,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "DisableDual
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "AutoInstallMinorUpdates" /t REG_DWORD /d 1 /f
 
 :: ===========================
-@echo 5. Disabling forced automatic restarts while employees are actively logged into the operating system
+@echo 5. Allowing forced automatic restarts while employees logged on into the operating system
 @echo (NoAutoReboot: 1 = Enforced / No Forced Restart)
 :: DELETED: reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoRebootWithLoggedOnUsers" /t REG_DWORD /d 1 /f
 reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoRebootWithLoggedOnUsers" /f

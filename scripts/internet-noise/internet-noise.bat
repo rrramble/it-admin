@@ -1,5 +1,5 @@
 :: ==============================================================
-@echo Stops Internet Noise (Telemetry, Advertising, etc.)
+@echo Stops Windows Internet Noise (Telemetry, Advertising, etc.)
 :: ==============================================================
 
 :: ======================

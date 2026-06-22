@@ -23,8 +23,8 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "SetDisableU
 
 :: ===========================
 @echo 2. Configuring immediate automatic download and background installation schedules
-@echo (AUOptions: 4 = Automatic Download and Install)
-@echo Automatic scheduling is left to default automatic background checks rather than a specific night hour
+:: Automatic scheduling is left to default automatic background checks rather than a specific night hour
+:: (AUOptions: 4 = Automatic Download and Install)
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "AUOptions" /t REG_DWORD /d 4 /f
 

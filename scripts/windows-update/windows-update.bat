@@ -38,15 +38,14 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "AutoInst
 :: ===========================
 @echo 5. Disabling forced automatic restarts while employees are actively logged into the operating system
 @echo (NoAutoReboot: 1 = Enforced / No Forced Restart)
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoRebootWithLoggedOnUsers" /t REG_DWORD /d 1 /f
-reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "AlwaysAutoRebootAtScheduledTime" /f >nul 2>&1
-reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "AlwaysAutoRebootAtScheduledTimeMinutes" /f >nul 2>&1
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "AlwaysAutoRebootAtScheduledTime" /f
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "AlwaysAutoRebootAtScheduledTimeMinutes" /f
 
 :: ===========================
 @echo 6. Re-enabling and resetting the underlying Windows Update background services
 sc config wuauserv start= auto
-sc stop wuauserv >nul 2>&1
-sc start wuauserv >nul 2>&1
+sc stop wuauserv
+sc start wuauserv
 
 :: ===========================
 @echo 7. Forcing an immediate background update detection check

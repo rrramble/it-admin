@@ -16,9 +16,10 @@ if %errorLevel% neq 0 (
 
 :: ===========================
 @echo 1. Overriding interface access and disabling user update-pausing features
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "SetDisableUXWUAccess" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "DeferUpdates" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "DeferUpdatesBlockPeriod" /t REG_DWORD /d 0 /f
+:: Allow users to start updates manually
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "SetDisableUXWUAccess" /t REG_DWORD /d 0 /f
 
 :: ===========================
 @echo 2. Configuring immediate automatic download and background installation schedules

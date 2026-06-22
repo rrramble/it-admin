@@ -30,7 +30,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "AUOption
 
 :: ===========================
 @echo 3. Blocking Microsoft Dual Scan cloud-bypasses to enforce local policies
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "DisableDualScan" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "DisableDualScan" /t REG_DWORD /d 0 /f
 
 :: ===========================
 @echo 4. Enforcing automated installations of minor updates and driver packages

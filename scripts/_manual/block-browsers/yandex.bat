@@ -5,7 +5,7 @@
 
 :: ======================
 :: Pre-requisites
-setlocal EnabledDelayedExpansion
+setlocal EnableDelayedExpansion
 chcp 65001 >nul
 
 @echo Verifying Administrator privileges

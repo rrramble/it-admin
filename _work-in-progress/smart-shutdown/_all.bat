@@ -1,4 +1,4 @@
-setlocal EnabledDelayedExpansion
+setlocal EnableDelayedExpansion
 
 set "HTA_FILE_NAME=smart-shutdown.hta"
 set "TARGET_DIR=%SystemDrive%\Program Files\_IT\smart-shutdown"

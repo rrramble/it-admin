@@ -2,3 +2,6 @@
 :: instead of "c:\windows\system32"
 cd /d "%~dp0"
 call security.bat
+
+cd /d "%~dp0"
+call uac.bat

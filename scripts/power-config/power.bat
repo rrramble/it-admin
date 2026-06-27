@@ -5,10 +5,12 @@
 :: ======================
 @echo Pre-requisites
 setlocal EnableDelayedExpansion
-chcp 65001 >nul
+
+:: Restrict PATH variable to secure system binaries to prevent binary hijacking
+set "PATH=%SystemRoot%\System32;%SystemRoot%;%SystemRoot%\System32\Wbem"
 
 ::
-:: Variables section
+:: Variables
 ::
 set SCHEME_GUID=8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 @REM Usual GUIDs:
@@ -16,10 +18,13 @@ set SCHEME_GUID=8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 @REM - Balanced: 381b4222-f694-41f0-9685-ff5bb260df2e
 @REM - Power saver: a1841308-3541-4fab-bc81-f71556f20b4a
 
+chcp 65001
+
 @echo Verifying Administrator privileges
 net session >nul 2>&1
 if %errorLevel% neq 0 (
     echo [ERROR] This script must be run as an Administrator!
+    endlocal
     exit /b 1
 )
 

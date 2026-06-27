@@ -9,7 +9,7 @@ setlocal EnableDelayedExpansion
 :: Restrict PATH variable to secure system binaries to prevent binary hijacking
 set "PATH=%SystemRoot%\System32;%SystemRoot%;%SystemRoot%\System32\Wbem"
 
-chcp 65001 >nul 2>&1
+chcp 65001
 
 @echo Verifying Administrator privileges
 net session >nul 2>&1

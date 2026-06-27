@@ -4,4 +4,7 @@ cd /d "%~dp0"
 call atom.bat
 
 cd /d "%~dp0"
+call chrome.cmd
+
+cd /d "%~dp0"
 call yandex.bat

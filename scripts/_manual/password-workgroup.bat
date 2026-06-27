@@ -15,10 +15,9 @@ set "PATH=%SystemRoot%\System32;%SystemRoot%;%SystemRoot%\System32\Wbem"
 chcp 65001
 
 @echo Verifing Administrator privileges
-net session >nul 2>&1
+fltmc >nul 2>&1
 if !errorLevel! neq 0 (
     echo [ERROR] This script must be run as an Administrator!
-    endlocal
     exit /b 1
 )
 
@@ -40,7 +39,6 @@ secedit /export /cfg "!SEC_CONFIG_IN!" /areas SECURITYPOLICY >nul 2>&1
 
 if !errorLevel! neq 0 (
     echo [ERROR] Failed to export current security policy.
-    endlocal
     exit /b 1
 )
 
@@ -115,12 +113,10 @@ if "!Verified!"=="True" (
 if exist "!SEC_CONFIG_IN!" del /f /q "!SEC_CONFIG_IN!" >nul 2>&1
 if exist "!SEC_CONFIG_OUT!" del /f /q "!SEC_CONFIG_OUT!" >nul 2>&1
 if exist "!SEC_DB!" del /f /q "!SEC_DB!" >nul 2>&1
-endlocal
 exit /b 0
 
 :CleanupAndExitError
 if exist "!SEC_CONFIG_IN!" del /f /q "!SEC_CONFIG_IN!" >nul 2>&1
 if exist "!SEC_CONFIG_OUT!" del /f /q "!SEC_CONFIG_OUT!" >nul 2>&1
 if exist "!SEC_DB!" del /f /q "!SEC_DB!" >nul 2>&1
-endlocal
 exit /b 2

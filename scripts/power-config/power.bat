@@ -21,10 +21,9 @@ set SCHEME_GUID=8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 chcp 65001
 
 @echo Verifying Administrator privileges
-net session >nul 2>&1
+fltmc >nul 2>&1
 if %errorLevel% neq 0 (
     echo [ERROR] This script must be run as an Administrator!
-    endlocal
     exit /b 1
 )
 

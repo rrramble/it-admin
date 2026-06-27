@@ -25,19 +25,19 @@ if !errorLevel! neq 0 (
 set "MAIN_KEY=HKLM\SOFTWARE\Policies\Microsoft\Windows"
 set "KEY_MS=HKLM\SOFTWARE\Policies\Microsoft"
 
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul
+"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\AdvertisingInfo" /v DisabledByGroupPolicy /t REG_DWORD /d 1 /f >nul
 "%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\CloudContent" /v DisableWindowsConsumerFeatures /t REG_DWORD /d 1 /f >nul
+"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul
 "%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\System" /v PublishUserActivities /t REG_DWORD /d 0 /f >nul
 "%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\System" /v UploadUserActivities /t REG_DWORD /d 0 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\AdvertisingInfo" /v DisabledByGroupPolicy /t REG_DWORD /d 1 /f >nul
 
+"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\DeliveryOptimization" /v SendLogs /t REG_DWORD /d 0 /f >nul
+"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\Feeds" /v EnableFeeds /t REG_DWORD /d 0 /f >nul
 "%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f >nul
 "%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\Windows Error Reporting" /v DoNotSendAdditionalData /t REG_DWORD /d 1 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\Feeds" /v EnableFeeds /t REG_DWORD /d 0 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\DeliveryOptimization" /v SendLogs /t REG_DWORD /d 0 /f >nul
 
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\InputPersonalization" /v AllowInputPersonalization /t REG_DWORD /d 0 /f >nul
 "%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\DeviceHealthAttribution" /v EnableDeviceHealthAttribution /t REG_DWORD /d 0 /f >nul
+"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\InputPersonalization" /v AllowInputPersonalization /t REG_DWORD /d 0 /f >nul
 "%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows NT\CurrentVersion\Software Protection Platform" /v NoGenSqm /t REG_DWORD /d 1 /f >nul
 "%SystemRoot%\System32\reg.exe" add "%KEY_MS%\WindowsNT\Remote Assistance" /v NoRemoteAssistance /t REG_DWORD /d 1 /f >nul
 

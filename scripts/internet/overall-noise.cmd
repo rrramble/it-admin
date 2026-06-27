@@ -63,19 +63,19 @@ call :ManageService "WerSvc"
 
 :: ======================
 @echo [INFO] Current User Layer (HKCU)
-set "KEY_CU_PRIV=HKCU\Software\Microsoft\Windows\CurrentVersion\Privacy"
-set "KEY_CU_ADV=HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo"
-set "KEY_CU_CDM=HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
-set "KEY_CU_INPUT=HKCU\Software\Microsoft\InputPersonalization"
-set "KEY_CU_INPUT_TR=HKCU\Software\Microsoft\InputPersonalization\TrainedDataStore"
+set "KEY_HKCU_PRIVACY=HKCU\Software\Microsoft\Windows\CurrentVersion\Privacy"
+set "KEY_HKCU_ADVERTIZING=HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo"
+set "KEY_HKCU_CDM=HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
+set "KEY_HKCU_INPUT_PERS=HKCU\Software\Microsoft\InputPersonalization"
+set "KEY_HKCU_INPUT_TRAIN=HKCU\Software\Microsoft\InputPersonalization\TrainedDataStore"
 
-"%SystemRoot%\System32\reg.exe" add "%KEY_CU_PRIV%" /v TailoredExperiencesWithDiagnosticDataEnabled /t REG_DWORD /d 0 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%KEY_CU_ADV%" /v Enabled /t REG_DWORD /d 0 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%KEY_CU_CDM%" /v ContentDeliveryAllowed /t REG_DWORD /d 0 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%KEY_CU_CDM%" /v SoftLandingEnabled /t REG_DWORD /d 0 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%KEY_CU_INPUT%" /v RestrictImplicitTextCollection /t REG_DWORD /d 1 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%KEY_CU_INPUT%" /v RestrictImplicitInkCollection /t REG_DWORD /d 1 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%KEY_CU_INPUT_TR%" /v HarvestedWords /t REG_DWORD /d 0 /f >nul
+reg add "%KEY_HKCU_PRIVACY%" /v TailoredExperiencesWithDiagnosticDataEnabled /t REG_DWORD /d 0 /f >nul
+reg add "%KEY_HKCU_ADVERTIZING%" /v Enabled /t REG_DWORD /d 0 /f >nul
+reg add "%KEY_HKCU_CDM%" /v ContentDeliveryAllowed /t REG_DWORD /d 0 /f >nul
+reg add "%KEY_HKCU_CDM%" /v SoftLandingEnabled /t REG_DWORD /d 0 /f >nul
+reg add "%KEY_HKCU_INPUT_PERS%" /v RestrictImplicitTextCollection /t REG_DWORD /d 1 /f >nul
+reg add "%KEY_HKCU_INPUT_PERS%" /v RestrictImplicitInkCollection /t REG_DWORD /d 1 /f >nul
+reg add "%KEY_HKCU_INPUT_TRAIN%" /v HarvestedWords /t REG_DWORD /d 0 /f >nul
 
 :: ======================
 @echo [INFO] Default Profile (NTUSER.DAT) enforcement

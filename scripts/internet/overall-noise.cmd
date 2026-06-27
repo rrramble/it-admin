@@ -131,12 +131,12 @@ goto :eof
 
 :ManageService
 set "SVC_NAME=%~1"
-"%SystemRoot%\System32\sc.exe" query "%SVC_NAME%" >nul 2>&1
+sc query "%SVC_NAME%" >nul 2>&1
 if !errorLevel! neq 0 (
     echo [SKIP] Service "%SVC_NAME%" is not present on this machine base.
     goto :eof
 )
-"%SystemRoot%\System32\sc.exe" stop "%SVC_NAME%" >nul 2>&1
-"%SystemRoot%\System32\sc.exe" config "%SVC_NAME%" start= disabled >nul 2>&1
+sc stop "%SVC_NAME%" >nul 2>&1
+sc config "%SVC_NAME%" start= disabled >nul 2>&1
 echo [OK] Service disabled: %SVC_NAME%
 goto :eof

@@ -7,4 +7,7 @@ cd /d "%~dp0"
 call chrome.cmd
 
 cd /d "%~dp0"
+call firefox.cmd
+
+cd /d "%~dp0"
 call yandex.bat

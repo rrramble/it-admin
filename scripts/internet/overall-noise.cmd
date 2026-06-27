@@ -91,25 +91,25 @@ if exist "%DEFAULT_HIVE%" (
     reg load "HKLM\TEMP_DEFAULT" "%DEFAULT_HIVE%" >nul 2>&1
     if !errorLevel! equ 0 (
         :: Wrapped inside a conditional block ensuring execution occurs only when loaded successfully
-        set   "KEY_DEF_PRIV=HKLM\TEMP_DEFAULT\Software\Microsoft\Windows\CurrentVersion\Privacy"
-        set    "KEY_DEF_ADV=HKLM\TEMP_DEFAULT\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo"
-        set    "KEY_DEF_CDM=HKLM\TEMP_DEFAULT\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
-        set "KEY_DEF_POLICY=HKLM\TEMP_DEFAULT\Software\Policies\Microsoft\Windows"
+        set   "KEY_HKLM_DEF_PRIV=HKLM\TEMP_DEFAULT\Software\Microsoft\Windows\CurrentVersion\Privacy"
+        set    "KEY_HKLM_DEF_ADV=HKLM\TEMP_DEFAULT\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo"
+        set    "KEY_HKLM_DEF_CDM=HKLM\TEMP_DEFAULT\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
+        set "KEY_HKLM_DEF_POLICY=HKLM\TEMP_DEFAULT\Software\Policies\Microsoft\Windows"
 
-        reg add "!KEY_DEF_PRIV!" /v TailoredExperiencesWithDiagnosticDataEnabled /t REG_DWORD /d 0 /f >nul
-        reg add "!KEY_DEF_ADV!" /v Enabled /t REG_DWORD /d 0 /f >nul
-        reg add "!KEY_DEF_CDM!" /v ContentDeliveryAllowed /t REG_DWORD /d 0 /f >nul
-        reg add "!KEY_DEF_CDM!" /v SoftLandingEnabled /t REG_DWORD /d 0 /f >nul
-        reg add "!KEY_DEF_POLICY!\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f >nul
-        reg add "!KEY_DEF_POLICY!\Windows Error Reporting" /v DoNotSendAdditionalData /t REG_DWORD /d 1 /f >nul
-        reg add "!KEY_DEF_POLICY!\Feeds" /v EnableFeeds /t REG_DWORD /d 0 /f >nul
+        reg add "!KEY_HKLM_DEF_PRIV!" /v TailoredExperiencesWithDiagnosticDataEnabled /t REG_DWORD /d 0 /f >nul
+        reg add "!KEY_HKLM_DEF_ADV!" /v Enabled /t REG_DWORD /d 0 /f >nul
+        reg add "!KEY_HKLM_DEF_CDM!" /v ContentDeliveryAllowed /t REG_DWORD /d 0 /f >nul
+        reg add "!KEY_HKLM_DEF_CDM!" /v SoftLandingEnabled /t REG_DWORD /d 0 /f >nul
+        reg add "!KEY_HKLM_DEF_POLICY!\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f >nul
+        reg add "!KEY_HKLM_DEF_POLICY!\Windows Error Reporting" /v DoNotSendAdditionalData /t REG_DWORD /d 1 /f >nul
+        reg add "!KEY_HKLM_DEF_POLICY!\Feeds" /v EnableFeeds /t REG_DWORD /d 0 /f >nul
 
-        set "KEY_DEF_INPUT=HKLM\TEMP_DEFAULT\Software\Microsoft\InputPersonalization"
-        set "KEY_DEF_INPUT_TR=HKLM\TEMP_DEFAULT\Software\Microsoft\InputPersonalization\TrainedDataStore"
+        set "KEY_HKLM_DEF_INPUT_PERS=HKLM\TEMP_DEFAULT\Software\Microsoft\InputPersonalization"
+        set "KEY_HKLM_DEF_INPUT_TR=HKLM\TEMP_DEFAULT\Software\Microsoft\InputPersonalization\TrainedDataStore"
 
-        reg add "!KEY_DEF_INPUT!" /v RestrictImplicitTextCollection /t REG_DWORD /d 1 /f >nul
-        reg add "!KEY_DEF_INPUT!" /v RestrictImplicitInkCollection /t REG_DWORD /d 1 /f >nul
-        reg add "!KEY_DEF_INPUT_TR!" /v HarvestedWords /t REG_DWORD /d 0 /f >nul
+        reg add "!KEY_HKLM_DEF_INPUT_PERS!" /v RestrictImplicitTextCollection /t REG_DWORD /d 1 /f >nul
+        reg add "!KEY_HKLM_DEF_INPUT_PERS!" /v RestrictImplicitInkCollection /t REG_DWORD /d 1 /f >nul
+        reg add "!KEY_HKLM_DEF_INPUT_TR!" /v HarvestedWords /t REG_DWORD /d 0 /f >nul
 
         :: Mandatory clean unload
         reg unload "HKLM\TEMP_DEFAULT" >nul

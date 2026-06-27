@@ -20,26 +20,41 @@ if !errorLevel! neq 0 (
 )
 
 :: ======================
-@echo [INFO] Applying Machine Policy layers...
+@echo [INFO] Applying Machine Policy layers
 
-set "MAIN_KEY=HKLM\SOFTWARE\Policies\Microsoft\Windows"
 set "KEY_MS=HKLM\SOFTWARE\Policies\Microsoft"
 
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\AdvertisingInfo" /v DisabledByGroupPolicy /t REG_DWORD /d 1 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\CloudContent" /v DisableWindowsConsumerFeatures /t REG_DWORD /d 1 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\System" /v PublishUserActivities /t REG_DWORD /d 0 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\System" /v UploadUserActivities /t REG_DWORD /d 0 /f >nul
+:: https://learn.microsoft.com/ru-ru/windows/client-management/mdm/policy-csp-privacy
+"%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\AdvertisingInfo" /v DisabledByGroupPolicy /t REG_DWORD /d 1 /f >nul
+:: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-experience
+"%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\CloudContent" /v DisableTailoredExperiencesWithDiagnosticData /t REG_DWORD /d 1 /f >nul
+:: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-experience
+"%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\CloudContent" /v DisableWindowsConsumerFeatures /t REG_DWORD /d 1 /f >nul
+:: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-system
+"%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul
+:: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-experience
+"%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\DataCollection" /v DoNotShowFeedbackNotifications /t REG_DWORD /d 1 /f >nul
+:: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-privacy
+"%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\System" /v PublishUserActivities /t REG_DWORD /d 0 /f >nul
+:: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-privacy
+"%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\System" /v UploadUserActivities /t REG_DWORD /d 0 /f >nul
+:: https://winitpro.ru/index.php/2017/12/19/sluzhba-windows-error-reporting-i-ochistka-kataloga-werreportqueue-v-windows/
+"%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f >nul
+:: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-errorreporting
+"%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\Windows Error Reporting" /v DoNotSendAdditionalData /t REG_DWORD /d 1 /f >nul
+:: https://learn.microsoft.com/ru-ru/windows/client-management/mdm/policy-csp-privacy
+"%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\InputPersonalization" /v AllowInputPersonalization /t REG_DWORD /d 0 /f >nul
 
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\DeliveryOptimization" /v SendLogs /t REG_DWORD /d 0 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\Feeds" /v EnableFeeds /t REG_DWORD /d 0 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\Windows Error Reporting" /v DoNotSendAdditionalData /t REG_DWORD /d 1 /f >nul
+:: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-search
+"%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\Windows Search" /v AllowSearchToUseLocation /t REG_DWORD /d 0 /f
+"%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\Windows Search" /v ConnectedSearchUseWeb /t REG_DWORD /d 0 /f
 
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\DeviceHealthAttribution" /v EnableDeviceHealthAttribution /t REG_DWORD /d 0 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%MAIN_KEY%\InputPersonalization" /v AllowInputPersonalization /t REG_DWORD /d 0 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows NT\CurrentVersion\Software Protection Platform" /v NoGenSqm /t REG_DWORD /d 1 /f >nul
-"%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows NT\Remote Assistance" /v NoRemoteAssistance /t REG_DWORD /d 1 /f >nul
+:: TODO: The following cannot be proven, no mentioning in learn.microsoft.com !!!
+:: "%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\Windows Search" /v DisableWebSearch /t REG_DWORD /d 1 /f
+:: "%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\Feeds" /v EnableFeeds /t REG_DWORD /d 0 /f >nul
+:: "%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows\DeviceHealthAttribution" /v EnableDeviceHealthAttribution /t REG_DWORD /d 0 /f >nul
+:: "%SystemRoot%\System32\reg.exe" add "%KEY_MS%\Windows NT\CurrentVersion\Software Protection Platform" /v NoGenSqm /t REG_DWORD /d 1 /f >nul
+
 
 :: ======================
 @echo [INFO] Service Control Layer

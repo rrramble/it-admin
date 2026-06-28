@@ -21,35 +21,35 @@ if !errorLevel! neq 0 (
 :: ======================
 @echo [INFO] Applying Machine Policy layers
 
-set "KEY_HKLM_MS=HKLM\SOFTWARE\Policies\Microsoft"
+set "KEY_HKLM_MS=HKLM\SOFTWARE\Policies\Microsoft\Windows"
 
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-textinput
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\TextInput" /v "AllowLinguisticDataCollection" /t REG_DWORD /d 0 /f
 
 :: https://learn.microsoft.com/ru-ru/windows/client-management/mdm/policy-csp-privacy
-reg add "%KEY_HKLM_MS%\Windows\AdvertisingInfo" /v DisabledByGroupPolicy /t REG_DWORD /d 1 /f >nul
+reg add "%KEY_HKLM_MS%\AdvertisingInfo" /v DisabledByGroupPolicy /t REG_DWORD /d 1 /f >nul
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-experience
-reg add "%KEY_HKLM_MS%\Windows\CloudContent" /v DisableTailoredExperiencesWithDiagnosticData /t REG_DWORD /d 1 /f >nul
+reg add "%KEY_HKLM_MS%\CloudContent" /v DisableTailoredExperiencesWithDiagnosticData /t REG_DWORD /d 1 /f >nul
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-experience
-reg add "%KEY_HKLM_MS%\Windows\CloudContent" /v DisableWindowsConsumerFeatures /t REG_DWORD /d 1 /f >nul
+reg add "%KEY_HKLM_MS%\CloudContent" /v DisableWindowsConsumerFeatures /t REG_DWORD /d 1 /f >nul
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-system
-reg add "%KEY_HKLM_MS%\Windows\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul
+reg add "%KEY_HKLM_MS%\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-experience
-reg add "%KEY_HKLM_MS%\Windows\DataCollection" /v DoNotShowFeedbackNotifications /t REG_DWORD /d 1 /f >nul
+reg add "%KEY_HKLM_MS%\DataCollection" /v DoNotShowFeedbackNotifications /t REG_DWORD /d 1 /f >nul
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-privacy
-reg add "%KEY_HKLM_MS%\Windows\System" /v PublishUserActivities /t REG_DWORD /d 0 /f >nul
+reg add "%KEY_HKLM_MS%\System" /v PublishUserActivities /t REG_DWORD /d 0 /f >nul
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-privacy
-reg add "%KEY_HKLM_MS%\Windows\System" /v UploadUserActivities /t REG_DWORD /d 0 /f >nul
+reg add "%KEY_HKLM_MS%\System" /v UploadUserActivities /t REG_DWORD /d 0 /f >nul
 :: https://winitpro.ru/index.php/2017/12/19/sluzhba-windows-error-reporting-i-ochistka-kataloga-werreportqueue-v-windows/
-reg add "%KEY_HKLM_MS%\Windows\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f >nul
+reg add "%KEY_HKLM_MS%\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f >nul
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-errorreporting
-reg add "%KEY_HKLM_MS%\Windows\Windows Error Reporting" /v DoNotSendAdditionalData /t REG_DWORD /d 1 /f >nul
+reg add "%KEY_HKLM_MS%\Windows Error Reporting" /v DoNotSendAdditionalData /t REG_DWORD /d 1 /f >nul
 :: https://learn.microsoft.com/ru-ru/windows/client-management/mdm/policy-csp-privacy
-reg add "%KEY_HKLM_MS%\Windows\InputPersonalization" /v AllowInputPersonalization /t REG_DWORD /d 0 /f >nul
+reg add "%KEY_HKLM_MS%\InputPersonalization" /v AllowInputPersonalization /t REG_DWORD /d 0 /f >nul
 
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-search
-reg add "%KEY_HKLM_MS%\Windows\Windows Search" /v AllowSearchToUseLocation /t REG_DWORD /d 0 /f
-reg add "%KEY_HKLM_MS%\Windows\Windows Search" /v ConnectedSearchUseWeb /t REG_DWORD /d 0 /f
+reg add "%KEY_HKLM_MS%\Windows Search" /v AllowSearchToUseLocation /t REG_DWORD /d 0 /f
+reg add "%KEY_HKLM_MS%\Windows Search" /v ConnectedSearchUseWeb /t REG_DWORD /d 0 /f
 
 :: ======================
 @echo [INFO] Service Control Layer

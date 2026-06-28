@@ -44,8 +44,6 @@ reg add "%KEY_HKLM_MS%\System" /v PublishUserActivities /t REG_DWORD /d 0 /f >nu
 reg add "%KEY_HKLM_MS%\System" /v UploadUserActivities /t REG_DWORD /d 0 /f >nul
 :: https://winitpro.ru/index.php/2017/12/19/sluzhba-windows-error-reporting-i-ochistka-kataloga-werreportqueue-v-windows/
 reg add "%KEY_HKLM_MS%\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f >nul
-:: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-errorreporting
-reg add "%KEY_HKLM_MS%\Windows Error Reporting" /v DoNotSendAdditionalData /t REG_DWORD /d 1 /f >nul
 :: https://learn.microsoft.com/ru-ru/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services
 reg add "%KEY_HKLM_MS%\Windows Feeds" /v EnableFeeds /t REG_DWORD /d 0 /f
 

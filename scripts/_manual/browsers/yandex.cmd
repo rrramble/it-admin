@@ -14,7 +14,7 @@ chcp 65001
 
 @echo Verifying Administrator privileges
 fltmc >nul 2>&1
-if %errorLevel% neq 0 (
+if errorLevel 1 (
     echo [ERROR] This script must be run as an Administrator!
     exit /b 1
 )

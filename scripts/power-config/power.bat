@@ -22,7 +22,7 @@ chcp 65001
 
 @echo Verifying Administrator privileges
 fltmc >nul 2>&1
-if %errorLevel% neq 0 (
+if errorLevel 1 (
     echo [ERROR] This script must be run as an Administrator!
     exit /b 1
 )
@@ -30,7 +30,7 @@ if %errorLevel% neq 0 (
 :: ===========================
 @echo Checking if the target power scheme exists and recreating if missing
 powercfg /list | findstr /i "%SCHEME_GUID%" >nul 2>&1
-if %errorLevel% neq 0 (
+if errorLevel 1 (
     @echo [WARNING] Power scheme %SCHEME_GUID% was missing. Re-importing factory default blueprint.
     powercfg /duplicatescheme %SCHEME_GUID% >nul
 )

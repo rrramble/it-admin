@@ -48,13 +48,6 @@ reg add "%KEY_HKLM_MS%\Windows\InputPersonalization" /v AllowInputPersonalizatio
 reg add "%KEY_HKLM_MS%\Windows\Windows Search" /v AllowSearchToUseLocation /t REG_DWORD /d 0 /f
 reg add "%KEY_HKLM_MS%\Windows\Windows Search" /v ConnectedSearchUseWeb /t REG_DWORD /d 0 /f
 
-:: TODO: The following cannot be proven, no mentioning in learn.microsoft.com !!!
-:: reg add "%KEY_HKLM_MS%\Windows\Windows Search" /v DisableWebSearch /t REG_DWORD /d 1 /f
-:: reg add "%KEY_HKLM_MS%\Windows\Feeds" /v EnableFeeds /t REG_DWORD /d 0 /f >nul
-:: reg add "%KEY_HKLM_MS%\Windows\DeviceHealthAttribution" /v EnableDeviceHealthAttribution /t REG_DWORD /d 0 /f >nul
-:: reg add "%KEY_HKLM_MS%\Windows NT\CurrentVersion\Software Protection Platform" /v NoGenSqm /t REG_DWORD /d 1 /f >nul
-
-
 :: ======================
 @echo [INFO] Service Control Layer
 call :ManageService "DiagTrack"

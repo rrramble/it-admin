@@ -83,15 +83,12 @@ if exist "%DEFAULT_HIVE%" (
     reg load "HKLM\TEMP_DEFAULT" "%DEFAULT_HIVE%" >nul 2>&1
     if !errorLevel! equ 0 (
         :: Wrapped inside a conditional block ensuring execution occurs only when loaded successfully
-        set   "KEY_HKLM_DEF_PRIV=HKLM\TEMP_DEFAULT\Software\Microsoft\Windows\CurrentVersion\Privacy"
-        set    "KEY_HKLM_DEF_ADV=HKLM\TEMP_DEFAULT\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo"
-        set    "KEY_HKLM_DEF_CDM=HKLM\TEMP_DEFAULT\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
+        set "KEY_HKLM_MS_WIN_CURR_VERS=HKLM\TEMP_DEFAULT\Software\Microsoft\Windows\CurrentVersion"
         set "KEY_HKLM_DEF_POLICY=HKLM\TEMP_DEFAULT\Software\Policies\Microsoft\Windows"
 
-        reg add "!KEY_HKLM_DEF_PRIV!" /v TailoredExperiencesWithDiagnosticDataEnabled /t REG_DWORD /d 0 /f >nul
-        reg add "!KEY_HKLM_DEF_ADV!" /v Enabled /t REG_DWORD /d 0 /f >nul
-        reg add "!KEY_HKLM_DEF_CDM!" /v ContentDeliveryAllowed /t REG_DWORD /d 0 /f >nul
-        reg add "!KEY_HKLM_DEF_CDM!" /v SoftLandingEnabled /t REG_DWORD /d 0 /f >nul
+        reg add "!KEY_HKLM_MS_WIN_CURR_VERS!\Privacy" /v TailoredExperiencesWithDiagnosticDataEnabled /t REG_DWORD /d 0 /f >nul
+        reg add "!KEY_HKLM_MS_WIN_CURR_VERS!\AdvertisingInfo" /v Enabled /t REG_DWORD /d 0 /f >nul
+        reg add "!KEY_HKLM_MS_WIN_CURR_VERS!\ContentDeliveryManager" /v ContentDeliveryAllowed /t REG_DWORD /d 0 /f >nul
         reg add "!KEY_HKLM_DEF_POLICY!\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f >nul
         reg add "!KEY_HKLM_DEF_POLICY!\Windows Error Reporting" /v DoNotSendAdditionalData /t REG_DWORD /d 1 /f >nul
         reg add "!KEY_HKLM_DEF_POLICY!\Feeds" /v EnableFeeds /t REG_DWORD /d 0 /f >nul

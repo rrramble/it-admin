@@ -81,22 +81,19 @@ if exist "%DEFAULT_HIVE%" (
     reg load "HKLM\TEMP_DEFAULT" "%DEFAULT_HIVE%" >nul 2>&1
     if !errorLevel! equ 0 (
         :: Wrapped inside a conditional block ensuring execution occurs only when loaded successfully
-        set "KEY_HKLM_MS_WIN_CURR_VERS=HKLM\TEMP_DEFAULT\Software\Microsoft\Windows\CurrentVersion"
         set "KEY_HKLM_DEF_POLICY=HKLM\TEMP_DEFAULT\Software\Policies\Microsoft\Windows"
+        set "KEY_HKLM_MS_WIN_CURR_VERS=HKLM\TEMP_DEFAULT\Software\Microsoft\Windows\CurrentVersion"
+        set "KEY_HKLM_DEF_INPUT_PERS=HKLM\TEMP_DEFAULT\Software\Microsoft\InputPersonalization"
 
-        :: PARTLY! https://learn.microsoft.com/ru-ru/windows/client-management/mdm/policy-csp-privacy
-        reg add "!KEY_HKLM_MS_WIN_CURR_VERS!\AdvertisingInfo" /v Enabled /t REG_DWORD /d 0 /f >nul
         :: https://learn.microsoft.com/ru-ru/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services
         reg add "!KEY_HKLM_DEF_POLICY!\Windows Feeds" /v EnableFeeds /t REG_DWORD /d 0 /f >nul
         :: PARTLY! https://learn.microsoft.com/en-us/troubleshoot/windows-client/system-management-components/windows-error-reporting-diagnostics-enablement-guidance
         reg add "!KEY_HKLM_DEF_POLICY!\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f >nul
-
-        set "KEY_HKLM_DEF_INPUT_PERS=HKLM\TEMP_DEFAULT\Software\Microsoft\InputPersonalization"
-        set "KEY_HKLM_DEF_INPUT_TR=HKLM\TEMP_DEFAULT\Software\Microsoft\InputPersonalization\TrainedDataStore"
-
+        :: PARTLY! https://learn.microsoft.com/ru-ru/windows/client-management/mdm/policy-csp-privacy
+        reg add "!KEY_HKLM_MS_WIN_CURR_VERS!\AdvertisingInfo" /v Enabled /t REG_DWORD /d 0 /f >nul
+        :: PARTLY! https://learn.microsoft.com/en-us/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services
         reg add "!KEY_HKLM_DEF_INPUT_PERS!" /v RestrictImplicitTextCollection /t REG_DWORD /d 1 /f >nul
         reg add "!KEY_HKLM_DEF_INPUT_PERS!" /v RestrictImplicitInkCollection /t REG_DWORD /d 1 /f >nul
-        reg add "!KEY_HKLM_DEF_INPUT_TR!" /v HarvestedWords /t REG_DWORD /d 0 /f >nul
 
         :: Mandatory clean unload
         reg unload "HKLM\TEMP_DEFAULT" >nul

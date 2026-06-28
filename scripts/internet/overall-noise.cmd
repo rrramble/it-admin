@@ -84,9 +84,9 @@ if exist "%DEFAULT_HIVE%" (
         set "KEY_HKLM_MS_WIN_CURR_VERS=HKLM\TEMP_DEFAULT\Software\Microsoft\Windows\CurrentVersion"
         set "KEY_HKLM_DEF_POLICY=HKLM\TEMP_DEFAULT\Software\Policies\Microsoft\Windows"
 
-        reg add "!KEY_HKLM_MS_WIN_CURR_VERS!\Privacy" /v TailoredExperiencesWithDiagnosticDataEnabled /t REG_DWORD /d 0 /f >nul
+        :: PARTLY! https://learn.microsoft.com/ru-ru/windows/client-management/mdm/policy-csp-privacy
         reg add "!KEY_HKLM_MS_WIN_CURR_VERS!\AdvertisingInfo" /v Enabled /t REG_DWORD /d 0 /f >nul
-        reg add "!KEY_HKLM_MS_WIN_CURR_VERS!\ContentDeliveryManager" /v ContentDeliveryAllowed /t REG_DWORD /d 0 /f >nul
+        :: PARTLY! https://learn.microsoft.com/en-us/troubleshoot/windows-client/system-management-components/windows-error-reporting-diagnostics-enablement-guidance
         reg add "!KEY_HKLM_DEF_POLICY!\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f >nul
         reg add "!KEY_HKLM_DEF_POLICY!\Windows Error Reporting" /v DoNotSendAdditionalData /t REG_DWORD /d 1 /f >nul
         reg add "!KEY_HKLM_DEF_POLICY!\Feeds" /v EnableFeeds /t REG_DWORD /d 0 /f >nul

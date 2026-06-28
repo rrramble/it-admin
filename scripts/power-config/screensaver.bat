@@ -9,7 +9,7 @@ setlocal EnableDelayedExpansion
 :: Restrict PATH variable to secure system binaries to prevent binary hijacking
 set "PATH=%SystemRoot%\System32;%SystemRoot%;%SystemRoot%\System32\Wbem"
 
-set "SCREENSAVER_TIMEOUT_SEC=1800"
+set "SCREENSAVER_TIMEOUT_SEC=1200"
 
 chcp 65001
 

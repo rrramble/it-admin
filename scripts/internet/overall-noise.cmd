@@ -46,6 +46,8 @@ reg add "%KEY_HKLM_MS%\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f
 reg add "%KEY_HKLM_MS%\Windows Error Reporting" /v DoNotSendAdditionalData /t REG_DWORD /d 1 /f >nul
 :: https://learn.microsoft.com/ru-ru/windows/client-management/mdm/policy-csp-privacy
 reg add "%KEY_HKLM_MS%\InputPersonalization" /v AllowInputPersonalization /t REG_DWORD /d 0 /f >nul
+:: https://learn.microsoft.com/ru-ru/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services
+reg add "%KEY_HKLM_MS%\Windows Feeds" /v EnableFeeds /t REG_DWORD /d 0 /f
 
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-search
 reg add "%KEY_HKLM_MS%\Windows Search" /v AllowSearchToUseLocation /t REG_DWORD /d 0 /f

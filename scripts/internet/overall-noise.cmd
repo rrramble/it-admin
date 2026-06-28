@@ -61,19 +61,13 @@ call :ManageService "WerSvc"
 
 :: ======================
 @echo [INFO] Current User Layer (HKCU)
-set "KEY_HKCU_PRIVACY=HKCU\Software\Microsoft\Windows\CurrentVersion\Privacy"
-set "KEY_HKCU_ADVERTIZING=HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo"
-set "KEY_HKCU_CDM=HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
-set "KEY_HKCU_INPUT_PERS=HKCU\Software\Microsoft\InputPersonalization"
-set "KEY_HKCU_INPUT_TRAIN=HKCU\Software\Microsoft\InputPersonalization\TrainedDataStore"
+set "KEY_HKCU_MS_WIN_CURR=HKCU\Software\Microsoft\Windows\CurrentVersion"
+set "KEY_HKCU_MS_INP_PERS=HKCU\Software\Microsoft\InputPersonalization"
 
-reg add "%KEY_HKCU_PRIVACY%" /v TailoredExperiencesWithDiagnosticDataEnabled /t REG_DWORD /d 0 /f >nul
-reg add "%KEY_HKCU_ADVERTIZING%" /v Enabled /t REG_DWORD /d 0 /f >nul
-reg add "%KEY_HKCU_CDM%" /v ContentDeliveryAllowed /t REG_DWORD /d 0 /f >nul
-reg add "%KEY_HKCU_CDM%" /v SoftLandingEnabled /t REG_DWORD /d 0 /f >nul
-reg add "%KEY_HKCU_INPUT_PERS%" /v RestrictImplicitTextCollection /t REG_DWORD /d 1 /f >nul
-reg add "%KEY_HKCU_INPUT_PERS%" /v RestrictImplicitInkCollection /t REG_DWORD /d 1 /f >nul
-reg add "%KEY_HKCU_INPUT_TRAIN%" /v HarvestedWords /t REG_DWORD /d 0 /f >nul
+:: https://learn.microsoft.com/en-us/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services
+reg add "%KEY_HKCU_MS_INP_PERS%" /v RestrictImplicitTextCollection /t REG_DWORD /d 1 /f >nul
+:: https://learn.microsoft.com/en-us/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services
+reg add "%KEY_HKCU_MS_INP_PERS%" /v RestrictImplicitInkCollection /t REG_DWORD /d 1 /f >nul
 
 :: ======================
 @echo [INFO] Default Profile (NTUSER.DAT) enforcement

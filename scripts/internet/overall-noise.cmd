@@ -23,6 +23,9 @@ if !errorLevel! neq 0 (
 
 set "KEY_HKLM_MS=HKLM\SOFTWARE\Policies\Microsoft"
 
+:: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-textinput
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\TextInput" /v "AllowLinguisticDataCollection" /t REG_DWORD /d 0 /f
+
 :: https://learn.microsoft.com/ru-ru/windows/client-management/mdm/policy-csp-privacy
 reg add "%KEY_HKLM_MS%\Windows\AdvertisingInfo" /v DisabledByGroupPolicy /t REG_DWORD /d 1 /f >nul
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-experience

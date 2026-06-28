@@ -36,6 +36,8 @@ reg add "%KEY_HKLM_MS%\CloudContent" /v DisableWindowsConsumerFeatures /t REG_DW
 reg add "%KEY_HKLM_MS%\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-experience
 reg add "%KEY_HKLM_MS%\DataCollection" /v DoNotShowFeedbackNotifications /t REG_DWORD /d 1 /f >nul
+:: https://learn.microsoft.com/ru-ru/windows/client-management/mdm/policy-csp-privacy
+reg add "%KEY_HKLM_MS%\InputPersonalization" /v AllowInputPersonalization /t REG_DWORD /d 0 /f >nul
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-privacy
 reg add "%KEY_HKLM_MS%\System" /v PublishUserActivities /t REG_DWORD /d 0 /f >nul
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-privacy
@@ -44,8 +46,6 @@ reg add "%KEY_HKLM_MS%\System" /v UploadUserActivities /t REG_DWORD /d 0 /f >nul
 reg add "%KEY_HKLM_MS%\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f >nul
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-errorreporting
 reg add "%KEY_HKLM_MS%\Windows Error Reporting" /v DoNotSendAdditionalData /t REG_DWORD /d 1 /f >nul
-:: https://learn.microsoft.com/ru-ru/windows/client-management/mdm/policy-csp-privacy
-reg add "%KEY_HKLM_MS%\InputPersonalization" /v AllowInputPersonalization /t REG_DWORD /d 0 /f >nul
 :: https://learn.microsoft.com/ru-ru/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services
 reg add "%KEY_HKLM_MS%\Windows Feeds" /v EnableFeeds /t REG_DWORD /d 0 /f
 

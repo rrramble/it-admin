@@ -4,7 +4,7 @@ cd /d "%~dp0"
 call no-auto-run.cmd
 
 cd /d "%~dp0"
-call security.bat
+call security.cmd
 
 cd /d "%~dp0"
-call uac.bat
+call uac.cmd

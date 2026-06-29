@@ -2,4 +2,4 @@
 :: instead of "c:\windows\system32"
 cd /d "%~dp0"
 
-call windows-update.bat
+call windows-update.cmd

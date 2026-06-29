@@ -13,7 +13,7 @@ cd /d "%~dp0"
 call no-auto-run/_all.bat
 
 cd /d "%~dp0"
-call power-config/_all.bat
+call power/_all.bat
 
 cd /d "%~dp0"
 call security/_all.bat

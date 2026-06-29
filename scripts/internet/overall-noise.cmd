@@ -49,6 +49,7 @@ reg add "%KEY_HKLM_MS%\Windows Feeds" /v EnableFeeds /t REG_DWORD /d 0 /f
 
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-search
 reg add "%KEY_HKLM_MS%\Windows Search" /v AllowSearchToUseLocation /t REG_DWORD /d 0 /f
+    :: the following does not affect Windows Professional
 reg add "%KEY_HKLM_MS%\Windows Search" /v ConnectedSearchUseWeb /t REG_DWORD /d 0 /f
 
 :: ======================

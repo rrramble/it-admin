@@ -1,0 +1,12 @@
+{
+  "auto_install": [
+    {
+      "image": "/win10_22h2_english_x64v1.iso",
+      "template": "/autounattend_en.xml"
+    },
+    {
+      "image": "/win11_25h2_english_x64v2.iso",
+      "template": "/autounattend_en.xml"
+    }
+  ]
+}

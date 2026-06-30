@@ -3,6 +3,12 @@
 :: ==============================================================
 
 :: Command ID, mask, Descripiton
+:: 4, 4, "Extract to "<Folder>"
+:: 6, 256, Add to archive...
+:: 10, 4096 Add to "<Name>.zip"
+
+:: TODO: this was the original table suggested by Gemini+ChatGPT - and it is WRONG!:
+:: Command ID, mask, Descripiton
 :: 0, 1, Open archive
 :: 1, 2, Open archive (as ...)
 :: 2, 4, Extract files...
@@ -38,8 +44,11 @@ if !errorLevel! neq 0 (
 )
 
 :: ======================
-:: Calculate
-set /a "CUSTOM_NATIVE_MENU=16+1024+65536"
+:: Variables
+set /a "CUSTOM_NATIVE_MENU=4+256+4096"
+
+:: ======================
+:: Make the context menu
 reg add "HKCU\Software\7-Zip\Options" /v "ContextMenu" /t REG_DWORD /d %CUSTOM_NATIVE_MENU% /f
 
 :: ======================

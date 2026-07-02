@@ -29,13 +29,13 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "Scr
 :: ======================
 @echo 2: Injects screensaver and lock policies into the Default User profile template
 reg load HKLM\TempDefaultProfile "C:\Users\Default\NTUSER.DAT" >nul 2>&1
-if %errorLevel% == 0 (
+if errorLevel 1 (
+    echo [WARNING] Could not load Default User NTUSER.DAT template.
+) else (
     reg add "HKLM\TempDefaultProfile\Control Panel\Desktop" /v "ScreenSaverActive" /t REG_SZ /d "1" /f >nul
     reg add "HKLM\TempDefaultProfile\Control Panel\Desktop" /v "ScreenSaveTimeOut" /t REG_SZ /d "%SCREENSAVER_TIMEOUT_SEC%" /f >nul
     reg add "HKLM\TempDefaultProfile\Control Panel\Desktop" /v "ScreenSaverIsSecure" /t REG_SZ /d "1" /f >nul
     reg unload HKLM\TempDefaultProfile >nul
-) else (
-    echo [WARNING] Could not load Default User NTUSER.DAT template.
 )
 
 :: ======================

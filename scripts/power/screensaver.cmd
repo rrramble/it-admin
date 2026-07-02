@@ -1,5 +1,6 @@
 :: ==============================================================
-:: Screensaver and Screen-lock
+:: REMOVES Screensaver-related registry settings
+:: because the `Screen Lock` policy is used instead (see the `Security` section)
 :: ==============================================================
 
 :: ======================
@@ -8,8 +9,6 @@ setlocal EnableDelayedExpansion
 
 :: Restrict PATH variable to secure system binaries to prevent binary hijacking
 set "PATH=%SystemRoot%\System32;%SystemRoot%;%SystemRoot%\System32\Wbem"
-
-set "SCREENSAVER_TIMEOUT_SEC=1200"
 
 chcp 65001
 
@@ -21,27 +20,27 @@ if errorLevel 1 (
 )
 
 :: ======================
-@echo 1. Enforces screensaver timeout and password resume system-wide
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaverActive" /t REG_SZ /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaveTimeOut" /t REG_SZ /d "%SCREENSAVER_TIMEOUT_SEC%" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaverIsSecure" /t REG_SZ /d "1" /f
+@echo 1. Screensaver timeout and lock - main settings
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaverActive" /f >nul 2>&1
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaveTimeOut" /f >nul 2>&1
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaverIsSecure" /f >nul 2>&1
 
 :: ======================
-@echo 2: Injects screensaver and lock policies into the Default User profile template
+@echo 2: Screensaver and lock inside the Default User profile template
 reg load HKLM\TempDefaultProfile "C:\Users\Default\NTUSER.DAT" >nul 2>&1
 if errorLevel 1 (
     echo [WARNING] Could not load Default User NTUSER.DAT template.
 ) else (
-    reg add "HKLM\TempDefaultProfile\Control Panel\Desktop" /v "ScreenSaverActive" /t REG_SZ /d "1" /f >nul
-    reg add "HKLM\TempDefaultProfile\Control Panel\Desktop" /v "ScreenSaveTimeOut" /t REG_SZ /d "%SCREENSAVER_TIMEOUT_SEC%" /f >nul
-    reg add "HKLM\TempDefaultProfile\Control Panel\Desktop" /v "ScreenSaverIsSecure" /t REG_SZ /d "1" /f >nul
+    reg delete "HKLM\TempDefaultProfile\Control Panel\Desktop" /v "ScreenSaverActive" /f >nul 2>&1
+    reg delete "HKLM\TempDefaultProfile\Control Panel\Desktop" /v "ScreenSaveTimeOut" /f >nul 2>&1
+    reg delete "HKLM\TempDefaultProfile\Control Panel\Desktop" /v "ScreenSaverIsSecure" /f >nul 2>&1
     reg unload HKLM\TempDefaultProfile >nul
 )
 
 :: ======================
-@echo 3. Injects screensaver and lock policies into all existing and active user profiles
+@echo 3. Screensaver and lock inside all existing and active user profiles
 for /f "tokens=1,2 delims=\" %%a in ('reg query HKEY_USERS ^| findstr /r /c:"S-1-5-21-[0-9\-]*$"') do (
-    reg add "HKU\%%b\Control Panel\Desktop" /v "ScreenSaverActive" /t REG_SZ /d "1" /f >nul
-    reg add "HKU\%%b\Control Panel\Desktop" /v "ScreenSaveTimeOut" /t REG_SZ /d "%SCREENSAVER_TIMEOUT_SEC%" /f >nul
-    reg add "HKU\%%b\Control Panel\Desktop" /v "ScreenSaverIsSecure" /t REG_SZ /d "1" /f >nul
+    reg delete "HKU\%%b\Control Panel\Desktop" /v "ScreenSaverActive" /f >nul 2>&1
+    reg delete "HKU\%%b\Control Panel\Desktop" /v "ScreenSaveTimeOut" /f >nul 2>&1
+    reg delete "HKU\%%b\Control Panel\Desktop" /v "ScreenSaverIsSecure" /f >nul 2>&1
 )

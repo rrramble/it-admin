@@ -55,7 +55,7 @@ powercfg /change standby-timeout-ac 0
 powercfg /change standby-timeout-dc 30
 
 :: ===========================
-@echo 5. Hibernate timeout for AC and DC (disable, command in minutes)
+@echo 5. Hibernate timeout for AC and DC (disable, time in minutes)
 powercfg /change hibernate-timeout-ac 0
 powercfg /change hibernate-timeout-dc 240
 powercfg /hibernate off

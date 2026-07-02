@@ -49,7 +49,7 @@ powercfg /change monitor-timeout-ac 120
 powercfg /change monitor-timeout-dc 30
 
 :: ===========================
-@echo Disable modern S0-sleep (due to instability), use the legacy S3-sleep
+@echo Suggest using legacy S3-sleep, avoid modern S0-sleep due to instability
 @echo [WARNING] *** This setting should be supported by BIOS settings ***
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v PlatformAoAcOverride /t REG_DWORD /d 0 /f
 
@@ -72,8 +72,10 @@ powercfg /hibernate off
 :: ===========================
 @echo CPU minimum and maximum processor state (in %)
 :: 54533251-82be-4824-96c1-47b60b740d00 - GUID Processor settings subroup
-:: 893dee8e-2bef-41e0-89c6-b55d0929964c - Minimum CPU state
+:: 36687f9e-e3a5-4dbf-b1dc-15eb381c6863 - Energy-saving Preference
 :: bc5038f7-23e0-4960-96da-33abaf5935ec - Maximum CPU state
+:: Legacy control, modern CPUs may partially ignore min state:
+:: 893dee8e-2bef-41e0-89c6-b55d0929964c - Minimum CPU state
 
 @echo AC
 powercfg /setacvalueindex %SCHEME_GUID% 54533251-82be-4824-96c1-47b60b740d00 893dee8e-2bef-41e0-89c6-b55d0929964c 50

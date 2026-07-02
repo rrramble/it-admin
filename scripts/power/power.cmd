@@ -71,6 +71,11 @@ powercfg /change hibernate-timeout-ac 0
 powercfg /change hibernate-timeout-dc 240
 powercfg /hibernate off
 
+:: Disable Hybrid sleep
+:: (should follow `hibernate` state)
+powercfg /setacvalueindex %SCHEME_GUID% SUB_SLEEP HYBRIDSLEEP 0
+powercfg /setdcvalueindex %SCHEME_GUID% SUB_SLEEP HYBRIDSLEEP 0
+
 :: ===========================
 @echo CPU minimum and maximum processor state (in %)
 :: 54533251-82be-4824-96c1-47b60b740d00 - GUID Processor settings subroup

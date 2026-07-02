@@ -19,9 +19,12 @@ if errorLevel 1 (
     exit /b 1
 )
 
-:: Check if Mozilla Firefox is currently running
+:: ======================
+:: Check if Firefox is currently running
 tasklist /fi "IMAGENAME eq firefox.exe" 2>nul | findstr /i "firefox.exe" >nul
-if %errorLevel% eq 0 (
+if errorLevel 1 (
+    @REM An empty block
+) else (
     echo [WARNING] Mozilla Firefox is currently running!
     echo [ABORT] Script stopped to prevent data loss. Close Firefox and try again.
     pause

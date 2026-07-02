@@ -59,6 +59,12 @@ powercfg /setacvalueindex %SCHEME_GUID% 2a737441-1930-4402-8d77-b2bebba308a3 3b0
 powercfg /setdcvalueindex %SCHEME_GUID% 2a737441-1930-4402-8d77-b2bebba308a3 3b04d4fd-1cc7-4f23-ab1c-d1337819c4bb 0
 
 :: ===========================
+:: Wake-capable devices enforcement
+for /f "tokens=*" %%i in ('powercfg -devicequery wake_programmable') do (
+    powercfg /deviceenablewake "%%i"
+)
+
+:: ===========================
 @echo Sleep for AC and DC modes (time in minutes, 0 - always on)
 powercfg /change standby-timeout-ac 0
 powercfg /change standby-timeout-dc 30

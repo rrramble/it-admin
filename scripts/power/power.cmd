@@ -36,45 +36,45 @@ if errorLevel 1 (
 )
 
 :: ===========================
-@echo 1. Activate the power scheme
+@echo Activate the power scheme
 powercfg /setactive %SCHEME_GUID%
 
 :: ===========================
-@echo 2. Timeout of switching off the display - AC and DC (in minutes)
+@echo Timeout of switching off the display - AC and DC (in minutes)
 powercfg /change monitor-timeout-ac 120
 powercfg /change monitor-timeout-dc 30
 
 :: ===========================
-@echo 3. USB selective suspend AC and DC (disabled)
+@echo USB selective suspend AC and DC (disabled)
 powercfg /setacvalueindex %SCHEME_GUID% 2a737441-1930-4402-8d77-b2bebba308a3 3b04d4fd-1cc7-4f23-ab1c-d1337819c4bb 0
 powercfg /setdcvalueindex %SCHEME_GUID% 2a737441-1930-4402-8d77-b2bebba308a3 3b04d4fd-1cc7-4f23-ab1c-d1337819c4bb 0
 
 :: ===========================
-@echo 4. Sleep for AC and DC modes (time in minutes, 0 - always on)
+@echo Sleep for AC and DC modes (time in minutes, 0 - always on)
 powercfg /change standby-timeout-ac 0
 powercfg /change standby-timeout-dc 30
 
 :: ===========================
-@echo 5. Hibernate timeout for AC and DC (disable, time in minutes)
+@echo Hibernate timeout for AC and DC (disable, time in minutes)
 powercfg /change hibernate-timeout-ac 0
 powercfg /change hibernate-timeout-dc 240
 powercfg /hibernate off
 
 :: ===========================
-@echo 6. CPU minimum and maximum processor state
+@echo CPU minimum and maximum processor state (in %)
 :: 54533251-82be-4824-96c1-47b60b740d00 - GUID Processor settings subroup
 :: 893dee8e-2bef-41e0-89c6-b55d0929964c - Minimum CPU state
 :: bc5038f7-23e0-4960-96da-33abaf5935ec - Maximum CPU state
 
-@echo 6.1. AC (%)
+@echo AC
 powercfg /setacvalueindex %SCHEME_GUID% 54533251-82be-4824-96c1-47b60b740d00 893dee8e-2bef-41e0-89c6-b55d0929964c 50
 powercfg /setacvalueindex %SCHEME_GUID% 54533251-82be-4824-96c1-47b60b740d00 bc5038f7-23e0-4960-96da-33abaf5935ec 100
 
-@echo 6.2. DC (%)
+@echo DC
 powercfg /setdcvalueindex %SCHEME_GUID% 54533251-82be-4824-96c1-47b60b740d00 893dee8e-2bef-41e0-89c6-b55d0929964c 20
 powercfg /setdcvalueindex %SCHEME_GUID% 54533251-82be-4824-96c1-47b60b740d00 bc5038f7-23e0-4960-96da-33abaf5935ec 100
 
 :: ===========================
-@echo 7. Re-activate the power scheme
+@echo Re-activate the power scheme
 :: Should be done to apply the settings (yes, the 2nd time!)
 powercfg /setactive %SCHEME_GUID%

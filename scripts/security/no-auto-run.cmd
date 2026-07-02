@@ -37,13 +37,13 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandler
 :: ==============================================================
 echo 4. Injects AutoRun restrictions into the Default User profile template for future users
 reg load HKLM\TempDefaultProfile "C:\Users\Default\NTUSER.DAT" >nul 2>&1
-if %errorLevel% == 0 (
+if errorLevel 1 (
+    echo [WARNING] Could not load Default User NTUSER.DAT template.
+) else (
     reg add "HKLM\TempDefaultProfile\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoDriveTypeAutoRun" /t REG_DWORD /d 255 /f >nul
     reg add "HKLM\TempDefaultProfile\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoAutorun" /t REG_DWORD /d 1 /f >nul
     reg add "HKLM\TempDefaultProfile\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers" /v "DisableAutoplay" /t REG_DWORD /d 1 /f >nul
     reg unload HKLM\TempDefaultProfile >nul
-) else (
-    echo [WARNING] Could not load Default User NTUSER.DAT template.
 )
 
 :: ==============================================================

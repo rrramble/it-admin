@@ -88,26 +88,19 @@ reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "BlockThirdPartyC
 :: ======================
 :: SEARCH ENGINE AND ADDRESS BAR
 
-:: Enforce only Google and Bing as search providers
-
-:: 1. Force Google as the Default Active Engine
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderName" /t REG_SZ /d "Google" /f
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderSearchURL" /t REG_SZ /d "https://google.com/?q={searchTerms}" /f
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderKeyword" /t REG_SZ /d "google.com" /f
+:: Force search provider usage (Google default)
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderEnabled" /t REG_DWORD /d 1 /f
+reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderName" /t REG_SZ /d "Google" /f
+reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderSearchURL" /t REG_SZ /d "https://www.google.com/search?q={searchTerms}" /f
 
-:: 2. Current User Duplication for Default Engine
-reg add "HKCU\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderName" /t REG_SZ /d "Google" /f
-reg add "HKCU\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderSearchURL" /t REG_SZ /d "https://google.com/?q={searchTerms}" /f
-reg add "HKCU\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderEnabled" /t REG_DWORD /d 1 /f
+:: Only Google and Bing allowed
+reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ManagedSearchEngines" /t REG_SZ /d "[{\"name\":\"Google\",\"keyword\":\"google.com\",\"url\":\"https://www.google.com/search?q={searchTerms}\",\"is_default\":true},{\"name\":\"Bing\",\"keyword\":\"bing.com\",\"url\":\"https://www.bing.com/search?q={searchTerms}\",\"is_default\":false}]" /f
 
-:: 3. Recommended Template (Allows user to switch between Google and Bing manually)
-reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "DefaultSearchProviderName" /t REG_SZ /d "Google" /f
-reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "DefaultSearchProviderSearchURL" /t REG_SZ /d "https://google.com/?q={searchTerms}" /f
+:: Block adding new search engines via UI
+reg add "HKLM\Software\Policies\Microsoft\Edge" /v "EditSearchEnginesEnabled" /t REG_DWORD /d 0 /f
 
-:: 4. Whitelist Only Google and Bing (Deletes/Blocks everything else)
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ManagedSearchEngines" /t REG_SZ /d "[{\"name\":\"Google\",\"keyword\":\"google.com\",\"url\":\"https://google.com/?q={searchTerms}\",\"is_default\":true},{\"name\":\"Bing\",\"keyword\":\"bing.com\",\"url\":\"https://bing.com/search?q={searchTerms}\",\"is_default\":false}]" /f
-reg add "HKCU\Software\Policies\Microsoft\Edge" /v "ManagedSearchEngines" /t REG_SZ /d "[{\"name\":\"Google\",\"keyword\":\"google.com\",\"url\":\"https://google.com/?q={searchTerms}\",\"is_default\":true},{\"name\":\"Bing\",\"keyword\":\"bing.com\",\"url\":\"https://bing.com/search?q={searchTerms}\",\"is_default\":false}]" /f
+:: Prevent per-user (HKCU) override
+reg delete "HKCU\Software\Policies\Microsoft\Edge" /f >nul 2>&1
 
 :: ======================
 :: SYSTEM, HARDWARE, AND PERFORMANCE

@@ -27,7 +27,6 @@ if errorLevel 1 (
 ) else (
     echo [WARNING] Mozilla Firefox is currently running!
     echo [ABORT] Script stopped to prevent data loss. Close Firefox and try again.
-    pause
     exit /b 1
 )
 

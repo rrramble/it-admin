@@ -62,6 +62,8 @@ powercfg /setdcvalueindex %SCHEME_GUID% 2a737441-1930-4402-8d77-b2bebba308a3 3b0
 @echo Sleep for AC and DC modes (time in minutes, 0 - always on)
 powercfg /change standby-timeout-ac 0
 powercfg /change standby-timeout-dc 30
+powercfg /setacvalueindex %SCHEME_GUID% SUB_SLEEP RTCWAKE 1
+powercfg /setdcvalueindex %SCHEME_GUID% SUB_SLEEP RTCWAKE 1
 
 :: ===========================
 @echo Hibernate timeout for AC and DC (disable, time in minutes)

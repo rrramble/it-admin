@@ -26,7 +26,6 @@ if errorLevel 1 (
 ) else (
     echo [WARNING] Google Chrome is currently running!
     echo [ABORT] Script stopped to prevent data loss. Close Chrome and try again.
-    pause
     exit /b 1
 )
 

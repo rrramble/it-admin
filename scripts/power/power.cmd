@@ -28,21 +28,30 @@ if errorLevel 1 (
 )
 
 :: ===========================
-@echo Checking if the target power scheme exists and recreating if missing
+@echo Check if the target power scheme exists
 powercfg /list | findstr /i "%SCHEME_GUID%" >nul 2>&1
 if errorLevel 1 (
-    @echo [WARNING] Power scheme %SCHEME_GUID% was missing. Re-importing factory default blueprint.
-    powercfg /duplicatescheme %SCHEME_GUID% >nul
+    @echo [ERROR] Power scheme %SCHEME_GUID% is missing
+    exit /b 1
 )
 
 :: ===========================
 @echo Activate the power scheme
 powercfg /setactive %SCHEME_GUID%
+if errorLevel 1 (
+    @echo [ERROR] Failed to activate power scheme
+    exit /b 1
+)
 
 :: ===========================
 @echo Timeout of switching off the display - AC and DC (in minutes)
 powercfg /change monitor-timeout-ac 120
 powercfg /change monitor-timeout-dc 30
+
+:: ===========================
+@echo Disable modern S0-sleep (due to instability), use the legacy S3-sleep
+@echo [WARNING] *** This setting should be supported by BIOS settings ***
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v PlatformAoAcOverride /t REG_DWORD /d 0 /f
 
 :: ===========================
 @echo USB selective suspend AC and DC (disabled)

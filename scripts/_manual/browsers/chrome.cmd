@@ -21,7 +21,9 @@ if errorLevel 1 (
 
 :: Check if Google Chrome is currently running
 tasklist /fi "IMAGENAME eq chrome.exe" 2>nul | findstr /i "chrome.exe" >nul
-if %errorLevel% eq 0 (
+if errorLevel 1 (
+    @REM Chrome is not running. Continue running the script.
+) else (
     echo [WARNING] Google Chrome is currently running!
     echo [ABORT] Script stopped to prevent data loss. Close Chrome and try again.
     pause

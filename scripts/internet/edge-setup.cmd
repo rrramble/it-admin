@@ -28,7 +28,6 @@ if !errorLevel! neq 0 (
 
 :: ======================
 :: STARTUP, HOME PAGE, AND NEW TAB
-:: ======================
 
 :: Action on Startup
 :: Options: 1 = Restore last session | 4 = Open a list of URLs | 5 = Open New Tab Page (Default)
@@ -59,7 +58,6 @@ reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "ShowHomeButton" 
 
 :: ======================
 :: PRIVACY, DATA PROTECTION, AND TRACKING
-:: ======================
 
 :: Tracking Prevention Level
 :: Options: 0 = Off | 1 = Basic | 2 = Balanced (Default) | 3 = Strict
@@ -78,67 +76,8 @@ reg add "HKCU\Software\Policies\Microsoft\Edge" /v "ConfigureDoNotTrack" /t REG_
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DiagnosticData" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "DiagnosticData" /t REG_DWORD /d 0 /f
 
-:: Clear Browsing Data on Exit
-:: Options: 0 = Disabled (Default) | 1 = Enabled (Wipes history, cache, cookies on browser close)
-:: This setting is already set as default
-:: reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ClearBrowsingDataOnExit" /t REG_DWORD /d 0 /f
-:: reg add "HKCU\Software\Policies\Microsoft\Edge" /v "ClearBrowsingDataOnExit" /t REG_DWORD /d 0 /f
-:: reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "ClearBrowsingDataOnExit" /t REG_DWORD /d 0 /f
-
-:: Allow InPrivate (Incognito) Browsing
-:: Options: 0 = Enabled (Default) | 1 = Disabled | 2 = Forced (Always InPrivate)
-:: This setting is already set as default
-:: reg add "HKLM\Software\Policies\Microsoft\Edge" /v "InPrivateModeAvailability" /t REG_DWORD /d 0 /f
-:: reg add "HKCU\Software\Policies\Microsoft\Edge" /v "InPrivateModeAvailability" /t REG_DWORD /d 0 /f
-
-
-:: ======================
-:: SECURITY AND SMARTSCREEN
-:: ======================
-
-:: Microsoft Defender SmartScreen
-:: Options: 0 = Disabled | 1 = Enabled (Default)
-:: This setting is already set as default
-:: reg add "HKLM\Software\Policies\Microsoft\Edge" /v "SmartScreenEnabled" /t REG_DWORD /d 1 /f
-:: reg add "HKCU\Software\Policies\Microsoft\Edge" /v "SmartScreenEnabled" /t REG_DWORD /d 1 /f
-:: reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "SmartScreenEnabled" /t REG_DWORD /d 1 /f
-
-:: Block Potentially Unwanted Apps (PUA) via SmartScreen
-:: Options: 0 = Disabled | 1 = Enabled (Default)
-:: This setting is already set as default
-:: reg add "HKLM\Software\Policies\Microsoft\Edge" /v "SmartScreenPuaEnabled" /t REG_DWORD /d 1 /f
-:: reg add "HKCU\Software\Policies\Microsoft\Edge" /v "SmartScreenPuaEnabled" /t REG_DWORD /d 1 /f
-:: reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "SmartScreenPuaEnabled" /t REG_DWORD /d 1 /f
-
-:: Force Minimum TLS Version
-:: Options: "tls1.2" = TLS 1.2 | "tls1.3" = TLS 1.3
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "SupportedTLSMin" /t REG_SZ /d "tls1.2" /f
-reg add "HKCU\Software\Policies\Microsoft\Edge" /v "SupportedTLSMin" /t REG_SZ /d "tls1.2" /f
-
-
 :: ======================
 :: CREDENTIALS, COOKIES, AND AUTOFILL
-:: ======================
-
-:: Save Passwords to Password Manager
-:: Options: 0 = Disabled | 1 = Enabled (Default)
-:: This setting is already set as default
-:: reg add "HKLM\Software\Policies\Microsoft\Edge" /v "PasswordManagerEnabled" /t REG_DWORD /d 1 /f
-:: reg add "HKCU\Software\Policies\Microsoft\Edge" /v "PasswordManagerEnabled" /t REG_DWORD /d 1 /f
-:: reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "PasswordManagerEnabled" /t REG_DWORD /d 1 /f
-
-:: Address Autofill
-:: Options: 0 = Disabled | 1 = Enabled (Default)
-:: This setting is already set as default
-:: reg add "HKLM\Software\Policies\Microsoft\Edge" /v "AutofillAddressEnabled" /t REG_DWORD /d 1 /f
-:: reg add "HKCU\Software\Policies\Microsoft\Edge" /v "AutofillAddressEnabled" /t REG_DWORD /d 1 /f
-:: reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "AutofillAddressEnabled" /t REG_DWORD /d 1 /f
-
-:: Credit Card Autofill
-:: Options: 0 = Disabled | 1 = Enabled (Default)
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "AutofillCreditCardEnabled" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Policies\Microsoft\Edge" /v "AutofillCreditCardEnabled" /t REG_DWORD /d 0 /f
-reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "AutofillCreditCardEnabled" /t REG_DWORD /d 0 /f
 
 :: Block Third-Party Cookies
 :: Options: 0 = Allow All (Default) | 1 = Block Third-Party | 2 = Block All Cookies
@@ -146,34 +85,9 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" /v "BlockThirdPartyCookies" /t R
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "BlockThirdPartyCookies" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "BlockThirdPartyCookies" /t REG_DWORD /d 1 /f
 
-
-:: ======================
-:: EXTENSIONS AND DEVELOPER TOOLS
-:: ======================
-
-:: Control Developer Tools (F12) Availability
-:: Options: 0 = Fully Enabled (Default) | 1 = Disallowed | 2 = Allowed except for extension contexts
-:: This setting is already set as default
-:: reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DeveloperToolsAvailability" /t REG_DWORD /d 0 /f
-:: reg add "HKCU\Software\Policies\Microsoft\Edge" /v "DeveloperToolsAvailability" /t REG_DWORD /d 0 /f
-
-:: Extensions Blocklist Policy :: TODO: research it
-:: Options: 0 = Blocklist Disabled.
-:: reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ExtensionInstallBlocklist" /t REG_DWORD /d 0 /f
-
-
 :: ======================
 :: SEARCH ENGINE AND ADDRESS BAR
-:: ======================
 
-:: Enable Search Suggestions in Address Bar
-:: Options: 0 = Disabled | 1 = Enabled (Default)
-:: This setting is already set as default
-:: reg add "HKLM\Software\Policies\Microsoft\Edge" /v "SearchSuggestEnabled" /t REG_DWORD /d 1 /f
-:: reg add "HKCU\Software\Policies\Microsoft\Edge" /v "SearchSuggestEnabled" /t REG_DWORD /d 1 /f
-:: reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "SearchSuggestEnabled" /t REG_DWORD /d 1 /f
-
-:: ======================
 :: Enforce only Google and Bing as search providers
 
 :: 1. Force Google as the Default Active Engine
@@ -195,10 +109,9 @@ reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "DefaultSearchPro
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ManagedSearchEngines" /t REG_SZ /d "[{\"name\":\"Google\",\"keyword\":\"google.com\",\"url\":\"https://google.com/?q={searchTerms}\",\"is_default\":true},{\"name\":\"Bing\",\"keyword\":\"bing.com\",\"url\":\"https://bing.com/search?q={searchTerms}\",\"is_default\":false}]" /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "ManagedSearchEngines" /t REG_SZ /d "[{\"name\":\"Google\",\"keyword\":\"google.com\",\"url\":\"https://google.com/?q={searchTerms}\",\"is_default\":true},{\"name\":\"Bing\",\"keyword\":\"bing.com\",\"url\":\"https://bing.com/search?q={searchTerms}\",\"is_default\":false}]" /f
 
-
 :: ======================
 :: SYSTEM, HARDWARE, AND PERFORMANCE
-:: ======================
+
 :: Hardware Acceleration Mode
 :: Options: 0 = Disabled | 1 = Enabled (Default - Leverages local GPU)
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "HardwareAccelerationModeEnabled" /t REG_DWORD /d 1 /f
@@ -211,24 +124,10 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" /v "BackgroundModeEnabled" /t RE
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "BackgroundModeEnabled" /t REG_DWORD /d 0 /f
 reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "BackgroundModeEnabled" /t REG_DWORD /d 0 /f
 
-:: Sleeping Tabs Management:: Options: 0 = Disabled | 1 = Enabled (Default - Freezes inactive tabs to minimize RAM usage)
-:: It is already On by default
-:: reg add "HKLM\Software\Policies\Microsoft\Edge" /v "SleepingTabsEnabled" /t REG_DWORD /d 1 /f
-:: reg add "HKCU\Software\Policies\Microsoft\Edge" /v "SleepingTabsEnabled" /t REG_DWORD /d 1 /f
-:: reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "SleepingTabsEnabled" /t REG_DWORD /d 1 /f
-
-
 :: ======================
 :: PRINTING AND DOWNLOADS
-:: ======================
 
 :: Prompt User for Save Location
 :: Options: 0 = Auto-save directly | 1 = Ask user where to save file (Default)
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DownloadRestrictions" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "DownloadRestrictions" /t REG_DWORD /d 0 /f
-
-:: Print Capability Access
-:: Options: 0 = Printing function blocked entirely | 1 = Allowed (Default)
-:: It is already On by default
-:: reg add "HKLM\Software\Policies\Microsoft\Edge" /v "PrintingEnabled" /t REG_DWORD /d 1 /f
-:: reg add "HKCU\Software\Policies\Microsoft\Edge" /v "PrintingEnabled" /t REG_DWORD /d 1 /f

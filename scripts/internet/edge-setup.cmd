@@ -108,12 +108,6 @@ reg delete "HKCU\Software\Policies\Microsoft\Edge" /f >nul 2>&1
 :: ======================
 :: SYSTEM, HARDWARE, AND PERFORMANCE
 
-:: Hardware Acceleration Mode
-:: Options: 0 = Disabled | 1 = Enabled (Default - Leverages local GPU)
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "HardwareAccelerationModeEnabled" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Policies\Microsoft\Edge" /v "HardwareAccelerationModeEnabled" /t REG_DWORD /d 1 /f
-reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "HardwareAccelerationModeEnabled" /t REG_DWORD /d 1 /f
-
 :: Background Processing / Run Apps After Closing
 :: Options: 0 = Disabled | 1 = Enabled (Default - Keeps background process alive for speed)
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "BackgroundModeEnabled" /t REG_DWORD /d 0 /f

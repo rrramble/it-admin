@@ -36,6 +36,10 @@ if errorLevel 1 (
 )
 
 :: ===========================
+@echo Disable Fast startup
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v HiberbootEnabled /t REG_DWORD /d 0 /f
+
+:: ===========================
 @echo Activate the power scheme
 powercfg /setactive %SCHEME_GUID%
 if errorLevel 1 (

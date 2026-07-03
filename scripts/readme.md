@@ -3,4 +3,4 @@ _opinionated_
 
 Run `_all.bat` as administrator.
 
-> The `_manual` folder is skipped!
+> The `_manual` folder will be skipped!

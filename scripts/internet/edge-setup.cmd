@@ -29,13 +29,13 @@ if !errorLevel! neq 0 (
 :: ======================
 :: STARTUP, HOME PAGE, AND NEW TAB
 
-:: Action on Startup
+:: Startup actions
 :: Options: 1 = Restore last session | 4 = Open a list of URLs | 5 = Open New Tab Page (Default)
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "RestoreOnStartup" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "RestoreOnStartup" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "RestoreOnStartup" /t REG_DWORD /d 1 /f
 
-:: Configure Startup URLs (applies only if RestoreOnStartup is set to 4)
+:: Startup URLs (applies only if RestoreOnStartup is set to 4)
 reg add "HKLM\Software\Policies\Microsoft\Edge\RestoreOnStartupURLs" /v "1" /t REG_SZ /d "%HOME_PAGE_URL%" /f
 reg add "HKCU\Software\Policies\Microsoft\Edge\RestoreOnStartupURLs" /v "1" /t REG_SZ /d "%HOME_PAGE_URL%" /f
 
@@ -49,7 +49,7 @@ reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "HomepageLocation
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "NewTabPageLocation" /t REG_SZ /d "%HOME_PAGE_URL%" /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "NewTabPageLocation" /t REG_SZ /d "%HOME_PAGE_URL%" /f
 
-:: Show Home Button on Toolbar
+:: Home Button on Toolbar
 :: Options: 0 = Disabled (Hidden) | 1 = Enabled (Visible, Default)
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ShowHomeButton" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "ShowHomeButton" /t REG_DWORD /d 0 /f
@@ -65,7 +65,7 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" /v "TrackingPrevention" /t REG_D
 reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "TrackingPrevention" /t REG_DWORD /d 3 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "TrackingPrevention" /t REG_DWORD /d 3 /f
 
-:: Send "Do Not Track" Header
+:: "Do Not Track" Header Sending
 :: Options: 0 = Disabled (Default) | 1 = Enabled
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ConfigureDoNotTrack" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "ConfigureDoNotTrack" /t REG_DWORD /d 1 /f
@@ -76,24 +76,26 @@ reg add "HKCU\Software\Policies\Microsoft\Edge" /v "ConfigureDoNotTrack" /t REG_
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DiagnosticData" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "DiagnosticData" /t REG_DWORD /d 0 /f
 
+
 :: ======================
 :: CREDENTIALS, COOKIES, AND AUTOFILL
 
-:: Block Third-Party Cookies
+:: Third-Party Cookies
 :: Options: 0 = Allow All (Default) | 1 = Block Third-Party | 2 = Block All Cookies
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "BlockThirdPartyCookies" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "BlockThirdPartyCookies" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "BlockThirdPartyCookies" /t REG_DWORD /d 1 /f
 
+
 :: ======================
 :: SEARCH ENGINE AND ADDRESS BAR
 
-:: Force search provider usage (Google default)
+:: Search provider usage (Google default)
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderEnabled" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderName" /t REG_SZ /d "Google" /f
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderSearchURL" /t REG_SZ /d "https://www.google.com/search?q={searchTerms}" /f
 
-:: Only Google and Bing allowed
+:: Only Google and Bing are allowed
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ManagedSearchEngines" /t REG_SZ /d "[{\"name\":\"Google\",\"keyword\":\"google.com\",\"url\":\"https://www.google.com/search?q={searchTerms}\",\"is_default\":true},{\"name\":\"Bing\",\"keyword\":\"bing.com\",\"url\":\"https://www.bing.com/search?q={searchTerms}\",\"is_default\":false}]" /f
 
 :: Block adding new search engines via UI
@@ -101,6 +103,7 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" /v "EditSearchEnginesEnabled" /t
 
 :: Prevent per-user (HKCU) override
 reg delete "HKCU\Software\Policies\Microsoft\Edge" /f >nul 2>&1
+
 
 :: ======================
 :: SYSTEM, HARDWARE, AND PERFORMANCE
@@ -116,6 +119,7 @@ reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "HardwareAccelera
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "BackgroundModeEnabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "BackgroundModeEnabled" /t REG_DWORD /d 0 /f
 reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "BackgroundModeEnabled" /t REG_DWORD /d 0 /f
+
 
 :: ======================
 :: PRINTING AND DOWNLOADS

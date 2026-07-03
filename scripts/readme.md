@@ -1,6 +1,6 @@
 # Ready-to-run Windows scripts
-With opinionated options
+_opinionated_
 
-Run `_all.bat` as an administrator.
+Run `_all.bat` as administrator.
 
-It will run all nested sub-scripts, skipping the `_manual` folder.
+> The `_manual` folder is skipped!

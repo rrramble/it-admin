@@ -1,6 +1,15 @@
+# Authentication environment
 auth required pam_env.so
+
+# Password authentication
 auth sufficient pam_pwdfile.so pwdfile=/etc/ssh/auth_db/operators.txt
 auth sufficient pam_pwdfile.so pwdfile=/etc/ssh/auth_db/clients.txt
 auth required pam_deny.so
-account required pam_permit.so
+
+# Account restrictions
+account required pam_nologin.so
+account required pam_access.so
+
+# Session handling
 session required pam_loginuid.so
+session required pam_env.so

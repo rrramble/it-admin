@@ -1,0 +1,3 @@
+[Definition]
+allowipv6 = auto
+dbpurgeage = 72000

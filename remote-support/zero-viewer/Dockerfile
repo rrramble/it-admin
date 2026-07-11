@@ -12,6 +12,7 @@ RUN apt-get update \
         ca-certificates \
         libpam-modules \
         passwd \
+        fail2ban \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -21,6 +22,8 @@ COPY ./setup/sshd/sshd.pam  /etc/pam.d/sshd
 COPY ./setup/sshd/security.conf    /etc/ssh/sshd_config.d/security.conf
 COPY ./setup/sshd/whitelist.conf   /etc/ssh/sshd_config.d/whitelist.conf
 COPY ./setup/sshd/zeroviewer.conf  /etc/ssh/sshd_config.d/zeroviewer.conf
+COPY ./setup/fail2ban/fail2ban.local /etc/fail2ban/fail2ban.local
+COPY ./setup/fail2ban/jail.local     /etc/fail2ban/jail.local
 
 RUN chmod 755 /usr/local/bin/entrypoint.sh && \
     chown root:root /usr/local/bin/entrypoint.sh && \
@@ -28,6 +31,8 @@ RUN chmod 755 /usr/local/bin/entrypoint.sh && \
     chmod 644 /etc/pam.d/sshd && \
     chmod 644 /etc/ssh/sshd_config.d/security.conf && \
     chmod 644 /etc/ssh/sshd_config.d/whitelist.conf && \
-    chmod 644 /etc/ssh/sshd_config.d/zeroviewer.conf
+    chmod 644 /etc/ssh/sshd_config.d/zeroviewer.conf && \
+    chmod 644 /etc/fail2ban/fail2ban.local && \
+    chmod 644 /etc/fail2ban/jail.local
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

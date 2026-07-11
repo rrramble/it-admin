@@ -38,5 +38,6 @@ add_users "$SERVER_CLIENTS_DB_PATH" zero_clients
 # System host key verification checks
 /usr/sbin/sshd -t || exit 1
 
-# Execute the daemon in the foreground
+# Run the daemons
+service fail2ban start
 exec /usr/sbin/sshd -D -e

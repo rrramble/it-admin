@@ -18,7 +18,7 @@
 1. Generate SSH password hash with the following command:
 
 ```bash
-openssl passwd -6 "PLAIN_PASSWORD"
+openssl passwd -6 'PLAIN_PASSWORD'
 ```
 
 2. Store SSH logins with passwords in the following files:

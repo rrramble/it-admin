@@ -38,6 +38,7 @@ add_users "$SERVER_CLIENTS_DB_PATH" zero_clients
 # System host key verification checks
 /usr/sbin/sshd -t || exit 1
 
-# Run the daemons
+# Run the services
 service fail2ban start
+ddclient -verbose -debug -noquiet -file /etc/ddclient.conf &
 exec /usr/sbin/sshd -D -e

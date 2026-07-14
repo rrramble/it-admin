@@ -5,7 +5,9 @@ FROM ubuntu:noble
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Package updates, installations, and cache purges
-RUN apt-get update \
+RUN echo "ddclient ddclient/run_daemon boolean false" | debconf-set-selections \
+    && echo "ddclient ddclient/daemon_interval string 300" | debconf-set-selections \
+    && apt-get update \
     && apt-get install -y --no-install-recommends \
         openssh-server \
         ca-certificates \
@@ -14,6 +16,8 @@ RUN apt-get update \
         libpam-modules-bin \
         passwd \
         fail2ban \
+        ddclient \
+        libio-socket-ssl-perl \
     && rm -rf /var/lib/apt/lists/*
 
 

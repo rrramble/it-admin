@@ -13,10 +13,17 @@ source "${SCRIPT_DIR}/setup/constants.conf"
 
 clients_db_path="${SCRIPT_DIR}/${CLIENTS_DB_PATH}"
 operators_db_path="${SCRIPT_DIR}/${OPERATORS_DB_PATH}"
+ddclient_conf_path="${SCRIPT_DIR}/${DDCLIENT_PATH}"
 
 # Check if credential files exist
 if [ ! -f "$clients_db_path" ] || [ ! -f "$operators_db_path" ]; then
-    echo "❌ ERROR: Configuration file '$clients_db_path' or '$operators_db_path' missing!"
+    echo "❌ ERROR: Missing '$clients_db_path' or '$operators_db_path'"
+    exit 1
+fi
+
+# Check if Ddclient configuration exist
+if [ ! -f "$ddclient_conf_path" ]; then
+    echo "❌ ERROR: Missing ddclient.conf"
     exit 1
 fi
 
@@ -35,6 +42,7 @@ docker run \
     -p "${EXTERNAL_SSH_PORT}:${INTERNAL_SSH_PORT}" \
     -v "${clients_db_path}:${SERVER_CLIENTS_DB_PATH}:ro" \
     -v "${operators_db_path}:${SERVER_OPERATORS_DB_PATH}:ro" \
+    -v "${ddclient_conf_path}:/etc/ddclient.conf:ro" \
     --restart no \
     --name "$CONTAINER_NAME" \
     "$IMAGE_NAME"

@@ -99,6 +99,7 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderEnabled
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/defaultsearchprovidername
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderName" /t REG_SZ /d "Google" /f
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/defaultsearchprovidersearchurl
+reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderSearchURL" /t REG_SZ /d "{google:baseURL}search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}ie={inputEncoding}" /f
 
 :: Only Google and Bing are allowed
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/managedsearchengines

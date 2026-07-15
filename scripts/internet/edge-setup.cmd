@@ -130,3 +130,11 @@ reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "BackgroundModeEn
 :: Options: 0 = Auto-save directly | 1 = Ask user where to save file (Default)
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DownloadRestrictions" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "DownloadRestrictions" /t REG_DWORD /d 0 /f
+
+
+:: ======================
+:: COPILOT
+:: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/microsoft365copilotchaticonenabled
+reg add "HKLM\Software\Policies\Microsoft\Edge" /v "Microsoft365CopilotChatIconEnabled" /t REG_DWORD /d 0 /f
+reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "Microsoft365CopilotChatIconEnabled" /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Policies\Microsoft\Edge" /v "Microsoft365CopilotChatIconEnabled" /t REG_DWORD /d 0 /f

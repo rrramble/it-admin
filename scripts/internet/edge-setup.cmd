@@ -62,9 +62,9 @@ reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "ShowHomeButton" 
 :: Tracking Prevention Level
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/trackingprevention
 :: Options: 0 = Off | 1 = Basic | 2 = Balanced (Default) | 3 = Strict
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "TrackingPrevention" /t REG_DWORD /d 3 /f
-reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "TrackingPrevention" /t REG_DWORD /d 3 /f
-reg add "HKCU\Software\Policies\Microsoft\Edge" /v "TrackingPrevention" /t REG_DWORD /d 3 /f
+reg add "HKLM\Software\Policies\Microsoft\Edge" /v "TrackingPrevention" /t REG_DWORD /d 2 /f
+reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "TrackingPrevention" /t REG_DWORD /d 2 /f
+reg add "HKCU\Software\Policies\Microsoft\Edge" /v "TrackingPrevention" /t REG_DWORD /d 2 /f
 
 :: "Do Not Track" Header Sending
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/configuredonottrack

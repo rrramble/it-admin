@@ -60,18 +60,21 @@ reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "ShowHomeButton" 
 :: PRIVACY, DATA PROTECTION, AND TRACKING
 
 :: Tracking Prevention Level
+:: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/trackingprevention
 :: Options: 0 = Off | 1 = Basic | 2 = Balanced (Default) | 3 = Strict
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "TrackingPrevention" /t REG_DWORD /d 3 /f
 reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "TrackingPrevention" /t REG_DWORD /d 3 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "TrackingPrevention" /t REG_DWORD /d 3 /f
 
 :: "Do Not Track" Header Sending
+:: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/configuredonottrack
 :: Options: 0 = Disabled (Default) | 1 = Enabled
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ConfigureDoNotTrack" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "ConfigureDoNotTrack" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "ConfigureDoNotTrack" /t REG_DWORD /d 1 /f
 
 :: Diagnostic Data Collection (Telemetry)
+:: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/diagnosticdata
 :: Options: 0 = Off | 1 = Required Data | 2 = Optional Data (Default)
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DiagnosticData" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "DiagnosticData" /t REG_DWORD /d 0 /f
@@ -91,11 +94,15 @@ reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "BlockThirdPartyC
 :: SEARCH ENGINE AND ADDRESS BAR
 
 :: Search provider usage (Google default)
+:: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/defaultsearchproviderenabled
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderEnabled" /t REG_DWORD /d 1 /f
+:: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/defaultsearchprovidername
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderName" /t REG_SZ /d "Google" /f
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderSearchURL" /t REG_SZ /d "https://www.google.com/search?q={searchTerms}" /f
+:: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/defaultsearchprovidersearchurl
 
 :: Only Google and Bing are allowed
+:: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/managedsearchengines
+:: NOTE: This policy is ignored because the above DefaultSearchProviderSearchURL policy is set
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ManagedSearchEngines" /t REG_SZ /d "[{\"name\":\"Google\",\"keyword\":\"google.com\",\"url\":\"https://www.google.com/search?q={searchTerms}\",\"is_default\":true},{\"name\":\"Bing\",\"keyword\":\"bing.com\",\"url\":\"https://www.bing.com/search?q={searchTerms}\",\"is_default\":false}]" /f
 
 :: Block adding new search engines via UI

@@ -30,7 +30,9 @@ if !errorLevel! neq 0 (
 :: STARTUP, HOME PAGE, AND NEW TAB
 
 :: Startup actions
-:: Options: 1 = Restore last session | 4 = Open a list of URLs | 5 = Open New Tab Page (Default)
+:: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/restoreonstartup
+
+:: Options: 1 = Restore last session | 4 = Open a list of URLs | 5 = Open New Tab Page (Default) | 6 = Open a list of URLs and restore the last session
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "RestoreOnStartup" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "RestoreOnStartup" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "RestoreOnStartup" /t REG_DWORD /d 1 /f

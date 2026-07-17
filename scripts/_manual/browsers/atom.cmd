@@ -19,29 +19,61 @@ if errorLevel 1 (
 )
 
 :: ======================
-:: 1. In `AppData`
-cd /d "%LocalAppData%"
-
-:: Deletes existing folder
-rd /s /q "atom" 2>nul
-
-:: Creates an empty-stub instead of the folder
-echo "This is a file-stub: do not delete!" > "atom"
-
-:: Cancels rights inheritance and block other activities
-icacls "atom" /inheritance:r
-icacls "atom" /deny *S-1-1-0:(F)
+:: Variables
+set "SID_ADMINISTRATORS=*S-1-5-32-544"
+set "SID_SYSTEM=*S-1-5-18"
+set "SID_EVERYONE=*S-1-1-0"
 
 :: ======================
-:: 2. In `Program Files` 64-bit
-rd /s /q "%ProgramFiles%\atom" 2>nul
-echo "This is a file-stub: do not delete!" > "%ProgramFiles%\atom"
-icacls "%ProgramFiles%\atom" /inheritance:r
-icacls "%ProgramFiles%\atom" /deny *S-1-1-0:(F)
+:: Starts the main procedure
+
+:: In `%AppData%`
+call :BlockAtom "%AppData%"
+
+:: In "Program Files"
+call :BlockAtom "%ProgramFiles%"
+
+:: In "Program Files" for 32-bit
+if defined ProgramFiles(x86) (
+    call :BlockAtom "%ProgramFiles(x86)%"
+)
+
+exit /b 0
 
 :: ======================
-:: 3. In `Program Files` 32-bit
-rd /s /q "%ProgramFiles(x86)%\atom" 2>nul
-echo "This is a file-stub: do not delete!" > "%ProgramFiles(x86)%\atom"
-icacls "%ProgramFiles(x86)%\atom" /inheritance:r
-icacls "%ProgramFiles(x86)%\atom" /deny *S-1-1-0:(F)
+:: Helper function to block directory safely
+:BlockAtom
+set "ParentDir=%~1"
+set "StubPath=%~1\Atom"
+
+:: Cancels the procedure if the folder or stub-file exists
+if exist "%StubPath%" (
+    @echo Folder or file "%StubPath%" exists, cancelling the procedure.
+    exit /b 1
+)
+
+:: Ensures parent directory exists
+if not exist "%ParentDir%" (
+    mkdir "%ParentDir%" || (
+        @echo Failed to create "%ParentDir%"
+        exit /b 1
+    )
+)
+
+:: Creates the file-stub
+echo This is a file-stub: do not delete!> "%StubPath%"
+if not exist "%StubPath%" (
+    @echo Failed to create "%StubPath%"
+    exit /b 1
+)
+
+:: Secure the file-stub:
+:: 1. Remove inheritance.
+:: 2. Allow read access only.
+:: 3. Deny modification and deletion for Everyone.
+icacls "%StubPath%" /inheritance:r >nul || exit /b 1
+icacls "%StubPath%" /grant:r %SID_ADMINISTRATORS%:(R) >nul || exit /b 1
+icacls "%StubPath%" /grant:r %SID_SYSTEM%:(R) >nul || exit /b 1
+icacls "%StubPath%" /deny %SID_EVERYONE%:(D,W,X) >nul || exit /b 1
+
+exit /b 0

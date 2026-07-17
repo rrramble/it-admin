@@ -70,14 +70,14 @@ if not exist "%StubPath%" (
 )
 
 :: Secure the file-stub:
-:: Remove inheritance.
+:: Remove inheritance
 icacls "%StubPath%" /inheritance:r >nul
 
-:: Grant Administrators and SYSTEM full control (prevents system instability).
+:: Grant Administrators and SYSTEM read access
 icacls "%StubPath%" /grant:r %SID_ADMINISTRATORS%:(R) >nul || exit /b 1
 icacls "%StubPath%" /grant:r %SID_SYSTEM%:(R) >nul || exit /b 1
 
-:: Deny Users write and execute permissions.
+:: Deny Users write and execute permissions
 icacls "%StubPath%" /deny %SID_EVERYONE%:(D,W,X) >nul || exit /b 1
 
 exit /b 0

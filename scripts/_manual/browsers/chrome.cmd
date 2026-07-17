@@ -36,13 +36,13 @@ exit /b 0
 set "ParentDir=%~1"
 set "StubPath=%~1\Chrome"
 
-:: Cancel if the folder or stub-file exists
+:: Cancels if the folder or stub-file exists
 if exist "%StubPath%" (
     @echo Folder or file "%StubPath%" exists, cancelling the procedure.
     exit /b 1
 )
 
-:: Ensure parent directory exists
+:: Ensures parent directory exists
 if not exist "%ParentDir%" (
     mkdir "%ParentDir%" || (
         @echo Failed to create "%ParentDir%"
@@ -50,14 +50,18 @@ if not exist "%ParentDir%" (
     )
 )
 
-:: Reset permissions to prevent script lockout
+:: Resets permissions to prevent script lockout
 takeown /f "%StubPath%" /a >nul 2>&1
 icacls "%StubPath%" /reset >nul 2>&1
 del /f /q "%StubPath%" 2>nul
 rd /s /q "%StubPath%" 2>nul
 
-:: Create the file-stub
+:: Creates the file-stub
 echo This is a file-stub: do not delete!> "%StubPath%"
+if not exist "%StubPath%" (
+    @echo Failed to create "%StubPath%"
+    exit /b 1
+)
 
 :: Secure the file-stub:
 :: 1. Remove inheritance.

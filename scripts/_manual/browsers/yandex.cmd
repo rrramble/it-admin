@@ -71,7 +71,7 @@ if not exist "%StubPath%" (
 
 :: Secure the file-stub:
 :: Remove inheritance
-icacls "%StubPath%" /inheritance:r >nul
+icacls "%StubPath%" /inheritance:r >nul || exit /b 1
 
 :: Grant Administrators and SYSTEM read access
 icacls "%StubPath%" /grant:r %SID_ADMINISTRATORS%:(R) >nul || exit /b 1

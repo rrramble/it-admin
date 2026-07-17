@@ -48,13 +48,13 @@ exit /b 0
 set "ParentDir=%~1"
 set "StubPath=%~1\YandexBrowser"
 
-:: Cancel if the folder or stub-file exists
+:: Cancels the procedure if the folder or stub-file exists
 if exist "%StubPath%" (
     @echo Folder or file "%StubPath%" exists, cancelling the procedure.
     exit /b 1
 )
 
-:: Ensure parent directory exists
+:: Ensures parent directory exists
 if not exist "%ParentDir%" (
     mkdir "%ParentDir%" || (
         @echo Failed to create "%ParentDir%"
@@ -62,8 +62,9 @@ if not exist "%ParentDir%" (
     )
 )
 
-:: Create the file-stub
-echo This is a file-stub: do not delete!> "%StubPath%" || (
+:: Creates the file-stub
+echo This is a file-stub: do not delete!> "%StubPath%"
+if not exist "%StubPath%" (
     @echo Failed to create "%StubPath%"
     exit /b 1
 )

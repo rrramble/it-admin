@@ -77,7 +77,7 @@ icacls "%StubPath%" /inheritance:r >nul
 icacls "%StubPath%" /grant:r %SID_ADMINISTRATORS%:(R) >nul || exit /b 1
 icacls "%StubPath%" /grant:r %SID_SYSTEM%:(R) >nul || exit /b 1
 
-:: Deny Users write and execute permissions
+:: Deny Everyone write and execute permissions
 icacls "%StubPath%" /deny %SID_EVERYONE%:(D,W,X) >nul || exit /b 1
 
 exit /b 0

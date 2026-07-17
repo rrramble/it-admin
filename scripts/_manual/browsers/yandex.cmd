@@ -20,7 +20,7 @@ if errorLevel 1 (
 )
 
 :: ======================
-:: Variables
+:: Constants
 set "SID_ADMINISTRATORS=*S-1-5-32-544"
 set "SID_SYSTEM=*S-1-5-18"
 set "SID_EVERYONE=*S-1-1-0"
@@ -70,12 +70,13 @@ if not exist "%StubPath%" (
 )
 
 :: Secure the file-stub:
-:: 1. Remove inheritance.
-:: 2. Allow read access only.
-:: 3. Deny modification and deletion for Everyone.
-icacls "%StubPath%" /inheritance:r >nul || exit /b 1
+:: Remove inheritance.
+icacls "%StubPath%" /inheritance:r >nul
+
+:: Grant Administrators and SYSTEM full control (prevents system instability).
 icacls "%StubPath%" /grant:r %SID_ADMINISTRATORS%:(R) >nul || exit /b 1
 icacls "%StubPath%" /grant:r %SID_SYSTEM%:(R) >nul || exit /b 1
-icacls "%StubPath%" /deny %SID_EVERYONE%:(D,W,X) >nul || exit /b 1
 
+:: Deny Users write and execute permissions.
+icacls "%StubPath%" /deny %SID_EVERYONE%:(D,W,X) >nul || exit /b 1
 exit /b 0

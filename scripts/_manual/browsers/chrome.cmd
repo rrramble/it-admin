@@ -56,12 +56,6 @@ if not exist "%ParentDir%" (
     )
 )
 
-:: Resets permissions to prevent script lockout
-takeown /f "%StubPath%" /a >nul 2>&1
-icacls "%StubPath%" /reset >nul 2>&1
-del /f /q "%StubPath%" 2>nul
-rd /s /q "%StubPath%" 2>nul
-
 :: Creates the file-stub
 echo This is a file-stub: do not delete!> "%StubPath%"
 if not exist "%StubPath%" (

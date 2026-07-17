@@ -20,6 +20,12 @@ if errorLevel 1 (
 )
 
 :: ======================
+:: Constants
+set "SID_ADMINISTRATORS=*S-1-5-32-544"
+set "SID_SYSTEM=*S-1-5-18"
+set "SID_EVERYONE=*S-1-1-0"
+
+:: ======================
 :: 1. Block in Program Files (64-bit)
 call :BlockChrome "%ProgramFiles%\Google"
 
@@ -64,12 +70,14 @@ if not exist "%StubPath%" (
 )
 
 :: Secure the file-stub:
-:: 1. Remove inheritance.
-:: 2. Grant Administrators and SYSTEM full control (prevents system instability).
-:: 3. Deny Users (S-1-5-32-545) write and execute permissions.
+:: Remove inheritance.
 icacls "%StubPath%" /inheritance:r >nul
-icacls "%StubPath%" /grant:r *S-1-5-32-544:(F) >nul
-icacls "%StubPath%" /grant:r *S-1-5-18:(F) >nul
-icacls "%StubPath%" /deny *S-1-5-32-545:(W,X) >nul
+
+:: Grant Administrators and SYSTEM full control (prevents system instability).
+icacls "%StubPath%" /grant:r %SID_ADMINISTRATORS%:(R) >nul || exit /b 1
+icacls "%StubPath%" /grant:r %SID_SYSTEM%:(R) >nul || exit /b 1
+
+:: Deny Users write and execute permissions.
+icacls "%StubPath%" /deny %SID_EVERYONE%:(D,W,X) >nul || exit /b 1
 
 exit /b 0

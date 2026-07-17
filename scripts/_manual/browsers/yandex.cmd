@@ -1,6 +1,6 @@
 :: ==============================================================
 :: Blocks `Yandex` browser installation
-:: by preventing the creation of the possible program folders
+:: by preventing the creation of the known installation folders
 :: ==============================================================
 
 :: ======================

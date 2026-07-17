@@ -1,5 +1,6 @@
 :: ==============================================================
-:: Blocks `Atom` browser creation
+:: Blocks `Atom` browser installation
+:: by preventing the creation of the known installation folders
 :: ==============================================================
 
 :: ======================

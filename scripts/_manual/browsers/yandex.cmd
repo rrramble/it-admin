@@ -1,6 +1,6 @@
 :: ==============================================================
-:: Blocks `Yandex` browser creation
-:: by preventing of creation of the known program folder
+:: Blocks `Yandex` browser installation
+:: by preventing the creation of the possible program folders
 :: ==============================================================
 
 :: ======================
@@ -20,32 +20,61 @@ if errorLevel 1 (
 )
 
 :: ======================
-:: 1. In `AppData`
-cd /d "%LocalAppData%"
-
-if not exist "Yandex" mkdir "Yandex"
-:: Deletes existing folder
-rd /s /q "Yandex\YandexBrowser" 2>nul
-
-:: Creates an empty file-stub instead of folder
-@echo "This is a file-stub: do not delete!" > "Yandex\YandexBrowser"
-
-:: Cancels rights inheritance and block other activities
-icacls "Yandex\YandexBrowser" /inheritance:r
-icacls "Yandex\YandexBrowser" /deny *S-1-1-0:(F)
+:: Variables
+set "SID_ADMINISTRATORS=*S-1-5-32-544"
+set "SID_SYSTEM=*S-1-5-18"
+set "SID_EVERYONE=*S-1-1-0"
 
 :: ======================
-:: 2. In `Program Files` 64-bit
-if not exist "%ProgramFiles%\Yandex" mkdir "%ProgramFiles%\Yandex"
-rd /s /q "%ProgramFiles%\Yandex\YandexBrowser" 2>nul
-echo "This is a file-stub: do not delete!" > "%ProgramFiles%\Yandex\YandexBrowser"
-icacls "%ProgramFiles%\Yandex\YandexBrowser" /inheritance:r
-icacls "%ProgramFiles%\Yandex\YandexBrowser" /deny *S-1-1-0:(F)
+:: Starts the main procedure
+
+:: Block in AppData folder
+call :BlockYandex "%LocalAppData%\Yandex"
+
+:: Block in Program Files folder
+call :BlockYandex "%ProgramFiles%\Yandex"
+
+:: Block in "Program Files (x86)" folder
+if defined ProgramFiles(x86) (
+    call :BlockYandex "%ProgramFiles(x86)%\Yandex"
+)
+
+exit /b 0
+
 
 :: ======================
-:: 3. In `Program Files` 32-bit
-if not exist "%ProgramFiles(x86)%\Yandex" mkdir "%ProgramFiles(x86)%\Yandex"
-rd /s /q "%ProgramFiles(x86)%\Yandex\YandexBrowser" 2>nul
-echo "This is a file-stub: do not delete!" > "%ProgramFiles(x86)%\Yandex\YandexBrowser"
-icacls "%ProgramFiles(x86)%\Yandex\YandexBrowser" /inheritance:r
-icacls "%ProgramFiles(x86)%\Yandex\YandexBrowser" /deny *S-1-1-0:(F)
+:: Helper Function to Safely Block Directory
+:BlockYandex
+set "ParentDir=%~1"
+set "StubPath=%~1\YandexBrowser"
+
+:: Cancel if the folder or stub-file exists
+if exist "%StubPath%" (
+    @echo Folder or file "%StubPath%" exists, cancelling the procedure.
+    exit /b 1
+)
+
+:: Ensure parent directory exists
+if not exist "%ParentDir%" (
+    mkdir "%ParentDir%" || (
+        @echo Failed to create "%ParentDir%"
+        exit /b 1
+    )
+)
+
+:: Create the file-stub
+echo This is a file-stub: do not delete!> "%StubPath%" || (
+    @echo Failed to create "%StubPath%"
+    exit /b 1
+)
+
+:: Secure the file-stub:
+:: 1. Remove inheritance.
+:: 2. Allow read access only.
+:: 3. Deny modification and deletion for Everyone.
+icacls "%StubPath%" /inheritance:r >nul || exit /b 1
+icacls "%StubPath%" /grant:r %SID_ADMINISTRATORS%:(R) >nul || exit /b 1
+icacls "%StubPath%" /grant:r %SID_SYSTEM%:(R) >nul || exit /b 1
+icacls "%StubPath%" /deny %SID_EVERYONE%:(D,W,X) >nul || exit /b 1
+
+exit /b 0

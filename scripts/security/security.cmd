@@ -19,12 +19,6 @@ if errorLevel 1 (
 )
 
 :: ======================
-@echo Blocks remote administrative share exploitation (LocalAccountTokenFilterPolicy)
-:: so accesing c$ on other computers is prohibited for power users and local adimistrators except
-:: for the standard `administrator` with SID RID 500
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "LocalAccountTokenFilterPolicy" /t REG_DWORD /d 0 /f
-
-:: ======================
 @echo Sets computer description to the currently logged-in user
 set "REG_PATH=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
 set "REG_VALUE=DefaultUserName"

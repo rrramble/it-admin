@@ -37,3 +37,8 @@ reg add "%CHROME_POLICY%" /v "SafeBrowsingEnabled" /t REG_DWORD /d 1 /f
 :: ======================
 @echo 2. Deactivates Update service crash reporting and usage telemetry
 reg add "HKLM\SOFTWARE\Policies\Google\Update" /v "SendUsageStats" /t REG_DWORD /d 0 /f
+
+
+@echo Reduces promotional information
+reg add "%CHROME_POLICY%" /v "PromotionalTabsEnabled" /t REG_DWORD /d 0 /f
+reg add "%CHROME_POLICY%" /v "PromotionsEnabled" /t REG_DWORD /d 0 /f

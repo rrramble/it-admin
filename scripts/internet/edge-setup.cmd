@@ -1,9 +1,6 @@
 :: =========================================================================
 :: MICROSOFT EDGE POLICY & SETTINGS CONFIGURATION MASTER SCRIPT
 :: =========================================================================
-:: Hierarchy Level Summary:
-:: 1. HKLM\...\Edge             - Machine-Wide Mandatory (Overriding Priority)
-:: =========================================================================
 
 :: ======================
 @echo Pre-requisites

@@ -28,22 +28,23 @@ if !errorLevel! neq 0 (
 :: Startup actions
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/restoreonstartup
 
-:: Options: 1 = Restore last session | 4 = Open a list of URLs | 5 = Open New Tab Page (Default) | 6 = Open a list of URLs and restore the last session
+:: Startup URLs
+:: 1 = Restore previous open tabs | 4 = Open a list of URLs | 5 = Open New Tab Page (Default)
+:: 6 = Open a list of URLs and restore the last session
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "RestoreOnStartup" /t REG_DWORD /d 1 /f
 
-:: Startup URLs (applies only if RestoreOnStartup is set to 4)
+:: Fallback startup URL list if startup mode is changed to "Open specific pages"
 reg add "HKLM\Software\Policies\Microsoft\Edge\RestoreOnStartupURLs" /v "1" /t REG_SZ /d "%HOME_PAGE_URL%" /f
-
-:: Home Page URL Configuration
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "HomepageLocation" /t REG_SZ /d "%HOME_PAGE_URL%" /f
 
 :: New Tab Page URL
 :: Options: Forces the New Tab page to load a custom URL instead of the default layout.
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "NewTabPageLocation" /t REG_SZ /d "%HOME_PAGE_URL%" /f
 
 :: Home Button on Toolbar
-:: Options: 0 = Disabled (Hidden) | 1 = Enabled (Visible, Default)
+reg add "HKLM\Software\Policies\Microsoft\Edge" /v "HomepageLocation" /t REG_SZ /d "%HOME_PAGE_URL%" /f
+:: 0 = Disabled (Hidden) | 1 = Enabled (Visible, Default)
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ShowHomeButton" /t REG_DWORD /d 0 /f
+
 
 
 :: ======================

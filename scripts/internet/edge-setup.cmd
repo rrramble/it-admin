@@ -138,7 +138,10 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DownloadRestrictions" /t REG
 
 :: ======================
 :: COPILOT
+
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/microsoft365copilotchaticonenabled
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "Microsoft365CopilotChatIconEnabled" /t REG_DWORD /d 0 /f
 reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "Microsoft365CopilotChatIconEnabled" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Policies\Microsoft\Edge" /v "Microsoft365CopilotChatIconEnabled" /t REG_DWORD /d 0 /f
+
+:: Disable Edge sidebar (where Copilot is integrated in newer Edge versions)
+reg add "HKLM\Software\Policies\Microsoft\Edge" /v "HubsSidebarEnabled" /t REG_DWORD /d 0 /f

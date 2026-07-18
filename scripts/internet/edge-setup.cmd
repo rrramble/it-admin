@@ -67,7 +67,7 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DiagnosticData" /t REG_DWORD
 
 
 :: ======================
-:: CREDENTIALS, COOKIES, AND AUTOFILL
+:: COOKIES
 
 :: Third-Party Cookies
 :: Options: 0 = Allow All (Default) | 1 = Block Third-Party | 2 = Block All Cookies

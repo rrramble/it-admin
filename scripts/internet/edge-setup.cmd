@@ -1,5 +1,6 @@
 :: =========================================================================
 :: MICROSOFT EDGE POLICY & SETTINGS CONFIGURATION MASTER SCRIPT
+:: Open URL `edge://policy` to check the result
 :: =========================================================================
 
 :: ======================

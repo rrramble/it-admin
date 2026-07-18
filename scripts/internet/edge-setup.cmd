@@ -73,8 +73,7 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" /v "BlockThirdPartyCookies" /t R
 
 
 :: ======================
-:: SEARCH ENGINE AND ADDRESS BAR
-:: Open URL `edge://policy` to check the result
+:: SEARCH ENGINE
 
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/managedsearchengines
 reg add "HKLM\Software\Policies\Microsoft\Edge" ^
@@ -83,8 +82,6 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" ^
 
 :: Block adding new search engines via UI
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "EditSearchEnginesEnabled" /t REG_DWORD /d 0 /f
-
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "RestoreOnStartup" /t REG_DWORD /d 1 /f
 
 
 :: ======================

@@ -19,7 +19,7 @@ if !errorLevel! neq 0 (
 )
 
 :: ======================
-@echo 1. Deactivates ad tracking and metrics reporting
+@echo Deactivates ad tracking and metrics reporting
 set "CHROME_POLICY=HKLM\SOFTWARE\Policies\Google\Chrome"
 reg add "%CHROME_POLICY%" /v "BackgroundModeEnabled" /t REG_DWORD /d 0 /f
 reg add "%CHROME_POLICY%" /v "BlockThirdPartyCookies" /t REG_DWORD /d 1 /f
@@ -34,8 +34,9 @@ reg add "%CHROME_POLICY%" /v "SearchSuggestEnabled" /t REG_DWORD /d 0 /f
 reg add "%CHROME_POLICY%" /v "UrlKeyedAnonymizedDataCollectionEnabled" /t REG_DWORD /d 0 /f
 reg add "%CHROME_POLICY%" /v "SafeBrowsingEnabled" /t REG_DWORD /d 1 /f
 
+
 :: ======================
-@echo 2. Deactivates Update service crash reporting and usage telemetry
+@echo Deactivates Update service crash reporting and usage telemetry
 reg add "HKLM\SOFTWARE\Policies\Google\Update" /v "SendUsageStats" /t REG_DWORD /d 0 /f
 
 

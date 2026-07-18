@@ -78,12 +78,13 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" /v "BlockThirdPartyCookies" /t R
 :: SEARCH ENGINE
 
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/managedsearchengines
-reg add "HKLM\Software\Policies\Microsoft\Edge" ^
-    /v "ManagedSearchEngines" /t REG_SZ /f ^
+reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ManagedSearchEngines" /t REG_SZ /f ^
     /d "[{\"name\":\"Google\",\"keyword\":\"google.com\",\"shortcut\":\"google\",\"url\":\"https://www.google.com/search?q={searchTerms}\",\"is_default\":true}]"
 
 :: Block adding new search engines via UI
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "EditSearchEnginesEnabled" /t REG_DWORD /d 0 /f
+
+reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderEnabled" /t REG_DWORD /d 1 /f
 
 
 :: ======================

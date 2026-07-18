@@ -94,7 +94,7 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" /v "BackgroundModeEnabled" /t RE
 
 
 :: ======================
-:: PRINTING AND DOWNLOADS
+:: DOWNLOADS
 
 :: Allowing / Disabling downloads
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/downloadrestrictions

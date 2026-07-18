@@ -1,6 +1,6 @@
 :: ==============================================================
-:: Blocks system-level Mozilla Firefox browser installation,
-:: allowing it only in local user profiles.
+:: Blocks Mozilla Firefox browser installation in `Program Files...`
+:: allowing it only in local user profiles
 :: ==============================================================
 
 :: ======================
@@ -20,51 +20,58 @@ if errorLevel 1 (
 )
 
 :: ======================
-:: Check if Firefox is currently running
-tasklist /fi "IMAGENAME eq firefox.exe" 2>nul | findstr /i "firefox.exe" >nul
-if errorLevel 1 (
-    @REM An empty block
-) else (
-    echo [WARNING] Mozilla Firefox is currently running!
-    echo [ABORT] Script stopped to prevent data loss. Close Firefox and try again.
-    exit /b 1
-)
+:: Constants
+set "SID_ADMINISTRATORS=*S-1-5-32-544"
+set "SID_SYSTEM=*S-1-5-18"
+set "SID_EVERYONE=*S-1-1-0"
 
 :: ======================
-:: 1. Block in Program Files (64-bit)
-call :BlockFirefox "%ProgramFiles%\Mozilla Firefox"
+:: Block in Program Files
+call :BlockFirefox "%ProgramFiles%"
 
-:: 2. Block in Program Files (32-bit)
+:: Block in Program Files for 32-bit
 if defined ProgramFiles(x86) (
-    call :BlockFirefox "%ProgramFiles(x86)%\Mozilla Firefox"
+    call :BlockFirefox "%ProgramFiles(x86)%"
 )
 
-echo [SUCCESS] System-level Firefox blocks applied successfully.
 exit /b 0
 
 :: ======================
 :: Helper Function to Safely Block Directory
 :BlockFirefox
-set "StubPath=%~1"
+set "ParentDir=%~1"
+set "StubPath=%~1\Mozilla Firefox"
 
-:: Reset permissions if stub or directory exists to prevent script lockout
+:: Cancels if the folder or stub-file exists
 if exist "%StubPath%" (
-    takeown /f "%StubPath%" /a >nul 2>&1
-    icacls "%StubPath%" /reset >nul 2>&1
-    del /f /q "%StubPath%" 2>nul
-    rd /s /q "%StubPath%" 2>nul
+    @echo Folder or file "%StubPath%" exists, cancelling the procedure.
+    exit /b 1
 )
 
-:: Create the file-stub (without literal quotation marks inside the file)
+:: Ensures parent directory exists
+if not exist "%ParentDir%" (
+    mkdir "%ParentDir%" || (
+        @echo Failed to create "%ParentDir%"
+        exit /b 1
+    )
+)
+
+:: Creates the file-stub
 echo This is a file-stub: do not delete!> "%StubPath%"
+if not exist "%StubPath%" (
+    @echo Failed to create "%StubPath%"
+    exit /b 1
+)
 
 :: Secure the file-stub:
-:: 1. Remove inheritance.
-:: 2. Grant Administrators (S-1-5-32-544) and SYSTEM (S-1-5-18) full control to avoid OS instability.
-:: 3. Deny built-in Users (S-1-5-32-545) write and execute permissions.
-icacls "%StubPath%" /inheritance:r >nul
-icacls "%StubPath%" /grant:r *S-1-5-32-544:(F) >nul
-icacls "%StubPath%" /grant:r *S-1-5-18:(F) >nul
-icacls "%StubPath%" /deny *S-1-5-32-545:(W,X) >nul
+:: Removes inheritance
+icacls "%StubPath%" /inheritance:r >nul || exit /b 1
+
+:: Grants Administrators and SYSTEM read access
+icacls "%StubPath%" /grant:r %SID_ADMINISTRATORS%:(R) >nul || exit /b 1
+icacls "%StubPath%" /grant:r %SID_SYSTEM%:(R) >nul || exit /b 1
+
+:: Denies Everyone delete, write and execute permissions
+icacls "%StubPath%" /deny %SID_EVERYONE%:(D,W,X) >nul || exit /b 1
 
 exit /b 0

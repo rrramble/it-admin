@@ -26,21 +26,21 @@ set "SID_SYSTEM=*S-1-5-18"
 set "SID_EVERYONE=*S-1-1-0"
 
 :: ======================
-:: 1. Block in Program Files (64-bit)
-call :BlockChrome "%ProgramFiles%\Google"
+:: Block in "Program Files" folder
+call :BlockFolder "%ProgramFiles%\Google" "%ProgramFiles%\Google\Chrome"
 
-:: 2. Block in Program Files (32-bit)
+:: Block in 32-bit Program Files folder
 if defined ProgramFiles(x86) (
-    call :BlockChrome "%ProgramFiles(x86)%\Google"
+    call :BlockFolder "%ProgramFiles(x86)%\Google" "%ProgramFiles(x86)%\Google\Chrome"
 )
 
 exit /b 0
 
 :: ======================
 :: Helper Function to Safely Block Directory
-:BlockChrome
+:BlockFolder
 set "ParentDir=%~1"
-set "StubPath=%~1\Chrome"
+set "StubPath=%~2"
 
 :: Cancels if the folder or stub-file exists
 if exist "%StubPath%" (

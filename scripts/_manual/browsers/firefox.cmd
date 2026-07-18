@@ -27,20 +27,20 @@ set "SID_EVERYONE=*S-1-1-0"
 
 :: ======================
 :: Block in Program Files
-call :BlockFirefox "%ProgramFiles%"
+call :BlockFolder "%ProgramFiles%" "%ProgramFiles%\Mozilla Firefox"
 
-:: Block in Program Files for 32-bit
+:: Block in 32-bit Program Files folder
 if defined ProgramFiles(x86) (
-    call :BlockFirefox "%ProgramFiles(x86)%"
+    call :BlockFolder "%ProgramFiles(x86)%" "%ProgramFiles(x86)%\Mozilla Firefox"
 )
 
 exit /b 0
 
 :: ======================
 :: Helper Function to Safely Block Directory
-:BlockFirefox
+:BlockFolder
 set "ParentDir=%~1"
-set "StubPath=%~1\Mozilla Firefox"
+set "StubPath=%~2"
 
 :: Cancels if the folder or stub-file exists
 if exist "%StubPath%" (

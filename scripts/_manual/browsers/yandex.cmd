@@ -28,15 +28,15 @@ set "SID_EVERYONE=*S-1-1-0"
 :: ======================
 :: Starts the main procedure
 
-:: Block in AppData folder
-call :BlockYandex "%LocalAppData%\Yandex"
+:: Block in LocalAppData folder
+call :BlockFolder "%LocalAppData%\Yandex" "%LocalAppData%\Yandex\YandexBrowser"
 
-:: Block in Program Files folder
-call :BlockYandex "%ProgramFiles%\Yandex"
+:: Block in "Program Files" folder
+call :BlockFolder "%ProgramFiles%\Yandex" "%ProgramFiles%\Yandex\YandexBrowser"
 
-:: Block in "Program Files (x86)" folder
+:: Block in 32-bit Program Files folder
 if defined ProgramFiles(x86) (
-    call :BlockYandex "%ProgramFiles(x86)%\Yandex"
+    call :BlockFolder "%ProgramFiles(x86)%\Yandex" "%ProgramFiles(x86)%\Yandex\YandexBrowser"
 )
 
 exit /b 0
@@ -44,11 +44,11 @@ exit /b 0
 
 :: ======================
 :: Helper Function to Safely Block Directory
-:BlockYandex
+:BlockFolder
 set "ParentDir=%~1"
-set "StubPath=%~1\YandexBrowser"
+set "StubPath=%~2"
 
-:: Cancels the procedure if the folder or stub-file exists
+:: Cancels if the folder or stub-file exists
 if exist "%StubPath%" (
     @echo Folder or file "%StubPath%" exists, cancelling the procedure.
     exit /b 1
@@ -79,4 +79,5 @@ icacls "%StubPath%" /grant:r %SID_SYSTEM%:(R) >nul || exit /b 1
 
 :: Denies Everyone delete, write and execute permissions
 icacls "%StubPath%" /deny %SID_EVERYONE%:(D,W,X) >nul || exit /b 1
+
 exit /b 0

@@ -28,26 +28,26 @@ set "SID_EVERYONE=*S-1-1-0"
 :: ======================
 :: Starts the main procedure
 
-:: In `%AppData%`
-call :BlockAtom "%AppData%"
+:: Block in LocalAppData
+call :BlockFolder "%LocalAppData%" "%LocalAppData%\Atom"
 
-:: In "Program Files"
-call :BlockAtom "%ProgramFiles%"
+:: Block in "Program Files"
+call :BlockFolder "%ProgramFiles%" "%ProgramFiles%\Atom"
 
-:: In "Program Files" for 32-bit
+:: Block in 32-bit Program Files folder
 if defined ProgramFiles(x86) (
-    call :BlockAtom "%ProgramFiles(x86)%"
+    call :BlockFolder "%ProgramFiles(x86)%" "%ProgramFiles(x86)%\Atom"
 )
 
 exit /b 0
 
 :: ======================
-:: Helper function to block directory safely
-:BlockAtom
+:: Helper Function to Safely Block Directory
+:BlockFolder
 set "ParentDir=%~1"
-set "StubPath=%~1\Atom"
+set "StubPath=%~2"
 
-:: Cancels the procedure if the folder or stub-file exists
+:: Cancels if the folder or stub-file exists
 if exist "%StubPath%" (
     @echo Folder or file "%StubPath%" exists, cancelling the procedure.
     exit /b 1

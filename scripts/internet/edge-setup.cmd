@@ -3,7 +3,6 @@
 :: =========================================================================
 :: Hierarchy Level Summary:
 :: 1. HKLM\...\Edge             - Machine-Wide Mandatory (Overriding Priority)
-:: 2. HKLM\...\Edge\Recommended - Default Template (Pre-sets value, user can change)
 :: =========================================================================
 
 :: ======================
@@ -33,14 +32,12 @@ if !errorLevel! neq 0 (
 
 :: Options: 1 = Restore last session | 4 = Open a list of URLs | 5 = Open New Tab Page (Default) | 6 = Open a list of URLs and restore the last session
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "RestoreOnStartup" /t REG_DWORD /d 1 /f
-reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "RestoreOnStartup" /t REG_DWORD /d 1 /f
 
 :: Startup URLs (applies only if RestoreOnStartup is set to 4)
 reg add "HKLM\Software\Policies\Microsoft\Edge\RestoreOnStartupURLs" /v "1" /t REG_SZ /d "%HOME_PAGE_URL%" /f
 
 :: Home Page URL Configuration
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "HomepageLocation" /t REG_SZ /d "%HOME_PAGE_URL%" /f
-reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "HomepageLocation" /t REG_SZ /d "%HOME_PAGE_URL%" /f
 
 :: New Tab Page URL
 :: Options: Forces the New Tab page to load a custom URL instead of the default layout.
@@ -49,7 +46,6 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" /v "NewTabPageLocation" /t REG_S
 :: Home Button on Toolbar
 :: Options: 0 = Disabled (Hidden) | 1 = Enabled (Visible, Default)
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ShowHomeButton" /t REG_DWORD /d 0 /f
-reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "ShowHomeButton" /t REG_DWORD /d 0 /f
 
 
 :: ======================
@@ -59,13 +55,11 @@ reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "ShowHomeButton" 
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/trackingprevention
 :: Options: 0 = Off | 1 = Basic | 2 = Balanced (Default) | 3 = Strict
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "TrackingPrevention" /t REG_DWORD /d 2 /f
-reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "TrackingPrevention" /t REG_DWORD /d 2 /f
 
 :: "Do Not Track" Header Sending
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/configuredonottrack
 :: Options: 0 = Disabled (Default) | 1 = Enabled
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ConfigureDoNotTrack" /t REG_DWORD /d 1 /f
-reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "ConfigureDoNotTrack" /t REG_DWORD /d 1 /f
 
 :: Diagnostic Data Collection (Telemetry)
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/diagnosticdata
@@ -79,7 +73,6 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DiagnosticData" /t REG_DWORD
 :: Third-Party Cookies
 :: Options: 0 = Allow All (Default) | 1 = Block Third-Party | 2 = Block All Cookies
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "BlockThirdPartyCookies" /t REG_DWORD /d 1 /f
-reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "BlockThirdPartyCookies" /t REG_DWORD /d 1 /f
 
 
 :: ======================
@@ -103,7 +96,6 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" /v "RestoreOnStartup" /t REG_DWO
 :: Background Processing / Run Apps After Closing
 :: Options: 0 = Disabled | 1 = Enabled (Default - Keeps background process alive for speed)
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "BackgroundModeEnabled" /t REG_DWORD /d 0 /f
-reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "BackgroundModeEnabled" /t REG_DWORD /d 0 /f
 
 
 :: ======================
@@ -122,7 +114,6 @@ reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DownloadRestrictions" /t REG
 
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/microsoft365copilotchaticonenabled
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "Microsoft365CopilotChatIconEnabled" /t REG_DWORD /d 0 /f
-reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "Microsoft365CopilotChatIconEnabled" /t REG_DWORD /d 0 /f
 
 :: Disable Edge sidebar (where Copilot is integrated in newer Edge versions)
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "HubsSidebarEnabled" /t REG_DWORD /d 0 /f

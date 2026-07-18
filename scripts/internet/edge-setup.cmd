@@ -94,25 +94,17 @@ reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "BlockThirdPartyC
 
 :: ======================
 :: SEARCH ENGINE AND ADDRESS BAR
+:: Open URL `edge://policy` to check the result
 
-:: Search provider usage (Google default)
-:: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/defaultsearchproviderenabled
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderEnabled" /t REG_DWORD /d 1 /f
-:: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/defaultsearchprovidername
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderName" /t REG_SZ /d "Google" /f
-:: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/defaultsearchprovidersearchurl
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DefaultSearchProviderSearchURL" /t REG_SZ /d "{google:baseURL}search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}ie={inputEncoding}" /f
-
-:: Only Google and Bing are allowed
 :: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/managedsearchengines
-:: NOTE: This policy is ignored because the above DefaultSearchProviderSearchURL policy is set
-reg add "HKLM\Software\Policies\Microsoft\Edge" /v "ManagedSearchEngines" /t REG_SZ /d "[{\"name\":\"Google\",\"keyword\":\"google.com\",\"url\":\"https://www.google.com/search?q={searchTerms}\",\"is_default\":true},{\"name\":\"Bing\",\"keyword\":\"bing.com\",\"url\":\"https://www.bing.com/search?q={searchTerms}\",\"is_default\":false}]" /f
+reg add "HKLM\Software\Policies\Microsoft\Edge" ^
+    /v "ManagedSearchEngines" /t REG_SZ /f ^
+    /d "[{\"name\":\"Google\",\"keyword\":\"google.com\",\"shortcut\":\"google\",\"url\":\"https://www.google.com/search?q={searchTerms}\",\"is_default\":true}]"
 
 :: Block adding new search engines via UI
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "EditSearchEnginesEnabled" /t REG_DWORD /d 0 /f
 
-:: Prevent per-user (HKCU) override
-reg delete "HKCU\Software\Policies\Microsoft\Edge" /f >nul 2>&1
+reg add "HKLM\Software\Policies\Microsoft\Edge" /v "RestoreOnStartup" /t REG_DWORD /d 1 /f
 
 
 :: ======================

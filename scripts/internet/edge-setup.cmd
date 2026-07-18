@@ -129,9 +129,11 @@ reg add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v "BackgroundModeEn
 :: PRINTING AND DOWNLOADS
 
 :: Prompt User for Save Location
-:: Options: 0 = Auto-save directly | 1 = Ask user where to save file (Default)
+:: https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/downloadrestrictions
+:: Options: (0) = No special restrictions | 1 = Block malicious downloads and dangerous file types
+:: (2) = Block potentially dangerous or unwanted downloads and dangerous file types
+:: (3) = Block all downloads, (4) = Block malicious downloads
 reg add "HKLM\Software\Policies\Microsoft\Edge" /v "DownloadRestrictions" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Policies\Microsoft\Edge" /v "DownloadRestrictions" /t REG_DWORD /d 0 /f
 
 
 :: ======================

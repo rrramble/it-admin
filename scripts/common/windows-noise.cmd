@@ -19,13 +19,25 @@ if !errorLevel! neq 0 (
 )
 
 :: ======================
+:: Policy to disable Copilot
 
-:: Disable Copilot
 :: https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-windowsai#:~:text=TurnOffWindowsCopilot
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Copilot" /v TurnOffWindowsCopilot /t REG_DWORD /d 1 /f
 
-:: Delete XPS writer
+
+:: ======================
+:: Deletes XPS writer
+
+:: Relies on the exact printer name, will not work if the object is renamed
+rundll32 printui.dll,PrintUIEntry /dl /n "Microsoft XPS Document Writer"
+
 reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Printers\Microsoft XPS Document Writer" /f
 
-:: Delete Fax
+
+:: ======================
+:: Deletes Fax
+
+:: Relies on the exact printer name, will not work if the object is renamed
+rundll32 printui.dll,PrintUIEntry /dl /n "Fax"
+
 reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Printers\Fax" /f

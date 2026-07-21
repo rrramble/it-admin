@@ -21,15 +21,11 @@
 openssl passwd -6 'PLAIN_PASSWORD'
 ```
 
-2. Store SSH logins with passwords in the following files:
+and remove the `$6` and `$rounds=???` because these will be added automatically.
+
+2. Store credentials in the `LOGIN:PASSWORD_HASH` format in the following files:
 - `passwords/clients.txt`
 - `passwords/operators.txt`
-
-in the following format:
-
-```txt
-LOGIN1:6$rounds=5000$PASSWORD_HASH
-```
 
 
 ### Store SSH login/password (in the client's Windows software)

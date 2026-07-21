@@ -2,9 +2,7 @@
 auth required pam_env.so
 
 # Password authentication
-auth sufficient pam_pwdfile.so pwdfile=/etc/ssh/auth_db/operators.txt
-auth sufficient pam_pwdfile.so pwdfile=/etc/ssh/auth_db/clients.txt
-auth required pam_deny.so
+@include common-auth
 
 # Account restrictions
 account required pam_nologin.so

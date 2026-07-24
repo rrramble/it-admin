@@ -1,0 +1,77 @@
+[General]
+Custom=1
+ProfileName=Outlook
+DefaultProfile=Yes
+OverwriteProfile=Yes
+ModifyExistingProfiles=No
+
+; ===============================================================================
+; SERVICE SELECTION LIST
+; Uncomment ONLY ONE service combination depending on your mail protocol
+; ===============================================================================
+[ServiceList]
+
+; --- CHOICE A: Microsoft 365 / Exchange Server ---
+; Service1=MSX
+
+; --- CHOICE B: Classic IMAP Setup ---
+; Service1=IMAP
+; Service2=SMTP
+
+; --- CHOICE C: Classic POP3 Setup ---
+; Service1=POP3
+; Service2=SMTP
+
+
+; ===============================================================================
+; BLOCK 1: MICROSOFT 365 / EXCHANGE CONFIGURATION
+; ===============================================================================
+[ServiceMSX]
+; `No` allows adding this service even if another IMAP account already exists
+UniqueServiceKey=Yes
+PercentString=%username%
+MailboxName=%username%
+HomeServer=Autodiscover
+
+
+; ===============================================================================
+; BLOCK 2: IMAP CONFIGURATION
+; ===============================================================================
+[ServiceIMAP]
+; `No` allows adding this service even if another IMAP account already exists
+UniqueServiceKey=Yes
+AccountName=Work Email (IMAP)
+IncomingServer=mail.yourdomain.com
+Port=993
+UseSSL=Yes
+UserName=%username%@yourdomain.com
+; Enables SPA (Secure Password Authentication -- NTLM-based challenge-response)
+;AuthMethod=SecurePassword
+
+
+; ===============================================================================
+; BLOCK 3: POP3 CONFIGURATION
+; ===============================================================================
+[ServicePOP3]
+; `No` allows adding this service even if another IMAP account already exists
+UniqueServiceKey=Yes
+AccountName=Work Email (POP3)
+IncomingServer=mail.yourdomain.com
+Port=995
+UseSSL=Yes
+UserName=%username%@yourdomain.com
+; Enables SPA (Secure Password Authentication -- NTLM-based challenge-response)
+;AuthMethod=SecurePassword
+
+
+; ===============================================================================
+; BLOCK 4: SMTP CONFIGURATION (Required for both IMAP and POP3 variants)
+; ===============================================================================
+[ServiceSMTP]
+; `No` allows adding this service even if another IMAP account already exists
+UniqueServiceKey=Yes
+OutgoingServer=mail.yourdomain.com
+Port=465
+UseSSL=Yes
+; 1 instructs Outlook to re-use the same password as in POP
+SmtpAuthMethod=1

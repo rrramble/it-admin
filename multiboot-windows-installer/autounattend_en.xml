@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
-	<!--https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILanguage=en-US&Locale=en-US&Keyboard=00000409&GeoLocation=137&PEMode=Default&WindowsEditionMode=Interactive&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&ComputerNameMode=Script&ComputerNameScript=return+%27PC-%7B0%3AD3%7D%27+-f+%28+Get-Random+-Minimum+0+-Maximum+999+%29%3B&TimeZoneMode=Explicit&TimeZone=Qyzylorda+Standard+Time&UserAccountMode=Unattended&AccountName0=User&AccountDisplayName0=&AccountPassword0=&AccountGroup0=Administrators&AutoLogonMode=Own&PasswordExpirationMode=Unlimited&LockoutMode=Custom&LockoutThreshold=10&LockoutWindow=1&LockoutDuration=1&HideFiles=Hidden&ClassicContextMenu=true&HideInfoTip=true&TaskbarSearch=Hide&TaskbarIconsMode=Default&DisableWidgets=true&LeftTaskbar=true&HideTaskViewButton=true&DisableBingResults=true&StartTilesMode=Empty&StartPinsMode=Empty&EnableLongPaths=true&EnableRemoteDesktop=true&TurnOffSystemSounds=true&DisableAppSuggestions=true&PreventDeviceEncryption=true&HideEdgeFre=true&DisableEdgeStartupBoost=true&CoreIsolationMode=Enabled&DisableAutomaticRestartSignOn=true&EffectsMode=Performance&DeleteEdgeDesktopIcon=true&DesktopIconsMode=Custom&IconRecycleBin=true&IconThisPC=true&StartFoldersMode=Custom&StartFolderDocuments=true&StartFolderDownloads=true&StartFolderPictures=true&WifiMode=Interactive&ExpressSettings=DisableAll&LockKeysMode=Configure&CapsLockInitial=Off&CapsLockBehavior=Toggle&NumLockInitial=On&NumLockBehavior=Toggle&ScrollLockInitial=Off&ScrollLockBehavior=Toggle&StickyKeysMode=Default&ColorMode=Default&WallpaperMode=Solid&WallpaperColor=%230433ff&LockScreenMode=Default&Remove3DViewer=true&RemoveBingSearch=true&RemoveCopilot=true&RemoveCortana=true&RemoveDevHome=true&RemoveWindowsHello=true&RemoveFamily=true&RemoveFeedbackHub=true&RemoveGameAssist=true&RemoveGetHelp=true&RemoveHandwriting=true&RemoveInternetExplorer=true&RemoveMaps=true&RemoveMixedReality=true&RemoveZuneVideo=true&RemoveNews=true&RemoveOffice365=true&RemoveOneDrive=true&RemoveOneNote=true&RemoveOneSync=true&RemovePaint3D=true&RemovePeople=true&RemoveRecall=true&RemoveSkype=true&RemoveSolitaire=true&RemoveSpeech=true&RemoveStepsRecorder=true&RemoveStickyNotes=true&RemoveGetStarted=true&RemoveToDo=true&RemoveVoiceRecorder=true&RemoveWallet=true&RemoveWeather=true&RemoveWordPad=true&RemoveYourPhone=true&SystemScript0=powercfg.exe+%2FHIBERNATE+OFF&SystemScriptType0=Cmd&AppLockerMode=Skip-->
+	<!--https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILanguage=en-US&Locale=en-US&Keyboard=00000409&GeoLocation=137&PEMode=Default&WindowsEditionMode=Interactive&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&ComputerNameMode=Script&ComputerNameScript=return+%27PC-%7B0%3AD3%7D%27+-f+%28+Get-Random+-Minimum+0+-Maximum+999+%29%3B&TimeZoneMode=Explicit&TimeZone=Qyzylorda+Standard+Time&UserAccountMode=Unattended&AccountName0=Admin&AccountDisplayName0=&AccountPassword0=&AccountGroup0=Administrators&AutoLogonMode=Own&PasswordExpirationMode=Unlimited&LockoutMode=Custom&LockoutThreshold=10&LockoutWindow=1&LockoutDuration=1&HideFiles=Hidden&ClassicContextMenu=true&HideInfoTip=true&TaskbarSearch=Hide&TaskbarIconsMode=Default&DisableWidgets=true&LeftTaskbar=true&HideTaskViewButton=true&DisableBingResults=true&StartTilesMode=Empty&StartPinsMode=Empty&EnableLongPaths=true&EnableRemoteDesktop=true&TurnOffSystemSounds=true&DisableAppSuggestions=true&PreventDeviceEncryption=true&HideEdgeFre=true&DisableEdgeStartupBoost=true&CoreIsolationMode=Enabled&DisableAutomaticRestartSignOn=true&EffectsMode=Performance&DeleteEdgeDesktopIcon=true&DesktopIconsMode=Custom&IconRecycleBin=true&IconThisPC=true&StartFoldersMode=Custom&StartFolderDocuments=true&StartFolderDownloads=true&StartFolderPictures=true&WifiMode=Interactive&ExpressSettings=DisableAll&LockKeysMode=Configure&CapsLockInitial=Off&CapsLockBehavior=Toggle&NumLockInitial=On&NumLockBehavior=Toggle&ScrollLockInitial=Off&ScrollLockBehavior=Toggle&StickyKeysMode=Default&ColorMode=Default&WallpaperMode=Solid&WallpaperColor=%230433ff&LockScreenMode=Default&Remove3DViewer=true&RemoveBingSearch=true&RemoveCopilot=true&RemoveCortana=true&RemoveDevHome=true&RemoveWindowsHello=true&RemoveFamily=true&RemoveFeedbackHub=true&RemoveGameAssist=true&RemoveGetHelp=true&RemoveHandwriting=true&RemoveInternetExplorer=true&RemoveMaps=true&RemoveMixedReality=true&RemoveZuneVideo=true&RemoveNews=true&RemoveOffice365=true&RemoveOneDrive=true&RemoveOneNote=true&RemoveOneSync=true&RemovePaint3D=true&RemovePeople=true&RemoveRecall=true&RemoveSkype=true&RemoveSolitaire=true&RemoveSpeech=true&RemoveStepsRecorder=true&RemoveStickyNotes=true&RemoveGetStarted=true&RemoveToDo=true&RemoveVoiceRecorder=true&RemoveWallet=true&RemoveWeather=true&RemoveWordPad=true&RemoveYourPhone=true&SystemScript0=powercfg.exe+%2FHIBERNATE+OFF&SystemScriptType0=Cmd&AppLockerMode=Skip-->
 	<settings pass="offlineServicing"></settings>
 	<settings pass="windowsPE">
 		<component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
@@ -75,7 +75,7 @@
 			<UserAccounts>
 				<LocalAccounts>
 					<LocalAccount wcm:action="add">
-						<Name>User</Name>
+						<Name>Admin</Name>
 						<DisplayName></DisplayName>
 						<Group>Administrators</Group>
 						<Password>
@@ -86,7 +86,7 @@
 				</LocalAccounts>
 			</UserAccounts>
 			<AutoLogon>
-				<Username>User</Username>
+				<Username>Admin</Username>
 				<Enabled>true</Enabled>
 				<LogonCount>1</LogonCount>
 				<Password>
@@ -370,11 +370,11 @@ Set-ItemProperty -LiteralPath $key -Name 'ConfigureStartPins' -Value $json -Type
 Add-Type -TypeDefinition '
 	using System.Drawing;
 	using System.Runtime.InteropServices;
-	
+
 	public static class WallpaperSetter {
 		[DllImport("user32.dll")]
 		private static extern bool SetSysColors(
-			int cElements, 
+			int cElements,
 			int[] lpaElements,
 			int[] lpaRgbValues
 		);
@@ -653,7 +653,7 @@ $scripts = @(
 		  'SubscribedContent-353698Enabled';
 		  'SystemPaneSuggestionsEnabled';
 		);
-		
+
 		foreach( $name in $names ) {
 		  reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v $name /t REG_DWORD /d 0 /f;
 		}

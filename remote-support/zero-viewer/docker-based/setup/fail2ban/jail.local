@@ -6,3 +6,4 @@ maxretry = 3
 findtime = 1m
 bantime = 1m
 backend = systemd
+banaction = iptables-multiport

@@ -48,6 +48,19 @@ EOF
 chmod 644 "$FILENAME"
 chown root:root "$FILENAME"
 
+## Next file
+FOLDER=/etc/systemd/system/ssh.service.d
+FILENAME="$FOLDER"/99-drop-ssh-multiplex.conf
+mkdir -p "$FOLDER"
+cat <<'EOF' | sudo tee "$FILENAME" > /dev/null
+[Service]
+# Drops any stdout/stderr logs from this service matching the regex pattern
+LogFilterPatterns=~Postponed keyboard-interactive
+EOF
+chmod 644 "$FILENAME"
+chown root:root "$FILENAME"
+
+
 ######################################
 ### ### Configures `pam` ### ###
 ## Next file

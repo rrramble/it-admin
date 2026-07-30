@@ -12,6 +12,10 @@
 set "TARGET_PC=PC-01"
 set "SHARED_PRF_PATH=config.prf"
 
+:: Sets the current directory to the folder where this script is executed from,
+:: instead of "c:\windows\system32"
+cd /d "%~dp0"
+
 :: Note: Update the path below for your version of Outlook:
 :: For Office 2010: "C:\Program Files\Microsoft Office\Office14\OUTLOOK.EXE"
 :: For Office 2013: "C:\Program Files\Microsoft Office\Office15\OUTLOOK.EXE"

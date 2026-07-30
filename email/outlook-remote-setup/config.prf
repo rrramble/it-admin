@@ -11,31 +11,20 @@ ModifyExistingProfiles=No
 ; ===============================================================================
 [ServiceList]
 
-; --- CHOICE A: Microsoft 365 / Exchange Server ---
-; Service1=MSX
-
-; --- CHOICE B: Classic IMAP Setup ---
+; --- CHOICE A: Classic IMAP Setup ---
 ; Service1=IMAP
 ; Service2=SMTP
 
-; --- CHOICE C: Classic POP3 Setup ---
+; --- CHOICE B: Classic POP3 Setup ---
 ; Service1=POP3
 ; Service2=SMTP
 
-
-; ===============================================================================
-; BLOCK 1: MICROSOFT 365 / EXCHANGE CONFIGURATION
-; ===============================================================================
-[ServiceMSX]
-; `No` allows adding this service even if another IMAP account already exists
-UniqueServiceKey=Yes
-PercentString=%username%
-MailboxName=%username%
-HomeServer=Autodiscover
+; --- CHOICE C: Microsoft 365 / Exchange Server ---
+; Service1=MSX
 
 
 ; ===============================================================================
-; BLOCK 2: IMAP CONFIGURATION
+; BLOCK: IMAP CONFIGURATION
 ; ===============================================================================
 [ServiceIMAP]
 ; `No` allows adding this service even if another IMAP account already exists
@@ -50,7 +39,7 @@ UserName=%username%@yourdomain.com
 
 
 ; ===============================================================================
-; BLOCK 3: POP3 CONFIGURATION
+; BLOCK: POP3 CONFIGURATION
 ; ===============================================================================
 [ServicePOP3]
 ; `No` allows adding this service even if another IMAP account already exists
@@ -65,7 +54,7 @@ UserName=%username%@yourdomain.com
 
 
 ; ===============================================================================
-; BLOCK 4: SMTP CONFIGURATION (Required for both IMAP and POP3 variants)
+; BLOCK: SMTP CONFIGURATION (Required for both IMAP and POP3 variants)
 ; ===============================================================================
 [ServiceSMTP]
 ; `No` allows adding this service even if another IMAP account already exists
@@ -75,3 +64,14 @@ Port=465
 UseSSL=Yes
 ; 1 instructs Outlook to re-use the same password as in POP
 SmtpAuthMethod=1
+
+
+; ===============================================================================
+; BLOCK: MICROSOFT 365 / EXCHANGE CONFIGURATION
+; ===============================================================================
+[ServiceMSX]
+; `No` allows adding this service even if another IMAP account already exists
+UniqueServiceKey=Yes
+PercentString=%username%
+MailboxName=%username%
+HomeServer=Autodiscover

@@ -27,7 +27,7 @@ if not defined FULL_OUTLOOK_PATH (
     exit /b 1
 )
 
-:: Sets the current directory to the folder where this script is executed from,
+:: Sets the current directory to the folder containing this script,
 :: instead of "c:\windows\system32"
 cd /d "%~dp0"
 

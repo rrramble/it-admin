@@ -191,7 +191,7 @@ login=($_DDCLIENT_LOGIN)
 password='($_DDCLIENT_PASSWORD)'
 protocol=noip
 server=dynupdate.no-ip.com
-daemon=60
+daemon=180
 ssl=yes
 use=web
 web=checkip.amazonaws.com
@@ -199,6 +199,25 @@ kng.ddns.net
 EOF
 chmod 644 "$FILENAME"
 chown root:root "$FILENAME"
+
+## Next file
+# Override ddclient daemon interval without modifying package files
+FOLDER="/etc/systemd/system/ddclient.service.d"
+FILENAME="$FOLDER/override.conf"
+
+sudo mkdir -p "$FOLDER"
+cat <<EOF | sudo tee "$FILENAME" >/dev/null
+[Service]
+Environment=daemon_interval=3m
+EOF
+
+# Secure ownership and permissions
+sudo chown root:root "$FOLDER"
+sudo chmod 755 "$FOLDER"
+
+sudo chown root:root "$FILENAME"
+sudo chmod 644 "$FILENAME"
+
 
 ######################################
 ### ### Apply services ### ###

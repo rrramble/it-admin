@@ -24,9 +24,20 @@ set INACTIVITY_TIMER_SEC=1200
 
 :: ======================
 :: Run
+set /a _=%INACTIVITY_TIMER_SEC% >nul 2>&1 || (
+    echo [ERROR] Invalid timer value. Should be numeric.
+    exit /b 1
+)
+
 if %INACTIVITY_TIMER_SEC% LSS 60 (
     echo [ERROR] Timer too low (minimum practical value is 60 seconds)
     exit /b 1
 )
 
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v InactivityTimeoutSecs /t REG_DWORD /d %INACTIVITY_TIMER_SEC% /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "InactivityTimeoutSecs" /t REG_DWORD /d %INACTIVITY_TIMER_SEC% /f >nul 2>&1
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaveTimeOut" /f /t REG_DWORD /d %INACTIVITY_TIMER_SEC% >nul 2>&1
+
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaveActive" /f /t REG_DWORD /d 1 >nul 2>&1
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaverIsSecure" /f /t REG_DWORD /d 1 >nul 2>&1
+
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v SCRNSAVE.EXE /t REG_SZ /d "%SystemRoot%\System32\scrnsave.scr" /f >nul 2>&1

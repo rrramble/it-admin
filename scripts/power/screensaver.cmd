@@ -23,6 +23,10 @@ if errorLevel 1 (
 
 :: ======================
 @echo 1. Screensaver timeout and lock - main settings
+
+:: Removes the wrong registry name "ScreenSaverActive" set up much earlier
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaverActive" /f >nul 2>&1
+
 reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaveActive" /f >nul 2>&1
 reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaveTimeOut" /f >nul 2>&1
 reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaverIsSecure" /f >nul 2>&1

@@ -188,7 +188,7 @@ chown root:root "$FILENAME"
 FILENAME=/etc/ddclient.conf
 cat <<EOF | sudo tee "$FILENAME" > /dev/null
 login=($_DDCLIENT_LOGIN)
-password="($_DDCLIENT_PASSWORD)"
+password='($_DDCLIENT_PASSWORD)'
 protocol=noip
 server=dynupdate.no-ip.com
 daemon=60

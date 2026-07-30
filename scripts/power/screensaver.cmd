@@ -3,6 +3,8 @@
 :: because the `Screen Lock` policy is used instead (see the `Security` section)
 :: ==============================================================
 
+:: TODO: remove the script after fully moving to 'screen-lock.cmd'
+
 :: ======================
 @echo Pre-requisites
 setlocal EnableDelayedExpansion

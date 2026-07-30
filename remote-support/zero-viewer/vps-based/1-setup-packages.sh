@@ -191,7 +191,7 @@ login=($_DDCLIENT_LOGIN)
 password='($_DDCLIENT_PASSWORD)'
 protocol=noip
 server=dynupdate.no-ip.com
-daemon=180
+daemon=360
 ssl=yes
 use=web
 web=checkip.amazonaws.com
@@ -208,7 +208,7 @@ FILENAME="$FOLDER/override.conf"
 sudo mkdir -p "$FOLDER"
 cat <<EOF | sudo tee "$FILENAME" >/dev/null
 [Service]
-Environment=daemon_interval=3m
+Environment=daemon_interval=6m
 EOF
 
 # Secure ownership and permissions

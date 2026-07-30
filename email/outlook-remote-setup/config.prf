@@ -22,7 +22,6 @@ ModifyExistingProfiles=No
 ; --- CHOICE C: Microsoft 365 / Exchange Server ---
 ; Service1=MSX
 
-
 ; ===============================================================================
 ; BLOCK: IMAP CONFIGURATION
 ; ===============================================================================
@@ -52,7 +51,6 @@ UserName=%username%@yourdomain.com
 ; Enables SPA (Secure Password Authentication -- NTLM-based challenge-response)
 ;AuthMethod=SecurePassword
 
-
 ; ===============================================================================
 ; BLOCK: SMTP CONFIGURATION (Required for both IMAP and POP3 variants)
 ; ===============================================================================
@@ -64,7 +62,6 @@ Port=465
 UseSSL=Yes
 ; 1 instructs Outlook to re-use the same password as in POP
 SmtpAuthMethod=1
-
 
 ; ===============================================================================
 ; BLOCK: MICROSOFT 365 / EXCHANGE CONFIGURATION

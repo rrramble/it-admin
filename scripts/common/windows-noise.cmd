@@ -27,17 +27,13 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Copilot" /v TurnOffWin
 
 :: ======================
 :: Deletes XPS writer
-
 :: Relies on the exact printer name, will not work if the object is renamed
-rundll32 printui.dll,PrintUIEntry /dl /n "Microsoft XPS Document Writer"
-
+printui.exe /dl /n "Microsoft XPS Document Writer" /q
 reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Printers\Microsoft XPS Document Writer" /f
 
 
 :: ======================
 :: Deletes Fax
-
 :: Relies on the exact printer name, will not work if the object is renamed
-rundll32 printui.dll,PrintUIEntry /dl /n "Fax"
-
+printui.exe /dl /n "Fax" /q
 reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Printers\Fax" /f

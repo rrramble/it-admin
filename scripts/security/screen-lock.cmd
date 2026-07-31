@@ -35,6 +35,9 @@ set /a _=%INACTIVITY_TIMER_SEC% >nul 2>&1 || (
 ::    exit /b 1
 :: )
 
+
+:: Registry's "Local machine" section
+
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "InactivityTimeoutSecs" /t REG_DWORD /d %INACTIVITY_TIMER_SEC% /f >nul 2>&1
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaveTimeOut" /f /t REG_DWORD /d %INACTIVITY_TIMER_SEC% >nul 2>&1
 
@@ -42,3 +45,11 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "Scr
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaverIsSecure" /f /t REG_DWORD /d 1 >nul 2>&1
 
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v SCRNSAVE.EXE /t REG_SZ /d "%SystemRoot%\System32\scrnsave.scr" /f >nul 2>&1
+
+
+:: Registry's "Current User" section
+
+reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveActive" /t REG_SZ /d 1 /f
+reg add "HKCU\Control Panel\Desktop" /v "ScreenSaverIsSecure" /t REG_SZ /d 1 /f
+reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveTimeOut" /t REG_SZ /d %INACTIVITY_TIMER_SEC% /f
+reg add "HKCU\Control Panel\Desktop" /v "SCRNSAVE.EXE" /t REG_SZ /d "%SystemRoot%\System32\scrnsave.scr" /f

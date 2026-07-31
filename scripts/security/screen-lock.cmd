@@ -43,13 +43,16 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "Scr
 
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaveActive" /f /t REG_DWORD /d 1 >nul 2>&1
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaverIsSecure" /f /t REG_DWORD /d 1 >nul 2>&1
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "LockScreenAutoLockActive" /f /t REG_DWORD /d 1 >nul 2>&1
 
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v SCRNSAVE.EXE /t REG_SZ /d "%SystemRoot%\System32\scrnsave.scr" /f >nul 2>&1
 
 
 :: Registry's "Current User" section
 
-reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveActive" /t REG_SZ /d 1 /f
-reg add "HKCU\Control Panel\Desktop" /v "ScreenSaverIsSecure" /t REG_SZ /d 1 /f
-reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveTimeOut" /t REG_SZ /d %INACTIVITY_TIMER_SEC% /f
+reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveActive"         /t REG_SZ /d 1 /f
+reg add "HKCU\Control Panel\Desktop" /v "ScreenSaverIsSecure"      /t REG_SZ /d 1 /f
+reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveTimeOut"        /t REG_SZ /d %INACTIVITY_TIMER_SEC% /f
+reg add "HKCU\Control Panel\Desktop" /v "LockScreenAutoLockActive" /t REG_SZ /d 1 /f
+
 reg add "HKCU\Control Panel\Desktop" /v "SCRNSAVE.EXE" /t REG_SZ /d "%SystemRoot%\System32\scrnsave.scr" /f

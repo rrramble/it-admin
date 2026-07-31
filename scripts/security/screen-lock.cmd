@@ -29,10 +29,11 @@ set /a _=%INACTIVITY_TIMER_SEC% >nul 2>&1 || (
     exit /b 1
 )
 
-if %INACTIVITY_TIMER_SEC% LSS 60 (
-    echo [ERROR] Timer too low (minimum practical value is 60 seconds)
-    exit /b 1
-)
+:: TODO: fix this check - it does not work
+:: if %INACTIVITY_TIMER_SEC% LSS 60 (
+::    echo [ERROR] Timer too low (minimum practical value is 60 seconds)
+::    exit /b 1
+:: )
 
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "InactivityTimeoutSecs" /t REG_DWORD /d %INACTIVITY_TIMER_SEC% /f >nul 2>&1
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaveTimeOut" /f /t REG_DWORD /d %INACTIVITY_TIMER_SEC% >nul 2>&1

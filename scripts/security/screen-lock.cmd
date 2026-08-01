@@ -4,10 +4,10 @@
 
 :: ======================
 :: Pre-requisites
-setlocal EnableDelayedExpansion
+setlocal EnableExtensions EnableDelayedExpansion
 
 :: Restrict PATH variable to secure system binaries to prevent binary hijacking
-set "PATH=%SystemRoot%\System32;%SystemRoot%;%SystemRoot%\System32\Wbem"
+set "PATH=%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\system32\Wbem"
 
 chcp 65001
 
@@ -20,39 +20,54 @@ if errorLevel 1 (
 
 :: ======================
 :: Variables
-set INACTIVITY_TIMER_SEC=1200
+set /a INACTIVITY_TIMER_SEC=1200
+set "TEMP_HIVE_NAME=ScreenSaverDeploy_%RANDOM%_%RANDOM%"
+set "SCREEN_SAVE_EXECUTABLE=%SystemRoot%\system32\scrnsave.scr"
 
 :: ======================
 :: Run
-set /a _=%INACTIVITY_TIMER_SEC% >nul 2>&1 || (
-    echo [ERROR] Invalid timer value. Should be numeric.
+if not exist "%SCREEN_SAVE_EXECUTABLE%" (
+    @echo [ERROR] Missing screensaver executable: %SCREEN_SAVE_EXECUTABLE%
     exit /b 1
 )
 
-:: TODO: fix this check - it does not work
-:: if %INACTIVITY_TIMER_SEC% LSS 60 (
-::    echo [ERROR] Timer too low (minimum practical value is 60 seconds)
-::    exit /b 1
-:: )
-
-
-:: Registry's "Local machine" section
-
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "InactivityTimeoutSecs" /t REG_DWORD /d %INACTIVITY_TIMER_SEC% /f >nul 2>&1
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaveTimeOut" /f /t REG_DWORD /d %INACTIVITY_TIMER_SEC% >nul 2>&1
-
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaveActive" /f /t REG_DWORD /d 1 >nul 2>&1
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaverIsSecure" /f /t REG_DWORD /d 1 >nul 2>&1
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "LockScreenAutoLockActive" /f /t REG_DWORD /d 1 >nul 2>&1
-
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v SCRNSAVE.EXE /t REG_SZ /d "%SystemRoot%\System32\scrnsave.scr" /f >nul 2>&1
-
-
-:: Registry's "Current User" section
-
+:: Current user in the Registry
 reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveActive"         /t REG_SZ /d 1 /f
 reg add "HKCU\Control Panel\Desktop" /v "ScreenSaverIsSecure"      /t REG_SZ /d 1 /f
 reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveTimeOut"        /t REG_SZ /d %INACTIVITY_TIMER_SEC% /f
-reg add "HKCU\Control Panel\Desktop" /v "LockScreenAutoLockActive" /t REG_SZ /d 1 /f
+reg add "HKCU\Control Panel\Desktop" /v "LockScreenAutoLockActive" /t REG_SZ /d 0 /f
+reg add "HKCU\Control Panel\Desktop" /v "SCRNSAVE.EXE" /t REG_SZ /d "%SystemRoot%\system32\scrnsave.scr" /f
 
-reg add "HKCU\Control Panel\Desktop" /v "SCRNSAVE.EXE" /t REG_SZ /d "%SystemRoot%\System32\scrnsave.scr" /f
+:: Other users in the Registry
+set "CURRENT_PROFILE=%USERPROFILE%"
+
+for /D %%P in ("%SystemDrive%\Users\*") do (
+    set "ProfilePath=%%~fP"
+    set "HiveFile=%%~fP\NTUSER.DAT"
+
+    rem Exclude system profile
+    if /I not "%%~nxP"=="Public" (
+        rem Exludes current user
+        if /I not "!ProfilePath!"=="%CURRENT_PROFILE%" (
+            if exist "!HiveFile!" (
+                @echo %DATE% %TIME% - Loading !HiveFile!
+                reg load "HKU\%TEMP_HIVE_NAME%" "!HiveFile!" >nul 2>&1
+
+                if errorlevel 1 (
+                    @echo [ERROR] Failed loading !HiveFile!
+                ) else (
+                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v "ScreenSaveActive" /t REG_SZ /d 1 /f >nul
+                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v "ScreenSaverIsSecure" /t REG_SZ /d 1 /f >nul
+                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v "ScreenSaveTimeOut" /t REG_SZ /d %INACTIVITY_TIMER_SEC% /f >nul
+                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v "LockScreenAutoLockActive" /t REG_SZ /d 0 /f >nul
+                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v "SCRNSAVE.EXE" /t REG_SZ /d "%SCREEN_SAVE_EXECUTABLE%" /f >nul
+                    reg unload "HKU\%TEMP_HIVE_NAME%" >nul 2>&1
+                    echo %DATE% %TIME% - Ended !ProfilePath!
+                )
+            )
+        )
+    )
+)
+
+:: `endlocal` is useful if the script will continue; can be removed if the scipt ends here
+endlocal

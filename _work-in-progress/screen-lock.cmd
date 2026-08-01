@@ -7,7 +7,7 @@
 setlocal EnableExtensions EnableDelayedExpansion
 
 :: Restrict PATH variable to secure system binaries to prevent binary hijacking
-set "PATH=%SystemRoot%\System32;%SystemRoot%;%SystemRoot%\System32\Wbem"
+set "PATH=%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\system32\Wbem"
 
 chcp 65001
 
@@ -22,7 +22,7 @@ if errorLevel 1 (
 :: Variables
 set /a INACTIVITY_TIMER_SEC=1200
 set "TEMP_HIVE_NAME=ScreenSaverDeploy_%RANDOM%_%RANDOM%"
-set "SCREEN_SAVE_EXECUTABLE=%SystemRoot%\System32\scrnsave.scr"
+set "SCREEN_SAVE_EXECUTABLE=%SystemRoot%\system32\scrnsave.scr"
 
 :: ======================
 :: Run
@@ -36,7 +36,7 @@ reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveActive"         /t REG_SZ /d 
 reg add "HKCU\Control Panel\Desktop" /v "ScreenSaverIsSecure"      /t REG_SZ /d 1 /f
 reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveTimeOut"        /t REG_SZ /d %INACTIVITY_TIMER_SEC% /f
 reg add "HKCU\Control Panel\Desktop" /v "LockScreenAutoLockActive" /t REG_SZ /d 1 /f
-reg add "HKCU\Control Panel\Desktop" /v "SCRNSAVE.EXE" /t REG_SZ /d "%SystemRoot%\System32\scrnsave.scr" /f
+reg add "HKCU\Control Panel\Desktop" /v "SCRNSAVE.EXE" /t REG_SZ /d "%SystemRoot%\system32\scrnsave.scr" /f
 
 :: Other users
 set "CURRENT_PROFILE=%USERPROFILE%"

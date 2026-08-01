@@ -3,7 +3,7 @@
 :: because the `Screen Lock` policy is used instead (see the `Security` section)
 :: ==============================================================
 
-:: TODO: remove the script after fully moving to 'screen-lock.cmd'
+:: TODO: remove the script later - after fully applying policies of 'screen-lock.cmd'
 
 :: ======================
 @echo Pre-requisites
@@ -27,9 +27,13 @@ if errorLevel 1 (
 :: Removes the wrong registry name "ScreenSaverActive" set up much earlier
 reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaverActive" /f >nul 2>&1
 
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "InactivityTimeoutSecs" /f >nul 2>&1
+
 reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaveActive" /f >nul 2>&1
 reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaveTimeOut" /f >nul 2>&1
 reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "ScreenSaverIsSecure" /f >nul 2>&1
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "LockScreenAutoLockActive" /f >nul 2>&1
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop" /v "SCRNSAVE.EXE" /f >nul 2>&1
 
 :: ======================
 @echo 2: Screensaver and lock inside the Default User profile template

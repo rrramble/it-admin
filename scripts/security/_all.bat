@@ -4,6 +4,9 @@ cd /d "%~dp0"
 call no-auto-run.cmd
 
 cd /d "%~dp0"
+call screen-lock--delete-previous.cmd
+
+cd /d "%~dp0"
 call screen-lock.cmd
 
 cd /d "%~dp0"

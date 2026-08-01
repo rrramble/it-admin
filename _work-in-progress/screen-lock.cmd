@@ -35,7 +35,7 @@ if not exist "%SCREEN_SAVE_EXECUTABLE%" (
 reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveActive"         /t REG_SZ /d 1 /f
 reg add "HKCU\Control Panel\Desktop" /v "ScreenSaverIsSecure"      /t REG_SZ /d 1 /f
 reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveTimeOut"        /t REG_SZ /d %INACTIVITY_TIMER_SEC% /f
-reg add "HKCU\Control Panel\Desktop" /v "LockScreenAutoLockActive" /t REG_SZ /d 1 /f
+reg add "HKCU\Control Panel\Desktop" /v "LockScreenAutoLockActive" /t REG_SZ /d 0 /f
 reg add "HKCU\Control Panel\Desktop" /v "SCRNSAVE.EXE" /t REG_SZ /d "%SystemRoot%\system32\scrnsave.scr" /f
 
 :: Other users
@@ -59,7 +59,7 @@ for /D %%P in ("%SystemDrive%\Users\*") do (
                     reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v ScreenSaveActive /t REG_SZ /d 1 /f >nul
                     reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v ScreenSaverIsSecure /t REG_SZ /d 1 /f >nul
                     reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v ScreenSaveTimeOut /t REG_SZ /d %INACTIVITY_TIMER_SEC% /f >nul
-                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v LockScreenAutoLockActive /t REG_SZ /d 1 /f >nul
+                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v LockScreenAutoLockActive /t REG_SZ /d 0 /f >nul
                     reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v SCRNSAVE.EXE /t REG_SZ /d "%SCREEN_SAVE_EXECUTABLE%" /f >nul
                     reg unload "HKU\%TEMP_HIVE_NAME%" >nul 2>&1
                     echo %DATE% %TIME% - Ended !ProfilePath!

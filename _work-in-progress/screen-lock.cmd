@@ -56,11 +56,11 @@ for /D %%P in ("%SystemDrive%\Users\*") do (
                 if errorlevel 1 (
                     @echo [ERROR] Failed loading !HiveFile!
                 ) else (
-                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v ScreenSaveActive /t REG_SZ /d 1 /f >nul
-                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v ScreenSaverIsSecure /t REG_SZ /d 1 /f >nul
-                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v ScreenSaveTimeOut /t REG_SZ /d %INACTIVITY_TIMER_SEC% /f >nul
-                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v LockScreenAutoLockActive /t REG_SZ /d 0 /f >nul
-                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v SCRNSAVE.EXE /t REG_SZ /d "%SCREEN_SAVE_EXECUTABLE%" /f >nul
+                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v "ScreenSaveActive" /t REG_SZ /d 1 /f >nul
+                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v "ScreenSaverIsSecure" /t REG_SZ /d 1 /f >nul
+                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v "ScreenSaveTimeOut" /t REG_SZ /d %INACTIVITY_TIMER_SEC% /f >nul
+                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v "LockScreenAutoLockActive" /t REG_SZ /d 0 /f >nul
+                    reg add "HKU\%TEMP_HIVE_NAME%\Control Panel\Desktop" /v "SCRNSAVE.EXE" /t REG_SZ /d "%SCREEN_SAVE_EXECUTABLE%" /f >nul
                     reg unload "HKU\%TEMP_HIVE_NAME%" >nul 2>&1
                     echo %DATE% %TIME% - Ended !ProfilePath!
                 )

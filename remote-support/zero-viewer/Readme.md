@@ -21,7 +21,7 @@
 openssl passwd -6 'PLAIN_PASSWORD'
 ```
 
-and remove the `$6` and `$rounds=???` because these will be added automatically.
+and remove `$6$rounds=ROUNDS$` because this will be added automatically.
 
 2. Store credentials in the `LOGIN:PASSWORD_HASH` format in the following files:
 - `passwords/clients.txt`

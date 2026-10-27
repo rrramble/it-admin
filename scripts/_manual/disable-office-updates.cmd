@@ -10,23 +10,11 @@ set "PATH=%SystemRoot%\System32;%SystemRoot%;%SystemRoot%\System32\Wbem"
 
 chcp 65001
 
-:: ======================
-:: Request Administrator privileges
-
-:: Check
+@echo Check Administrator privileges
 fltmc >nul 2>&1
-if !errorlevel! neq 0 (
-    powershell.exe -NoProfile -Command "Start-Process -FilePath '%~f0' -ArgumentList 'elevated' -Verb RunAs"
-    exit /b
-)
-
-:: Elevated process
-if /i "%~1"=="elevated" (
-    fltmc >nul 2>&1
-    if !errorlevel! neq 0 (
-        echo [ERROR] Running failed: Administrator privileges were not obtained.
-        exit /b 1
-    )
+if !errorLevel! neq 0 (
+    echo [ERROR] This script must be run as an Administrator!
+    exit /b 1
 )
 
 :: ======================

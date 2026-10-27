@@ -11,7 +11,7 @@ set "PATH=%SystemRoot%\System32;%SystemRoot%;%SystemRoot%\System32\Wbem"
 
 chcp 65001
 
-@echo Verifing Administrator privileges
+@echo Checks for Administrator privileges
 fltmc >nul 2>&1
 if !errorLevel! neq 0 (
     echo [ERROR] This script must be run as an Administrator!

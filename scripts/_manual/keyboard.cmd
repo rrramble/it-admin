@@ -24,6 +24,7 @@ REM Turns on Num-lock on startup/sign-in window
 :: 2147483648 = 0x80000000 = High bit set
 :: 2147483650 = 0x80000002 = High bit + NumLock on
 :: ======================
-
 :: Default user
 reg add "HKU\.DEFAULT\Control Panel\Keyboard" /v InitialKeyboardIndicators /t REG_SZ /d 2147483650 /f
+:: Current user
+REM reg add "HKCU\Control Panel\Keyboard" /v InitialKeyboardIndicators /t REG_SZ /d 2147483650 /f

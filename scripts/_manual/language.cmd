@@ -21,7 +21,6 @@ REM Sets English US as the default Sign-in screen
 :: Codes:
 :: - English (UK) 00000809
 :: - English (US) 00000409
-:: Current user
-reg add "HKCU\Keyboard Layout\Preload" /v 1 /t REG_SZ /d 00000409 /f
+
 :: Default user
 reg add "HKU\.DEFAULT\Keyboard Layout\Preload" /v 1 /t REG_SZ /d 00000409 /f

@@ -1,0 +1,187 @@
+# dashboards/main.yaml
+
+zabbix_export:
+  version: '8.0'
+  dashboards:
+    - name: Main
+      pages:
+        - name: Monitoring
+          widgets:
+            - type: problems
+              name: 'Real problems'
+              width: '41'
+              height: '4'
+              fields:
+                - type: INTEGER
+                  name: highlight_row
+                  value: '1'
+                - type: STRING
+                  name: reference
+                  value: INZTB
+                - type: INTEGER
+                  name: rf_rate
+                  value: '30'
+                - type: INTEGER
+                  name: show
+                  value: '2'
+                - type: INTEGER
+                  name: show_lines
+                  value: '5'
+                - type: INTEGER
+                  name: show_opdata
+                  value: '1'
+                - type: INTEGER
+                  name: show_suppressed
+                  value: '1'
+                - type: INTEGER
+                  name: show_symptoms
+                  value: '1'
+                - type: INTEGER
+                  name: tags.0.operator
+                  value: '0'
+                - type: STRING
+                  name: tags.0.tag
+                  value: criticality
+                - type: STRING
+                  name: tags.0.value
+                  value: high
+            - type: problems
+              name: Warnings
+              'y': '4'
+              width: '41'
+              height: '4'
+              fields:
+                - type: INTEGER
+                  name: highlight_row
+                  value: '1'
+                - type: STRING
+                  name: reference
+                  value: NWZVJ
+                - type: INTEGER
+                  name: rf_rate
+                  value: '60'
+                - type: INTEGER
+                  name: show
+                  value: '2'
+                - type: INTEGER
+                  name: show_lines
+                  value: '5'
+                - type: INTEGER
+                  name: show_opdata
+                  value: '1'
+                - type: INTEGER
+                  name: show_suppressed
+                  value: '1'
+                - type: INTEGER
+                  name: show_symptoms
+                  value: '1'
+                - type: INTEGER
+                  name: tags.0.operator
+                  value: '2'
+                - type: STRING
+                  name: tags.0.tag
+                  value: criticality
+                - type: STRING
+                  name: tags.0.value
+                  value: high
+            - type: gauge
+              name: 'Router quality'
+              'y': '8'
+              width: '9'
+              fields:
+                - type: INTEGER
+                  name: decimal_places
+                  value: '1'
+                - type: ITEM
+                  name: itemid.0
+                  value:
+                    host: router-main
+                    key: ping.quality.score
+                - type: STRING
+                  name: max
+                  value: '100'
+                - type: STRING
+                  name: min
+                  value: '0'
+                - type: INTEGER
+                  name: show.0
+                  value: '2'
+                - type: INTEGER
+                  name: show.1
+                  value: '3'
+                - type: INTEGER
+                  name: show.2
+                  value: '4'
+                - type: INTEGER
+                  name: show.3
+                  value: '5'
+                - type: STRING
+                  name: thresholds.0.color
+                  value: E65660
+                - type: STRING
+                  name: thresholds.0.threshold
+                  value: '0'
+                - type: STRING
+                  name: thresholds.1.color
+                  value: FCCB1D
+                - type: STRING
+                  name: thresholds.1.threshold
+                  value: '75'
+                - type: STRING
+                  name: thresholds.2.color
+                  value: 607D8B
+                - type: STRING
+                  name: thresholds.2.threshold
+                  value: '90'
+                - type: INTEGER
+                  name: units_size
+                  value: '20'
+                - type: INTEGER
+                  name: value_arc_size
+                  value: '30'
+            - type: svggraph
+              name: 'Router score history'
+              x: '9'
+              'y': '8'
+              width: '15'
+              height: '3'
+              fields:
+                - type: STRING
+                  name: ds.0.color
+                  value: 607D8B
+                - type: STRING
+                  name: ds.0.hosts.0
+                  value: 'Main Router'
+                - type: STRING
+                  name: ds.0.items.0
+                  value: 'Ping Quality Score'
+                - type: INTEGER
+                  name: ds.0.transparency
+                  value: '1'
+                - type: STRING
+                  name: lefty_max
+                  value: '100'
+                - type: STRING
+                  name: lefty_min
+                  value: '0'
+                - type: STRING
+                  name: lefty_static_units
+                  value: '%'
+                - type: INTEGER
+                  name: lefty_units
+                  value: '1'
+                - type: INTEGER
+                  name: lefty_unsigned
+                  value: '1'
+                - type: STRING
+                  name: reference
+                  value: LOSS1
+                - type: INTEGER
+                  name: righty
+                  value: '0'
+                - type: STRING
+                  name: time_period.from
+                  value: now-5h
+                - type: STRING
+                  name: time_period.to
+                  value: now

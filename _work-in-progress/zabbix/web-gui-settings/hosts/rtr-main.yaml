@@ -1,0 +1,38 @@
+zabbix_export:
+  version: '8.0'
+  host_groups:
+    - uuid: a1b2c3d4e5f6478890abcdef12345678
+      name: 'Network infrastructure'
+  hosts:
+    - host: 'router-main'
+      name: 'Main Router'
+      description: Main network internet gateway.
+      inventory_mode: AUTOMATIC
+      tags:
+        - tag: criticality
+          value: high
+
+      groups:
+        - name: 'Network infrastructure'
+
+      templates:
+        - name: Custom Ping Check
+
+      macros:
+        - macro: '{$PING.INTERVAL}'
+          value: '30s'
+
+        - macro: '{$PING.TARGET}'
+          value: '192.168.1.1'
+
+        - macro: '{$PING.PACKET_COUNT}'
+          value: '4'
+
+        - macro: '{$PING.LATENCY.IDEAL}'
+          value: '3'
+
+        - macro: '{$PING.LATENCY.MAX}'
+          value: '30'
+
+        - macro: '{$PING.TRIGGER.THRESHOLD_PERCENT}'
+          value: '80'

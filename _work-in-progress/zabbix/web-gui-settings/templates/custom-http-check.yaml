@@ -1,0 +1,60 @@
+# custom-http-check.yaml
+# A template for `Data collection > Templates`
+
+zabbix_export:
+  version: '8.0'
+  template_groups:
+    - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+
+  templates:
+    - uuid: 9a2d3f4b5c6e47899234567890123456
+      template: Custom HTTP Check
+      name: Custom HTTP Check
+
+      groups:
+        - name: Templates/Applications
+
+      macros:
+        - macro: '{$HTTP.TARGET}'
+          value: '<OVERRIDE THIS VALUE IN CHILD CONFIGURATION>'
+          description: 'REQUIRED: Set the target IP-address or DNS-name.'
+
+        - macro: '{$HTTP.INTERVAL}'
+          value: 5m
+          description: Interval between two checks
+
+        - macro: '{$HTTP.TRIGGERING_CHECK_COUNT}'
+          value: '#2'
+          description: >
+            Default number of failed checks required to trigger a problem.
+            Note: put the '#' sign before the number.
+
+      items:
+        - uuid: 1a2b3c4d5e6f47898234567890123456
+          name: 'HTTPS availability'
+          type: SIMPLE
+          key: 'net.tcp.service[https,{$HTTP.TARGET}]'
+          delay: '{$HTTP.INTERVAL}'
+          history: 90d
+          value_type: UNSIGNED
+          description: 'Checks HTTPS service connectivity.'
+          tags:
+            - tag: component
+              value: network
+            - tag: service
+              value: https
+
+  triggers:
+    - uuid: 3a2b3c4d5e6f47898234567890123456
+      expression: >
+        max(
+          /Custom HTTP Check/net.tcp.service[https,{$HTTP.TARGET}],
+          {$HTTP.TRIGGERING_CHECK_COUNT}
+        ) = 0
+      name: 'HTTPS access failed'
+      priority: WARNING
+      description: 'HTTPS access failed in consecutive checks.'
+      tags:
+        - tag: scope
+          value: availability

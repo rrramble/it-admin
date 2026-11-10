@@ -1,0 +1,133 @@
+# custom-ping-check.yaml
+# A template for `Data collection > Templates`
+
+zabbix_export:
+  version: '8.0'
+  template_groups:
+    - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+
+  templates:
+    - uuid: 7f3a9c2e8b614d5a9f0c2e7b4a1d6f83
+      template: Custom Ping Check
+      name: Custom Ping Check
+
+      groups:
+        - name: Templates/Applications
+
+      macros:
+        - macro: '{$PING.TARGET}'
+          value: '<OVERRIDE THIS VALUE IN CHILD CONFIGURATION>'
+          description: 'REQUIRED: Set the target IP-address or DNS-name.'
+
+        - macro: '{$PING.INTERVAL}'
+          value: 15m
+          description: Interval between two checks.
+
+        - macro: '{$PING.LATENCY.IDEAL}'
+          value: '5'
+          description: Minimum latency in milliseconds at which the score is 100%.
+
+        - macro: '{$PING.LATENCY.MAX}'
+          value: '500'
+          description: Maximum latency in milliseconds after which the score will be 0%.
+
+        - macro: '{$PING.PACKET_COUNT}'
+          value: '3'
+          description: Number of ping packets in one check.
+
+        - macro: '{$PING.TRIGGER.CHECK_COUNT}'
+          value: '#2'
+          description: |
+            Number of failed checks required to trigger a problem.
+            Note: put the '#' sign before the number.
+
+        - macro: '{$PING.TRIGGER.THRESHOLD_PERCENT}'
+          value: '80'
+
+        - macro: '{$PING.PACKET_LOSS_PENALTY_RATE}'
+          value: '0.4'
+          description: Weighting coefficient to accept packet loss in quality calculation.
+
+      items:
+        - uuid: 9b2e4f6a1c834d7e8f5a0b3c6d9e2f41
+          name: 'Ping availability'
+          type: SIMPLE
+          key: 'icmpping[{$PING.TARGET},{$PING.PACKET_COUNT}]'
+          delay: '{$PING.INTERVAL}'
+          history: 90d
+          value_type: UNSIGNED
+          tags:
+            - tag: component
+              value: network
+            - tag: service
+              value: icmp
+
+        - uuid: 3c8d1e5f7a294b6c9d0e2f4a8b1c5d73
+          name: 'Ping Time'
+          type: SIMPLE
+          key: 'icmppingsec[{$PING.TARGET},{$PING.PACKET_COUNT}]'
+          delay: '{$PING.INTERVAL}'
+          history: '30d'
+          value_type: FLOAT
+          units: 's'
+          description: 'Average ICMP response time.'
+
+        - uuid: 6e1a4c8b2d5f4937a0c3e6b9d1f4a825
+          name: 'Ping Loss'
+          type: SIMPLE
+          key: 'icmppingloss[{$PING.TARGET},{$PING.PACKET_COUNT}]'
+          delay: '{$PING.INTERVAL}'
+          history: '30d'
+          value_type: FLOAT
+          units: '%'
+          description: 'Percentage of lost ICMP packets.'
+
+        - uuid: 7f3a9c2e8b614d05a6e1f9c4b2d80753
+          name: 'Ping Quality Score'
+          type: CALCULATED
+          key: 'ping.quality.score'
+          delay: '{$PING.INTERVAL}'
+          history: '90d'
+          value_type: FLOAT
+          units: '%'
+          params: >
+            last(//icmpping[{$PING.TARGET},{$PING.PACKET_COUNT}]) *
+            max(0,min(100,100 *
+            ({$PING.LATENCY.MAX} -
+            last(//icmppingsec[{$PING.TARGET},{$PING.PACKET_COUNT}]) * 1000) /
+            ({$PING.LATENCY.MAX} - {$PING.LATENCY.IDEAL}))) *
+            (1 - {$PING.PACKET_LOSS_PENALTY_RATE} *
+            last(//icmppingloss[{$PING.TARGET},{$PING.PACKET_COUNT}])/100)
+
+  triggers:
+    - uuid: 1f94f35f918d403dadd9209a39398b6c
+      expression: >
+        max(/Custom Ping Check/icmpping[{$PING.TARGET},{$PING.PACKET_COUNT}],{$PING.TRIGGER.CHECK_COUNT}) = 0
+      name: 'Ping failed'
+      priority: INFO
+      description: 'Ping failed in several consecutive checks.'
+      tags:
+        - tag: scope
+          value: availability
+
+    - uuid: 674377349a8d47db80a327a73158af9d
+      name: 'Ping quality is poor'
+      description: 'Ping quality score less than the threshold in several consecutive checks.'
+      expression: >
+        max(/Custom Ping Check/ping.quality.score,{$PING.TRIGGER.CHECK_COUNT}) > 0 and
+        max(/Custom Ping Check/ping.quality.score,{$PING.TRIGGER.CHECK_COUNT}) < {$PING.TRIGGER.THRESHOLD_PERCENT}
+      priority: INFO
+      tags:
+        - tag: scope
+          value: availability
+
+    - uuid: 591e9d0edee34bfd8820918304c11368
+      name: 'Ping quality = 0%'
+      description: 'Ping quality = 0% in several consecutive checks.'
+      expression: >
+        max(/Custom Ping Check/ping.quality.score,{$PING.TRIGGER.CHECK_COUNT}) = 0
+      priority: INFO
+      tags:
+        - tag: scope
+          value: availability

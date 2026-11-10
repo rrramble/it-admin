@@ -1,0 +1,13 @@
+ARG ZABBIX_VERSION
+
+FROM zabbix/zabbix-server-pgsql:alpine-${ZABBIX_VERSION}
+
+USER root
+
+RUN apk add --no-cache fping \
+    && chown root:root /usr/sbin/fping \
+    && chmod 4755 /usr/sbin/fping \
+    && test -x /usr/sbin/fping \
+    && test "$(stat -c '%U:%a' /usr/sbin/fping)" = "root:4755"
+
+USER zabbix

@@ -1,0 +1,86 @@
+# Docker-compose.yml
+services:
+  postgres:
+    image: postgres:${POSTGRES_VERSION}
+    container_name: zabbix-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    networks:
+      - zabbix-net
+
+
+  zabbix-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+      args:
+        ZABBIX_VERSION: ${ZABBIX_VERSION:?ZABBIX_VERSION must be set in .env}
+    image: custom-zabbix-server:${ZABBIX_VERSION}
+    container_name: zabbix-server
+    restart: unless-stopped
+    environment:
+      DB_SERVER_HOST: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      ZBX_FPINGLOCATION: /usr/sbin/fping
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "${SERVER_BIND:-0.0.0.0}:10051:10051"
+    networks:
+      - zabbix-net
+
+
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-pgsql:alpine-${ZABBIX_VERSION}
+    container_name: zabbix-web
+    restart: unless-stopped
+    environment:
+      ZBX_SERVER_HOST: zabbix-server
+      DB_SERVER_HOST: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PHP_TZ: ${PHP_TZ}
+      ZBX_SERVER_NAME: Infrastructure Monitoring
+    depends_on:
+      postgres:
+        condition: service_healthy
+      zabbix-server:
+        condition: service_started
+    ports:
+      - "${WEB_BIND:-0.0.0.0}:${WEB_PORT}:8080"
+    networks:
+      - zabbix-net
+
+  configure:
+    image: python:3.12-alpine
+    container_name: zabbix-configure
+    profiles:
+      - tools
+    environment:
+      ZABBIX_API_URL: http://zabbix-web:8080/api_jsonrpc.php
+    volumes:
+      - ./configure:/scripts:ro
+    command: ["python", "/scripts/configure.py"]
+    networks:
+      - zabbix-net
+
+volumes:
+  postgres-data:
+
+networks:
+  zabbix-net:
+    driver: bridge

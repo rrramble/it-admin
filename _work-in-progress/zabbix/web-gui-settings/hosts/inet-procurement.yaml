@@ -1,0 +1,27 @@
+# inet-procurement.yaml
+
+zabbix_export:
+  version: '8.0'
+
+  host_groups:
+    - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Applications
+
+  hosts:
+    - host: zakup.gov.kz
+      name: zakup.gov.kz
+      description: Government procurement portal
+
+      groups:
+        - name: Applications
+
+      macros:
+        - macro: '{$HTTP.TARGET}'
+          value: zakup.gov.kz
+
+      tags:
+        - tag: criticality
+          value: high
+
+      templates:
+        - name: Custom HTTP Check

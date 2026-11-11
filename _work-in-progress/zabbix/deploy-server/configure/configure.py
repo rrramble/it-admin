@@ -59,13 +59,13 @@ def api_call(method, params, auth=None):
 def wait_for_api(attempt_count: int = 30):
     print("Waiting for Zabbix API...")
 
-    for _attempt in range(attempt_count):
+    for _ in range(attempt_count):
         try:
-            api_call("apiinfo.version", {})
-            print("Zabbix API is available.")
+            result = api_call('apiinfo.version', {})
+            print(f'Zabbix API is available. `apiinfo.version` returned={result}')
             return
-        except Exception:
-            print('Zabbix API call failed.')
+        except Exception as err:
+            print(f'Zabbix API call failed. Err={err}')
             time.sleep(5)
 
     raise RuntimeError("Zabbix API did not become available.")

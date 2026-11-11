@@ -5,9 +5,14 @@ FROM zabbix/zabbix-server-pgsql:alpine-${ZABBIX_VERSION}
 USER root
 
 RUN apk add --no-cache fping \
-    && chown root:root /usr/sbin/fping \
-    && chmod 4755 /usr/sbin/fping \
+    && chown root:zabbix /usr/sbin/fping \
+    && chmod 4710 /usr/sbin/fping \
     && test -x /usr/sbin/fping \
-    && test "$(stat -c '%U:%a' /usr/sbin/fping)" = "root:4755"
+    && test "$(stat -c '%U:%G:%a' /usr/sbin/fping)" = "root:zabbix:4710" \
+    && id -Gn zabbix | tr ' ' '\n' | grep -qx zabbix
+    # The last line checks if 'zabbix' user belong to the group owning fping
 
 USER zabbix
+
+# Quick info:
+# - fping https://www.zabbix.com/documentation/2.0/en/manual/config/items/itemtypes/simple_checks#:~:text=fping

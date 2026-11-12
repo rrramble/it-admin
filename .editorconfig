@@ -14,5 +14,8 @@ indent_size = 2
 end_of_line = crlf
 indent_size = 4
 
+[*.{conf}]
+end_of_line = unset
+
 [*.{md}]
 insert_final_newline = false

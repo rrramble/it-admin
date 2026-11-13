@@ -1,0 +1,75 @@
+# custom-drweb-check.yaml
+# A template for `Data collection > Templates`
+
+zabbix_export:
+  version: '8.0'
+  template_groups:
+    - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+
+  templates:
+    - uuid: 9b2c8d1e4f5a4b6c8d9e0f1a2b3c4d5e
+      template: Custom DrWeb Check
+      name: Custom DrWeb Check
+
+      groups:
+        - name: Templates/Applications
+
+      macros:
+        - macro: '{$ANTIVIRUS.INTERVAL}'
+          value: 5m
+
+        - macro: '{$ANTIVIRUS.WMI.STATE.KEY}'
+          value: 'root\SecurityCenter2'
+
+        - macro: '{$ANTIVIRUS.WMI.STATE.QUERY.DRWEB}'
+          value: SELECT productState FROM AntiVirusProduct WHERE displayName LIKE '%Dr.Web%'
+          description: |
+            Result in hexadecimal format 0xAABBCC
+            AA: 04 or 06 - third-party antivirus product is installed
+            BB: real-time scanner state: 10=Functional, 00=Disabled, 01=Expired/Snoozed
+            CC: virus definitions state: 00=Up to date, 10=Out of date
+
+      items:
+        - uuid: 1a2b3c4d5e6f4a7b8c9d0e1f2a3b4c5d
+          name: 'Antivirus problems'
+          type: ZABBIX_ACTIVE
+          key: 'wmi.get[{$ANTIVIRUS.WMI.STATE.KEY},{$ANTIVIRUS.WMI.STATE.QUERY.DRWEB}]'
+          delay: '{$ANTIVIRUS.INTERVAL}'
+          history: '0'
+          value_type: UNSIGNED
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var s = parseInt(value, 10);
+                  if (isNaN(s)) { return 99; };
+                  var code = 0;
+                  if ((s & 4096) === 0) code += 1; // plus 1 if protection is OFF
+                  if ((s & 16) !== 0) code += 2; // plus 2 if databases are out of date
+
+                  return code;
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+
+        - uuid: 7b8c9d0e1f2a4b3c8d9e0f1a2b3c4d5e
+          name: 'Problem state'
+          type: DEPENDENT
+          key: 'antivirus.problem_state'
+          delay: '0'
+          history: 30d
+          value_type: UNSIGNED
+          master_item:
+            key: wmi.get[{$ANTIVIRUS.WMI.STATE.KEY},{$ANTIVIRUS.WMI.STATE.QUERY.DRWEB}]
+
+  triggers:
+    - uuid: 2b3c4d5e6f7a4b8c9d0e1f2a3b4c5d6e
+      expression: 'bitand(last(/Custom DrWeb Check/antivirus.problem_state), 1) = 1'
+      name: 'Real-time protection is disabled'
+      priority: HIGH
+
+    - uuid: 6f7a8b9c0d1e4f2aab4c5d6e7f8a9b0c
+      expression: 'bitand(last(/Custom DrWeb Check/antivirus.problem_state), 2) = 2'
+      name: 'Database is out of date'
+      priority: WARNING

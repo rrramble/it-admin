@@ -1,9 +1,9 @@
 # Zabbix Agent 2 installation on Windows 10/11
 
-- download and put [zabbix_agent2.msi version 8]() in this folder
+- download and put [zabbix_agent2.msi version 8]() into this folder
 - edit `SERVER_TARGET_IP_FOR_FIREWALL` variable in `_run.cmd`
 - edit `Server` and `ServerActive` parameters in `custom.conf`
-- tune parameters in `configs/` folder
+- tune parameters in `configs/` folder if needed
 - run `_run.bat` as Administrator
 
 

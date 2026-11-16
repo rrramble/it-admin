@@ -1,5 +1,6 @@
-# deploy-server/macos.sh
 #!/usr/bin/env bash
+# File: deploy-server/run.on.macos.sh
+
 set -Eeuo pipefail
 
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/" && pwd)"

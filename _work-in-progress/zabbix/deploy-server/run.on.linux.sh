@@ -1,5 +1,6 @@
-# deploy-server/linux.sh
 #!/usr/bin/env bash
+# File: deploy-server/run.on.linux.sh
+
 set -Eeuo pipefail
 
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/" && pwd)"

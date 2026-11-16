@@ -1,3 +1,4 @@
+# File: Dockerfile.server
 ARG ZABBIX_VERSION
 
 FROM zabbix/zabbix-server-pgsql:alpine-${ZABBIX_VERSION}

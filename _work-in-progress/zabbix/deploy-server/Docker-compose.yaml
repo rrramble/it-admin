@@ -1,4 +1,4 @@
-# Docker-compose.yml
+# File: Docker-compose.yaml
 services:
   postgres:
     image: postgres:${POSTGRES_VERSION}

@@ -1,4 +1,4 @@
-# deploy-server/windows.ps1
+# File: deploy-server/run.on.windows.ps1
 $ErrorActionPreference = "Stop"
 
 $ProjectDir = (Resolve-Path "$PSScriptRoot\").Path

@@ -1,4 +1,4 @@
-# deploy-server/configure/configure.py
+# File: deploy-server/configure/configure.py
 import json
 import os
 import sys

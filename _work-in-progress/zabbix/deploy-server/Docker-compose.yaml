@@ -38,7 +38,7 @@ services:
       postgres:
         condition: service_healthy
     ports:
-      - "${SERVER_BIND:-0.0.0.0}:10051:10051"
+      - "${SERVER_BIND:-127.0.0.1}:10051:10051"
     networks:
       - zabbix-net
 
@@ -61,7 +61,7 @@ services:
       zabbix-server:
         condition: service_started
     ports:
-      - "${WEB_BIND:-0.0.0.0}:${WEB_PORT}:8080"
+      - "${WEB_BIND:-127.0.0.1}:${WEB_PORT}:8080"
     networks:
       - zabbix-net
 

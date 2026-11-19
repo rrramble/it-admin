@@ -53,3 +53,7 @@ Verify:
 - Monitoring → Latest data
 - Monitoring → Problems
 
+
+## [Official templates](https://git.zabbix.com/projects/ZBX/repos/zabbix/browse/templates?at=release%2F8.0)
+
+- [OS Windows Agent Active]https://git.zabbix.com/projects/ZBX/repos/zabbix/browse/templates/os/windows_agent_active/template_os_windows_agent_active.yaml?at=refs%2Fheads%2Frelease%2F8.0

@@ -34,3 +34,22 @@
 - Users > Users > guest
 -- In `Groups` delete `disabled`
 -- Click `Update`
+
+
+## Configuring Windows agents
+
+1. Import template `Custom Windows` (Data collection -> Templates -> Import)
+1. Create host group `Custom discovered Windows hosts` (Data collection -> Host groups)
+1. Create autoregistration action `Custom Autoregistering Windows host` (Alerts -> Actions -> Autoregistration actions)
+- Condition: Host metadata: contains 'Windows'
+- Operations:
+-- Add host
+-- Add host to group `Custom discovered Windows hosts`
+-- Link template `Custom Windows`
+1. Install and configure Zabbix Agent 2 on hosts
+
+Verify:
+- Data collection → Hosts
+- Monitoring → Latest data
+- Monitoring → Problems
+

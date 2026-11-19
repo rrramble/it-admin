@@ -11,11 +11,19 @@ import urllib.error
 DEFAULT_ADMIN_LOGIN: str = 'Admin'
 DEFAULT_ADMIN_PASSWORD: str = 'zabbix'
 PASSWORD_LETTER_COUNT_MIN_THRESHOLD: int = len(DEFAULT_ADMIN_PASSWORD)
-
+HOST_GROUP_NAMES = (
+        "Infrastructure",
+        "Linux servers",
+        "Windows servers",
+        "Network devices",
+        "Virtualization",
+        "Databases",
+        "Applications",
+    )
 API_URL = os.environ.get(
-    "ZABBIX_API_URL",
-    "http://localhost:8080/api_jsonrpc.php"
-)
+        "ZABBIX_API_URL",
+        "http://localhost:8080/api_jsonrpc.php"
+    )
 
 REQUEST_ID = 0
 
@@ -106,36 +114,24 @@ def main():
     # Authenticate again with the new password.
     token = authenticate(DEFAULT_ADMIN_LOGIN, new_password)
 
-    groups = [
-        "Infrastructure",
-        "Linux servers",
-        "Windows servers",
-        "Network devices",
-        "Virtualization",
-        "Databases",
-        "Applications"
-    ]
-
-    existing = api_call("hostgroup.get", {
-        "output": ["groupid", "name"]
-    }, token)
-
-    existing_names = {
-        item["name"] for item in existing
-    }
-
+    existing_hostgroups = api_call("hostgroup.get", {
+            "output": ["groupid", "name"]
+        }, token)
+    existing_hostgroup_names = {
+            item["name"] for item in existing_hostgroups
+        }
     print("\nCreating predefined host groups...")
 
-    for name in groups:
-        if name in existing_names:
-            print(f"[EXISTS] {name}")
+    for host_group_name in HOST_GROUP_NAMES:
+        if host_group_name in existing_hostgroup_names:
+            print(f"[EXISTS] {host_group_name}")
             continue
 
         api_call("hostgroup.create", {
-            "name": name
+            "name": host_group_name
         }, token)
 
-        print(f"[CREATED] {name}")
+        print(f'[CREATED] a host group "{host_group_name}"')
 
     print()
     print("======================================")

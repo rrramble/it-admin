@@ -6,7 +6,7 @@ $ErrorActionPreference = "Stop"
 
 $DISTRO_NAME = "Ubuntu"
 $WindowsRootPath = $PSScriptRoot
-$LinuxRootPath = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+$LinuxRootPath = Split-Path -Parent $PSScriptRoot
 
 
 function Get-EnvValue {
@@ -45,13 +45,23 @@ function Get-EnvValue {
 }
 
 
-function ConvertTo-LinuxPath {
+function ConvertTo-WSLPath {
     param (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory)]
         [string]$WindowsPath
     )
 
-    return $WindowsPath -replace '\\', '/'
+    $AbsolutePath = [System.IO.Path]::GetFullPath($WindowsPath)
+    $AbsolutePath = $AbsolutePath -replace '\\', '/'
+    $Output = & wsl.exe -d $DISTRO_NAME -- wslpath -u "$AbsolutePath" 2>&1
+    $ErrorCode = $LASTEXITCODE
+
+    if ($ErrorCode -ne 0) {
+        $ErrorMessage = $Output -join "`n"
+        throw "Failed to convert path to WSL format: $AbsolutePath. Exit code: $ErrorCode. Error: $ErrorMessage"
+    }
+
+    return ($Output -join "").Trim()
 }
 
 
@@ -80,31 +90,17 @@ function Test-DeploymentFiles() {
 # Start of the script body #
 ############################
 
-$linuxLogin = Get-EnvValue -Key "LINUX_LOGIN" -EnvFile (Join-Path $WindowsRootPath '.env')
 Test-DeploymentFiles
+$LinuxLogin = Get-EnvValue -Key "LINUX_LOGIN" -EnvFile (Join-Path $WindowsRootPath ".env")
 
-# Convert the Windows source directory to its WSL path
-$LinuxFormatLinuxPath = ConvertTo-LinuxPath -WindowsPath $LinuxRootPath
-$SourceDir = & wsl.exe -d $DISTRO_NAME -- wslpath -a $LinuxFormatLinuxPath
-$ExitCode = $LASTEXITCODE
+# Run the existing Linux installation script.
+$WindowsWSLPath = ConvertTo-WSLPath (Join-Path $WindowsRootPath "setup-docker.sh")
+$LinuxWSLPath = ConvertTo-WSLPath $LinuxRootPath
 
-if ($ExitCode -ne 0) {
-    throw "Could not convert deployment directory to WSL path (exit code $ExitCode): $SourceDir"
-}
-
-$SourceDir = ($SourceDir | Out-String).Trim()
-
-if ([string]::IsNullOrWhiteSpace($SourceDir)) {
-    throw "WSL returned an empty source directory path."
-}
-
-# Run the existing Linux installation script as root.
-# It installs Docker, copies the deployment files into the Linux user's
-# home directory, and starts the Zabbix deployment.
-& wsl.exe -d $DISTRO_NAME -u root -- bash `
-    "$SourceDir/windows/setup-docker.sh" `
-    $linuxLogin `
-    $SourceDir
+& wsl.exe -d $DISTRO_NAME -u root -- bash -x `
+    "$WindowsWSLPath" `
+    "$LinuxLogin" `
+    "$LinuxWSLPath"
 
 if ($LASTEXITCODE -ne 0) {
     throw "Docker and Zabbix installation failed (exit code $LASTEXITCODE)."

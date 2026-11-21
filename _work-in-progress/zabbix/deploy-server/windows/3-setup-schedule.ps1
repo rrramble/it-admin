@@ -19,4 +19,6 @@ $settings = (Get-ScheduledTask -TaskName "Zabbix WSL").Settings
 $settings.ExecutionTimeLimit = "PT0S"
 Set-ScheduledTask -TaskName "Zabbix WSL" -Settings $settings
 (Get-ScheduledTask -TaskName "Zabbix WSL").Settings.ExecutionTimeLimit
-Write-Host "The prevous command should have returned 'PT0S' value"
+
+Write-Host ""
+Write-Host "The prevous command should have returned 'PT0S' value. Please check for it!"

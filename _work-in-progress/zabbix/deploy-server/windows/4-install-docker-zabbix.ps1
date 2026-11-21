@@ -45,6 +45,16 @@ function Get-EnvValue {
 }
 
 
+function ConvertTo-LinuxPath {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$WindowsPath
+    )
+
+    return $WindowsPath -replace '\\', '/'
+}
+
+
 function Test-DeploymentFiles() {
     $requiredFiles = @(
         "windows/setup-docker.sh",

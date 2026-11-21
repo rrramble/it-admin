@@ -1,4 +1,4 @@
-# File: Dockerfile.server
+# File: deploy-server/Dockerfile.server
 ARG ZABBIX_VERSION
 
 FROM zabbix/zabbix-server-pgsql:alpine-${ZABBIX_VERSION}
@@ -11,7 +11,7 @@ RUN apk add --no-cache fping \
     && test -x /usr/sbin/fping \
     && test "$(stat -c '%U:%G:%a' /usr/sbin/fping)" = "root:zabbix:4710" \
     && id -Gn zabbix | tr ' ' '\n' | grep -qx zabbix
-    # The last line checks if 'zabbix' user belong to the group owning fping
+    # The last line checks if 'zabbix' user belongs to group that owns `fping` file
 
 USER zabbix
 

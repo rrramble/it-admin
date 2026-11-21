@@ -102,9 +102,9 @@ if ([string]::IsNullOrWhiteSpace($SourceDir)) {
 # It installs Docker, copies the deployment files into the Linux user's
 # home directory, and starts the Zabbix deployment.
 & wsl.exe -d $DISTRO_NAME -u root -- bash `
-    "$sourceDir/setup-docker.sh" `
+    "$SourceDir/windows/setup-docker.sh" `
     $linuxLogin `
-    $sourceDir
+    $SourceDir
 
 if ($LASTEXITCODE -ne 0) {
     throw "Docker and Zabbix installation failed (exit code $LASTEXITCODE)."

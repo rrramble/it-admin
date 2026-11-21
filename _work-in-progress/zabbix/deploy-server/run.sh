@@ -6,7 +6,7 @@ set -Eeuo pipefail
 umask 077
 
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-COMPOSE_FILE="$PROJECT_DIR/Docker-compose.yaml"
+COMPOSE_FILE="$PROJECT_DIR/docker-compose.yaml"
 ENV_FILE="$PROJECT_DIR/.env"
 
 
@@ -164,7 +164,7 @@ check_env_file() {
 
 validate_compose() {
     log "Validating Docker Compose configuration..."
-    dc config --quiet || fail "Docker Compose configuration is invalid. Review .env and Docker-compose.yaml."
+    dc config --quiet || fail "Docker Compose configuration is invalid. Review Environment and Docker's compose files."
 }
 
 
@@ -187,7 +187,7 @@ wait_for_zabbix_api() {
         sleep 5
     done
 
-    fail "Zabbix API did not become ready within several minutes. Check logs with: docker compose -f Docker-compose.yaml logs --tail=100"
+    fail "Zabbix API did not become ready within several minutes. Check logs with: docker compose logs --tail=100"
 }
 
 

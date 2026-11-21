@@ -5,8 +5,8 @@
 $ErrorActionPreference = "Stop"
 
 $DISTRO_NAME = "Ubuntu"
-$EnvFilepath = Join-Path $PSScriptRoot ".env"
-$DeploymentRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+$WindowsRootPath = $PSScriptRoot
+$LinuxRootPath = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 
 
 function Get-EnvValue {
@@ -66,7 +66,7 @@ function Test-DeploymentFiles() {
     )
 
     foreach ($file in $requiredFiles) {
-        $path = Join-Path $DeploymentRoot $file
+        $path = Join-Path $LinuxRootPath $file
 
         if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
             throw "Required file not found: $path"
@@ -84,8 +84,8 @@ $linuxLogin = Get-EnvValue -Key "LINUX_LOGIN" -EnvFile $WindowsRootPath
 Test-DeploymentFiles
 
 # Convert the Windows source directory to its WSL path
-$LinuxLikeDirName = ConvertTo-LinuxPath -WindowsPath $DeploymentRoot
-$sourceDir = & wsl.exe -d $DISTRO_NAME -- wslpath -a $LinuxLikeDirName
+$LinuxFormatLinuxPath = ConvertTo-LinuxPath -WindowsPath $LinuxRootPath
+$SourceDir = & wsl.exe -d $DISTRO_NAME -- wslpath -a $LinuxFormatLinuxPath
 $ExitCode = $LASTEXITCODE
 
 if ($ExitCode -ne 0) {

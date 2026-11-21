@@ -1,4 +1,4 @@
-# File: Docker-compose.yaml
+# File: docker-compose.yaml
 services:
   postgres:
     image: postgres:${POSTGRES_VERSION}
@@ -22,7 +22,7 @@ services:
     image: zabbix-server:${ZABBIX_VERSION}
     build:
       context: .
-      dockerfile: Dockerfile.server
+      dockerfile: dockerfile.server
       args:
         ZABBIX_VERSION: ${ZABBIX_VERSION:?ZABBIX_VERSION must be set in .env}
     restart: unless-stopped

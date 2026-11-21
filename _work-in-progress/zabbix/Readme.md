@@ -3,17 +3,20 @@
 ## Prerequisites
 
 - Internet access
-- Installed Docker
-- Set up `/deploy-server/.env` from `/deploy-server/.env.example`
+- Set up `/deploy-server/.env` file from `/deploy-server/.env.example`
+- Installed Docker Engine (Linux) or Docker Desktop (MacOS)
+- [Detailed prerequisites for Windows](./windows/Readme.md)
 
 
 ## Installation
 
 1. Allow execution
 - Linux/MacOS `chmod +x ./deploy-server/YOUR_OS_COMMAND`
-- Windows `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`
+- PowerShell for Windows `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`
 
-2. Run `./deploy-server/YOUR_OS_COMMAND`
+2. Run:
+- Linux/MacOS `./deploy-server/run.sh`
+- [Detailed instruction for Microsoft Windows](./windows/Readme.md)
 
 
 ## Kiosk version

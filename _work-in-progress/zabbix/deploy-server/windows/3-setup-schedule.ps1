@@ -1,7 +1,8 @@
 # File: deploy-server/windows/3.ps1
-# Sets up the task schedule to run WSL on Windows startup
+@echo Sets up the Windows task schedule to run WSL on Windows startup
 
 $account = "$env:USERDOMAIN\$env:USERNAME"
+@echo Enter Windows user credentials:
 
 schtasks.exe /Create `
     /TN "Zabbix WSL" `

@@ -6,7 +6,7 @@ $ErrorActionPreference = "Stop"
 
 $DISTRO_NAME = "Ubuntu"
 $EnvFilepath = Join-Path $PSScriptRoot ".env"
-$DeploymentRoot = [System.IO.Path]::GetFullPath(Join-Path $PSScriptRoot '..')
+$DeploymentRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 
 
 function Get-EnvValue {

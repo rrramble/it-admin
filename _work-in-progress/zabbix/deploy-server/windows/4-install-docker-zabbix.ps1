@@ -103,7 +103,6 @@ if ([string]::IsNullOrWhiteSpace($SourceDir)) {
 # home directory, and starts the Zabbix deployment.
 & wsl.exe -d $DISTRO_NAME -u root -- bash `
     "$sourceDir/setup-docker.sh" `
-    install-docker-and-deploy `
     $linuxLogin `
     $sourceDir
 

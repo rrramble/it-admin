@@ -66,3 +66,12 @@ Set-ScheduledTask -TaskName "Zabbix WSL" -Settings $settings
 (Get-ScheduledTask -TaskName "Zabbix WSL").Settings.ExecutionTimeLimit
 # The last command should return 'PT0S' value!
 ```
+
+
+## Notes about WSL network settings in Windows registry
+
+- System Subnet & Mask: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss
+-- NatNetwork (REG_SZ): Network address with CIDR prefix (e.g., 172.22.16.0/20).
+-- NatGatewayIpAddress (REG_SZ): Windows host adapter IP (vEthernet WSL), the gateway inside that subnet (e.g., 172.22.16.1).
+- User VM IP Cache: HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss
+-- NatIpAddress (REG_SZ): Cached IP assigned to the WSL2 Linux VM (eth0) inside that subnet (e.g., 172.22.16.2)

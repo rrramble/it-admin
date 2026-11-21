@@ -13,7 +13,7 @@ function Get-EnvValue {
     param(
         [Parameter(Mandatory = $true)]
         [string]$Key,
-        [string]$EnvFile,
+        [string]$EnvFile
     )
 
     if (-not (Test-Path -LiteralPath $EnvFile -PathType Leaf)) {

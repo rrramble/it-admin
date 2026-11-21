@@ -92,9 +92,9 @@ if ($ExitCode -ne 0) {
     throw "Could not convert deployment directory to WSL path (exit code $ExitCode): $SourceDir"
 }
 
-$sourceDir = ($sourceDir | Out-String).Trim()
+$SourceDir = ($SourceDir | Out-String).Trim()
 
-if ([string]::IsNullOrWhiteSpace($sourceDir)) {
+if ([string]::IsNullOrWhiteSpace($SourceDir)) {
     throw "WSL returned an empty source directory path."
 }
 

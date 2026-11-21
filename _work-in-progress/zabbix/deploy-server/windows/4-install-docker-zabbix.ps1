@@ -47,7 +47,7 @@ function Get-EnvValue {
 
 function Test-DeploymentFiles() {
     $requiredFiles = @(
-        "setup-docker.sh",
+        "windows/setup-docker.sh",
         "run.sh",
         "Docker-compose.yaml",
         "Dockerfile.server",

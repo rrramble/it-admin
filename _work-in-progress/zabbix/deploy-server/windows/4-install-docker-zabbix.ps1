@@ -83,7 +83,7 @@ function Test-DeploymentFiles() {
         }
     }
 
-    echo 'Deployment files were checked successfully.'
+    Write-Host 'Deployment files were checked successfully.'
 }
 
 ############################

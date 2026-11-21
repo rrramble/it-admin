@@ -69,8 +69,8 @@ function Test-DeploymentFiles() {
     $requiredFiles = @(
         "windows/setup-docker.sh",
         "run.sh",
-        "Docker-compose.yaml",
-        "Dockerfile.server",
+        "docker-compose.yaml",
+        "dockerfile.server",
         ".env",
         "configure/configure.py"
     )

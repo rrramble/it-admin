@@ -1,4 +1,4 @@
-# File: deploy-server/Dockerfile.server
+# File: deploy-server/dockerfile.server
 ARG ZABBIX_VERSION
 
 FROM zabbix/zabbix-server-pgsql:alpine-${ZABBIX_VERSION}

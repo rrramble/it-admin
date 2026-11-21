@@ -84,10 +84,12 @@ $linuxLogin = Get-EnvValue('LINUX_LOGIN', $EnvFilepath)
 Test-DeploymentFiles
 
 # Convert the Windows source directory to its WSL path
-$sourceDir = & wsl.exe -d $DISTRO_NAME -- wslpath -a $DeploymentRoot
+$LinuxLikeDirName = ConvertTo-LinuxPath -WindowsPath $DeploymentRoot
+$sourceDir = & wsl.exe -d $DISTRO_NAME -- wslpath -a $LinuxLikeDirName
+$ExitCode = $LASTEXITCODE
 
-if ($LASTEXITCODE -ne 0) {
-    throw "Could not convert the deployment directory to a WSL path."
+if ($ExitCode -ne 0) {
+    throw "Could not convert deployment directory to WSL path (exit code $ExitCode): $SourceDir"
 }
 
 $sourceDir = ($sourceDir | Out-String).Trim()

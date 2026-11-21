@@ -80,7 +80,7 @@ function Test-DeploymentFiles() {
 # Start of the script body #
 ############################
 
-$linuxLogin = Get-EnvValue('LINUX_LOGIN', $EnvFilepath)
+$linuxLogin = Get-EnvValue -Key "LINUX_LOGIN" -EnvFile $WindowsRootPath
 Test-DeploymentFiles
 
 # Convert the Windows source directory to its WSL path

@@ -62,6 +62,8 @@ function Test-DeploymentFiles() {
             throw "Required file not found: $path"
         }
     }
+
+    echo 'Deployment files were checked successfully.'
 }
 
 ############################

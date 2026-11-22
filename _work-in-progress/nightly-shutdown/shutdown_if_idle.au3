@@ -7,6 +7,7 @@
 
 #NoTrayIcon
 #RequireAdmin
+#AutoIt3Wrapper_Change2CUI=y ; Console application setting if compiled within SciTE / AutoIt3Wrapper
 
 Opt("MustDeclareVars", 1)
 

@@ -19,12 +19,15 @@ Global Const $DEFAULT_SHUTDOWN_WATCHDOG_DELAY = 60
 Global Const $MAX_IDLE_SECONDS = 604800 ; 7 days
 Global Const $MIN_IDLE_SECONDS = 60 ; 1 minute
 
-Global Const $CONSOLE_VISIBILITY = @SW_SHOW ; `@SW_HIDE` and `@SW_SHOW` are available
+Global Const $CONSOLE_VISIBILITY = @SW_SHOW ; Options are: `@SW_HIDE` and `@SW_SHOW`
+
 
 _Main()
 Exit
 
-;;; Functions ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Helper functions ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;
 
 Func _Main()
     If $CmdLine[0] = 0 Then

@@ -30,15 +30,7 @@ Exit
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
 Func _Main()
-    If $CmdLine[0] = 0 Then
-        _PrintHelp()
-        Exit $EXIT_ERROR
-    EndIf
-
-    If $CmdLine[0] > 1 Then
-        _PrintHelp()
-        Exit $EXIT_ERROR
-    EndIf
+    _VerifyArguments()
 
     Local $iIdleThreshold = _ParseIdleThreshold($CmdLine[1])
 
@@ -68,6 +60,19 @@ Func _Main()
 
     ConsoleWrite("Shutdown initiated." & @CRLF)
     Exit $EXIT_SHUTDOWN
+EndFunc
+
+
+Func _VerifyArguments()
+    If $CmdLine[0] = 0 Then
+        _PrintHelp()
+        Exit $EXIT_ERROR
+    EndIf
+
+    If $CmdLine[0] > 1 Then
+        _PrintHelp()
+        Exit $EXIT_ERROR
+    EndIf
 EndFunc
 
 

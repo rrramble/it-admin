@@ -4,24 +4,21 @@
 
 - Internet access
 - Set up `/deploy-server/.env` file from `/deploy-server/.env.example`
-- Installed Docker Engine (Linux) or Docker Desktop (MacOS)
-- [Detailed prerequisites for Windows](./windows/Readme.md)
+- Install Docker Engine on Linux or Docker Desktop on MacOS. There are detailed [prerequisites for Windows](./windows/Readme.md)
 
 
 ## Installation
 
 1. Allow execution
 - Linux/MacOS `chmod +x ./deploy-server/YOUR_OS_COMMAND`
-- PowerShell for Windows `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`
 
 2. Run:
-- Linux/MacOS `./deploy-server/run.sh`
+- On Linux/MacOS `./deploy-server/run.sh`
 - [Detailed instruction for Microsoft Windows](./windows/Readme.md)
 
 
-## Kiosk version
-
-(without a password use)
+## Run Kiosk version of Zabbix
+(no password required)
 
 - Users > User Groups > Guests
 -- Host permissions > Select: add all
@@ -60,3 +57,8 @@ Verify:
 ## [Official templates](https://git.zabbix.com/projects/ZBX/repos/zabbix/browse/templates?at=release%2F8.0)
 
 - [OS Windows Agent Active]https://git.zabbix.com/projects/ZBX/repos/zabbix/browse/templates/os/windows_agent_active/template_os_windows_agent_active.yaml?at=refs%2Fheads%2Frelease%2F8.0
+
+
+## Add/modify configuration
+
+If Zabbix server GUI does not have 'Import' feature, use Python script `./web-gui-settings/api-usage/`

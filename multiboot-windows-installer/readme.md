@@ -4,3 +4,8 @@
 - Copy Windows ISO files into the root of the USB-drive.
 - (Optionally) Add [`/autounattend/autounattend_{:language}.xml`](https://schneegans.de/windows/unattend-generator/) file(s). [`autounattend_en.xml` example](./autounattend_en.xml).
 - Create [`/ventoy/ventoy.json`](./ventoy.json) file pointing to the `autounattend_....xml` files (**lowercase**!).
+
+
+## On MacOS
+
+[Mactoy - unofficial Ventoy on MacOS](https://github.com/cashcon57/mactoy)
